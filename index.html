@@ -471,6 +471,30 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .pb-play.drop-below{box-shadow:inset 0 -2px 0 var(--accent)}
 .pb-add{display:grid;grid-template-columns:1fr auto;gap:4px;margin-top:4px}
 .pb-add input{padding:6px 9px;font-size:13px;border-style:dashed}
+.cb{position:relative;min-width:0}.cb input{width:100%}
+.cb-list{position:absolute;top:calc(100% + 2px);left:0;right:0;z-index:30;background:var(--bg-2);border:1px solid var(--border-hi-color);border-radius:var(--radius);max-height:240px;overflow:auto;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.cb-it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;font-size:12px;color:var(--ink-dim);cursor:pointer}
+.cb-it.on,.cb-it:hover{background:var(--bg-3);color:var(--ink)}
+.cb-it.new{color:var(--accent)}
+.cb-it.dim{color:var(--ink-faint);cursor:default}
+.cb-it .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap}
+.ln-main .cb{flex:1}
+.ln-f .cb{flex:1}.ln-f .cb input{width:100%}
+.libpane{display:none}
+.app[data-pane="lib"] .paper-wrap,.app[data-pane="lib"] .live{display:none}
+.app[data-pane="lib"] .libpane{display:block;max-width:1100px;margin:0 auto}
+.lp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s4)}
+.lp-head h2{font-family:var(--font-display);font-size:20px;letter-spacing:-.02em;margin:0}
+.lp-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);align-items:start}
+@media (max-width:1100px){.lp-grid{grid-template-columns:1fr}}
+.lp-col{border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-2);padding:14px}
+.lp-col h3{font-size:13px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.dr-row{display:grid;grid-template-columns:minmax(0,1fr) 128px 28px;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-soft-color)}
+.dr-row>div{min-width:0}
+.dr-row input.drn{display:block;width:100%;font-size:13px;padding:5px 8px;margin-bottom:3px}
+.dr-row .dm{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap}
+.dr-row select{font-size:11px;padding:4px 6px;width:128px}
+.tf-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .menu-sec{margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid var(--border-color);border-radius:var(--radius);font-size:12px;color:var(--ink-faint);cursor:pointer;background:var(--bg);user-select:none}
@@ -906,6 +930,7 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
     </div>
     <details class="exp kebab" id="kebab"><summary aria-label="More">⋮</summary><div>
       <button onclick="openTutorial()">How the builder works</button>
+      <button onclick="openLibPane()">Manage drills &amp; plays</button>
       <div class="bk-sep"></div>
       <button onclick="printSheet('plan')">Save plan PDF</button>
       <button onclick="printSheet('report')">Save report PDF</button>
@@ -917,7 +942,7 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
   </div>
   <div class="main">
     <aside class="editor" id="editor"></aside>
-    <section class="stage"><div class="live" id="live"></div><div class="paper-wrap"><div class="sheet" id="sheet"></div></div></section>
+    <section class="stage"><div class="live" id="live"></div><div class="libpane" id="libpane"></div><div class="paper-wrap"><div class="sheet" id="sheet"></div></div></section>
   </div>
   <section class="tracker" id="tracker"></section>
 </div>
@@ -974,6 +999,7 @@ const seedPlaybook=()=>{const sec=(name,plays)=>({id:uid(),name,groups:[{id:uid(
     sec('SOB',['Box','Line','Stack']),sec('BOB',['Elevator','Hammer','Triangle'])];};
 const allPlayIds=pb=>pb.flatMap(s=>s.groups.flatMap(g=>g.plays.map(p=>p.id)));
 const DEMO_ROSTER=['Amari Williams','Caleb Grill','Chris Cenac Jr.','Dillon Mitchell','Hank Morgan','Hayden Gray','Milos Uzan','Tucker DeVries'];
+const freshSettings=()=>({team:{name:'',logo:'',accent:'#E85D2C',ink:'#ECECEC'},coaches:[],roster:[],taxonomy:[],drills:[],playbook:[],menu:[],seasons:[],drillsBuilt:true,demoLoaded:true,cleanup1:true,demoCoaches:true,demoStaff:2,demoRoster:2,demoNames:2,pbStructured:true,demoPurged:true});
 const seedSettings=()=>{const pb=seedPlaybook();return {team:{name:'Maine Celtics',logo:'',accent:'#007A33',ink:'#ECECEC'},taxonomy:seedTax(),playbook:pb,menu:allPlayIds(pb),roster:DEMO_ROSTER.map(n=>({id:uid(),name:n}))};};
 const blankPractice=(n,date,title='')=>({id:uid(),meta:{label:'Practice',number:String(n),title,date:date||today(),time:'',focus:''},
   blocks:[],menu:null,results:{},keyFocus:{text:'',bullets:[],clips:[]}});
@@ -1056,16 +1082,17 @@ function demoAssistantResults(){const byName={};coaches().forEach(c=>byName[c.na
     '5':[[pri,{'Snap':{'CC, HM, DM':[3,'B']},'Fist':{'CC, HM, DM':[2,'A']}},{'1:0':1},sc(7,8,6,6,7),{'Chris Cenac Jr.':sc(6,4,6,6,6),'Dillon Mitchell':sc(8,9,8,8,8)},{notes:'',saw:'Protections held at live speed in my group.',carry:'Cenac: compete level is the only thing holding him back.'}],
          [mar,{'Horns Chest':{'AW, CC':[2,'A'],'CG, HG':[1,'B']},'Elevator':{'CG, HG':[2,'A']}},{'1:1':1,'1:2':1},sc(7,7,6,5,7),{'Amari Williams':sc(7,8,6,3,8),'Caleb Grill':sc(8,8,7,8,8)},{notes:'',saw:'Williams drifted again during the Angle rep. Grill ran the huddle.',carry:'Williams: focus work, not more reps.'}]]};
   Object.values(LIB).forEach(p=>{if(!p.demo)return;const list=plan[p.meta.number];if(!list)return;list.forEach(([cid,calls,drills,session,players,reflect])=>{if(!p.results[cid])p.results[cid]=mk(cid,calls,drills,session,players,reflect);});});}
-function loadDemo(){if(!ST.team.name)ST.team={name:'Maine Celtics',logo:'',accent:'#007A33',ink:'#ECECEC'};if(!ST.taxonomy.length)ST.taxonomy=seedTax();if(!ST.playbook.length){ST.playbook=seedPlaybook();ST.menu=allPlayIds(ST.playbook);}
+const isBlankPractice=p=>!p.demo&&!(p.blocks||[]).length&&!(p.meta&&p.meta.title)&&!Object.keys(p.results||{}).length&&!((p.keyFocus||{}).text);
+function loadDemo(){ST.demoOptIn=true;ST.drillsBuilt=false;Object.values(LIB).filter(isBlankPractice).forEach(p=>{delete LIB[p.id];dbDelete(p.id);});if(!ST.team.name)ST.team={name:'Maine Celtics',logo:'',accent:'#007A33',ink:'#ECECEC'};if(!ST.taxonomy.length)ST.taxonomy=seedTax();if(!ST.playbook.length){ST.playbook=seedPlaybook();ST.menu=allPlayIds(ST.playbook);}
   DEMO_ROSTER.forEach(n=>{if(!ST.roster.some(p=>p.name===n))ST.roster.push({id:uid(),name:n});});
-  const have=new Set(Object.values(LIB).filter(p=>p.demo).map(p=>p.meta.number));demoPractices().forEach(p=>{if(!have.has(p.meta.number)){p.seasonId=(activeSeason()||{}).id;LIB[p.id]=p;}});ST.demoLoaded=true;migrate();
+  const have=new Set(Object.values(LIB).filter(p=>p.demo).map(p=>p.meta.number));demoPractices().forEach(p=>{if(!have.has(p.meta.number)){p.seasonId=(activeSeason()||{}).id;LIB[p.id]=p;}});ST.demoLoaded=true;ST.drillsBuilt=false;migrate();
   ST.demoStaff=null;{demoStaff();ST.demoCoaches=true;ST.demoRoster=2;ST.demoNames=2;const hid=(coaches().find(c=>c.role==='head')||coaches()[0]).id;Object.values(LIB).forEach(p=>{if(p.results&&p.results.__head){p.results[hid]=p.results.__head;delete p.results.__head;}});demoAssistantResults();}S=sorted()[sorted().length-1];persist('settings');
   if(DB&&CAN_WRITE){Object.values(LIB).filter(p=>p.demo).forEach(p=>DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p))).catch(()=>{}));}
   saveLocal();renderAll(true);toast('Demo season loaded: 5 practices');}
 async function clearDemo(){const n=Object.values(LIB).length;
   if(!await ask(`Start fresh?\n\nThis removes everything the demo put here: ${n} practice${n===1?'':'s'}, the roster, the coaching staff, the drill taxonomy, the playbook, the team brand and the season. You will name your head coach next and build your own team from an empty library.\n\nThis cannot be undone. Back up first if you want to keep any of it.`,'Start fresh'))return;
   const ids=Object.keys(LIB);ids.forEach(id=>dbDelete(id));LIB={};
-  ST={team:{name:'',logo:'',accent:'#E85D2C',ink:'#ECECEC'},coaches:[],roster:[],taxonomy:[],playbook:[],menu:[],seasons:[],demoLoaded:true,cleanup1:true,demoCoaches:true,demoStaff:2,demoRoster:2,demoNames:2,pbStructured:true};
+  ST=freshSettings();
   ACTIVE=null;_tmpBucket=null;VIEW_SEASON=null;TG='';try{localStorage.removeItem(CKEY);}catch(e){}
   migrate();const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;S=b;
   if(DB&&CAN_WRITE){DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST))).catch(()=>{});DB.doc('practices/'+b.id).set(JSON.parse(JSON.stringify(b))).catch(()=>{});}
@@ -1092,8 +1119,17 @@ function migrate(){
   }  ST.pbStructured=true;
 
   Object.values(LIB).forEach(p=>{if(p.meta&&p.meta.title==null)p.meta.title='';});
+  if(!ST.drillsBuilt){drillsFromPractices();ST.drillsBuilt=true;}
+  // one-shot: the app no longer ships with demo data. Remove demo practices already stored; if nothing else exists, start fresh.
+  if(!ST.demoOptIn){const DD={'1':'2026-09-30','2':'2026-10-01','3':'2026-10-03','4':'2026-10-05','5':'2026-10-06'};const legacy=p=>!p.demo&&!(p.meta||{}).title&&DD[(p.meta||{}).number]===(p.meta||{}).date&&(p.blocks||[])[0]&&p.blocks[0].title==='Team Warmup';
+    Object.values(LIB).forEach(p=>{if(legacy(p))p.demo=true;});
+    const all=Object.values(LIB).filter(p=>!isBlankPractice(p));const demo=all.filter(p=>p.demo);
+    if(demo.length){demo.forEach(p=>{delete LIB[p.id];dbDelete(p.id);});
+      if(demo.length===all.length){const keep={seasons:ST.seasons};ST=Object.assign(freshSettings(),{seasons:keep.seasons||[]});ACTIVE=null;try{localStorage.removeItem(CKEY);}catch(e){}if(typeof BK!=='undefined'){BK.dirtySince=null;BK.lastBackup=null;bkSaveMeta();}}}
+    ST.demoPurged=true;ST.demoLoaded=true;}
+  else ST.demoPurged=true;
   if(!Array.isArray(ST.coaches))ST.coaches=[];
-  if(!ST.coaches.length&&Object.values(LIB).some(p=>p.calls||p.ratings||p.reflect||(p.results&&Object.keys(p.results).length))){ST.coaches=[{id:uid(),name:'Head Coach',role:'head'}];}
+  if(!ST.coaches.length&&Object.values(LIB).some(p=>!p.demo&&(p.calls||p.ratings||p.reflect||(p.results&&Object.keys(p.results).length)))){ST.coaches=[{id:uid(),name:'Head Coach',role:'head'}];}
   if(ST.coaches.length&&!ST.coaches.some(c=>c.role==='head'))ST.coaches[0].role='head';
   if(ST.demoLoaded&&(!ST.demoCoaches||ST.demoStaff!==2)){ST.demoCoaches=true;demoStaff();}
   if(ST.demoLoaded&&ST.demoNames!==2){ST.demoNames=2;const nm={Webb:'Williams',Elias:'Grill',Okafor:'Cenac',Castillo:'Gray',Lindqvist:'Mitchell',Brandt:'Morgan'};const fx=t=>Object.entries(nm).reduce((x,[o,n])=>x.replace(new RegExp('\\b'+o+'\\b','g'),n),t||'');
@@ -1126,7 +1162,7 @@ function migrate(){
   if(ST.demoCoaches)demoAssistantResults();
 }
 function bootLocal(){const l=loadLocal();if(l){ST=l.settings;LIB=l.lib;S=LIB[l.current]||Object.values(LIB)[0]||null;}
-  if(!ST)ST=seedSettings();if(!Object.keys(LIB).length){demoPractices().forEach(p=>{LIB[p.id]=p;});ST.demoLoaded=true;ST.cleanup1=true;}if(!S)S=sorted()[sorted().length-1];migrate();}
+  if(!ST)ST=freshSettings();migrate();if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;}if(!S)S=sorted()[sorted().length-1]||Object.values(LIB)[0];}
 async function bootDb(){
   if(!window.claude||!window.claude.use)return;
   try{
@@ -1139,20 +1175,21 @@ async function bootDb(){
     const q=await db.collection('practices').get();
     if(!q.empty){LIB={};q.docs.forEach(d=>{const p=JSON.parse(JSON.stringify(d.data()));p.id=d.id;LIB[p.id]=p;});
       S=LIB[S&&S.id]||sorted()[0];}
-    else if(CAN_WRITE){for(const p of Object.values(LIB))await db.doc('practices/'+p.id).set(p);}
+    else if(CAN_WRITE){migrate();for(const p of Object.values(LIB))await db.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p)));}
     migrate();if(!st.exists||!st.data().playbook||!st.data().playbook[0]||!st.data().playbook[0].groups){if(CAN_WRITE)await db.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));}
     db.collection('practices').onSnapshot(snap=>{let changed=false;snap.docChanges().forEach(ch=>{const id=ch.doc.id;
       if(ch.type==='removed'){if(LIB[id]){delete LIB[id];changed=true;}}
       else{if(!ch.doc.metadata.hasPendingWrites){const p=JSON.parse(JSON.stringify(ch.doc.data()));p.id=id;LIB[id]=p;if(S&&S.id===id)S=p;changed=true;}}});
       if(changed){if(!LIB[S&&S.id])S=sorted()[0]||null;migrate();renderAll(true);}},()=>{});
     setStatus(CAN_WRITE?'saved to artifact':'read only');if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;applyRole();if(!ACTIVE)coachGate(true);
-    if(!ST.cleanup1&&CAN_WRITE){ST.cleanup1=true;Object.values(LIB).filter(p=>!p.demo&&(!p.blocks.length||(p.meta.date==='2026-09-30'&&p.meta.number==='1'))).forEach(p=>{delete LIB[p.id];dbDelete(p.id);});loadDemo();return;}
-    if(!ST.demoLoaded&&CAN_WRITE){loadDemo();return;}
+    if(!ST.cleanup1){ST.cleanup1=true;ST.demoLoaded=true;persist('settings');}
+    if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;S=b;persist('practice');}
     renderAll(true);
-  }catch(e){setStatus('local only');if(!ST.demoLoaded){ST.demoLoaded=true;loadDemo();}}
+  }catch(e){setStatus('local only');}
 }
 function setStatus(t){const el=document.getElementById('status');if(el){el.textContent='Storage: '+t;el.classList.toggle('live',/artifact/.test(t));}}
 let dbT={};
+function dbSavePractice(p){saveLocal();if(!DB||!CAN_WRITE||!p)return;DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p))).catch(()=>{});}
 function persist(kind){saveLocal();bkTouch();if(!DB||!CAN_WRITE)return;
   clearTimeout(dbT[kind]);dbT[kind]=setTimeout(async()=>{try{
     if(kind==='settings')await DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));
@@ -1215,6 +1252,7 @@ async function pbDelPlay(si,gi,pi){const p=ST.playbook[si].groups[gi].plays[pi];
 async function pbDelGroup(si,gi){const g=ST.playbook[si].groups[gi];if(g.plays.length&&!await ask(`Delete group "${g.name||'untitled'}" and its ${g.plays.length} plays?`))return;ST.playbook[si].groups.splice(gi,1);up('settings',true);}
 async function pbDelSection(si){const sec=ST.playbook[si];const n=sec.groups.reduce((a,g)=>a+g.plays.length,0);if(n&&!await ask(`Delete section "${sec.name||'untitled'}" and its ${n} plays?`))return;ST.playbook.splice(si,1);up('settings',true);}
 let dragEl=null;
+function initPbDrag(){}
 function initDrag(){document.addEventListener('dragstart',e=>{const el=e.target.closest('.pb-play');if(!el)return;dragEl=el;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','');});
   document.addEventListener('dragend',e=>{if(dragEl)dragEl.classList.remove('dragging');dragEl=null;document.querySelectorAll('.pb-play.drop-above,.pb-play.drop-below').forEach(el=>{el.classList.remove('drop-above','drop-below');});});
   document.addEventListener('dragover',e=>{if(!dragEl)return;const el=e.target.closest('.pb-play');if(!el||el===dragEl)return;e.preventDefault();e.dataTransfer.dropEffect='move';
@@ -1265,11 +1303,12 @@ function coachGate(force){const list=coaches();
   if(!force&&ACTIVE&&coach(ACTIVE))return;
   const ov=document.createElement('div');ov.className='dlg-ov coach-gate';
   const render=()=>{const first=!list.length;
-    ov.innerHTML=first?`<div class="dlg" style="max-width:400px"><div class="dlg-t">Who's the head coach?</div><div class="hint" style="margin-bottom:12px">The head coach builds the plan and manages the library. Then set the team name and logo in Library › Team brand and add the rest of the staff in Library › Coaches.</div>
-      <div class="row" style="gap:6px"><input type="text" id="cgName" placeholder="Head coach name"><button class="btn btn-primary btn-sm" id="cgAdd">Start</button></div></div>`
+    ov.innerHTML=first?`<div class="dlg" style="max-width:400px"><div class="dlg-t">Who's the head coach?</div><div class="hint" style="margin-bottom:12px">The head coach writes the plan and owns the team setup. Next: team name and logo in Team › Team brand, then staff and roster. Drills and plays build themselves as you write practices.</div>
+      <div class="row" style="gap:6px"><input type="text" id="cgName" placeholder="Head coach name"><button class="btn btn-primary btn-sm" id="cgAdd">Start</button></div>
+      <div class="hint" style="margin-top:12px">Already set up on another device? <label class="lk-btn" style="cursor:pointer">Load your team file<input type="file" accept="application/json" style="display:none" onchange="importLibrary(this);this.closest('.coach-gate').remove()"></label>.</div></div>`
     :`<div class="dlg" style="max-width:440px"><div class="dlg-t">Who's coaching on this device?</div><div class="hint" style="margin-bottom:12px">Everything you record is filed under this name.</div>
-      <div class="role-grid"><div class="role-col"><div class="rc-h head">Head coach</div><ul><li>Builds the practice plan</li><li>Manages the library: drills, playbook, roster, staff</li><li>Runs the clock and sets actual block times</li><li>Sees the staff comparison in Track</li><li>Hands off head coach to someone else in Library › Coaches</li></ul></div>
-      <div class="role-col"><div class="rc-h">Assistant</div><ul><li>Reads the plan and library</li><li>Checks off the drills they ran at their station</li><li>Tallies reps and grades plays, by player group</li><li>Rates the session and their players</li><li>Writes their own reflection</li></ul></div></div>
+      <div class="role-grid"><div class="role-col"><div class="rc-h head">Head coach</div><ul><li>Builds the practice plan</li><li>Owns the team setup: staff, roster, drills, playbook</li><li>Runs the clock and sets actual block times</li><li>Sees the staff comparison in Track</li><li>Hands off head coach to someone else in Team › Coaches</li></ul></div>
+      <div class="role-col"><div class="rc-h">Assistant</div><ul><li>Reads the plan and the team setup</li><li>Checks off the drills they ran at their station</li><li>Tallies reps and grades plays, by player group</li><li>Rates the session and their players</li><li>Writes their own reflection</li></ul></div></div>
       <div class="coach-list">${list.map(c=>`<button class="coach-row ${c.id===ACTIVE?'sel':''}" data-c="${c.id}"><span>${esc(c.name)}</span><span class="role ${c.role}">${c.role==='head'?'Head coach':'Assistant'}</span></button>`).join('')}</div>
       ${ACTIVE&&coach(ACTIVE)?`<div class="dlg-b" style="margin-top:12px"><button class="btn btn-ghost btn-sm" data-r="0">Cancel</button></div>`:''}</div>`;
     const add=ov.querySelector('#cgAdd');if(add){const go=()=>{const n=ov.querySelector('#cgName').value.trim();if(!n)return;const c={id:uid(),name:n,role:'head'};list.push(c);persist('settings');setActiveCoach(c.id);ov.remove();};add.addEventListener('click',go);ov.querySelector('#cgName').addEventListener('keydown',e=>{if(e.key==='Enter')go();});ov.querySelector('#cgName').focus();}
@@ -1333,22 +1372,53 @@ async function dupPractice(givenTitle){if(!S)return;if(!seasonEditable()){toast(
 async function delPractice(){if(!S)return;if(!seasonEditable()){toast('This season is archived.');return;}if(!await ask(`Delete ${S.meta.label} #${S.meta.number}? This cannot be undone.`))return;const id=S.id;const name=label(S);delete LIB[id];dbDelete(id).then(ok=>{if(ok===false){toast('Could not delete '+name+' from the artifact');}else toast('Deleted '+name);});S=sorted()[0]||null;if(!S){S=blankPractice(1);LIB[S.id]=S;persist('practice');}saveLocal();renderAll(true);}
 
 /* ── Taxonomy helpers ──────────────────────────────────── */
-const cats=()=>ST.taxonomy.map(c=>c.name);
+const cats=()=>ST.taxonomy.map(c=>c.name).filter(Boolean);
+function taxEnsure(cat,focus,sub){cat=(cat||'').trim();focus=(focus||'').trim();sub=(sub||'').trim();if(!cat)return null;let c=ST.taxonomy.find(x=>x.name===cat);if(!c){c={name:cat,focuses:[]};ST.taxonomy.push(c);}if(!focus)return c;let f=c.focuses.find(x=>x.name===focus);if(!f){f={name:focus,subs:[]};c.focuses.push(f);}if(sub&&!f.subs.includes(sub))f.subs.push(sub);return f;}
+function drills(){if(!Array.isArray(ST.drills))ST.drills=[];return ST.drills;}
+function drillFind(name){const n=(name||'').trim().toLowerCase();return n?drills().find(d=>d.name.toLowerCase()===n):null;}
+function drillUses(){const u={};Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{const d=l.drillId&&drills().find(x=>x.id===l.drillId)||drillFind(l.text);if(d){u[d.id]=(u[d.id]||0)+1;}})));return u;}
+function drillsFromPractices(){Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{const name=(l.text||'').trim();if(!name)return;let d=drillFind(name);if(!d){d={id:uid(),name,cat:b.cat||'',focus:b.focus||'',sub:l.sub||'',obj:l.obj||'',...(l.luceo?{luceo:l.luceo}:{})};drills().push(d);}if(!l.drillId)l.drillId=d.id;})));}
+function drillSync(i,j){const b=S.blocks[i],l=b.lines[j];const d=l.drillId&&drills().find(x=>x.id===l.drillId);if(!d)return;if(b.cat)d.cat=b.cat;if(b.focus)d.focus=b.focus;if(l.sub)d.sub=l.sub;if(l.obj)d.obj=l.obj;}
+function drillCommit(i,j){const b=S.blocks[i],l=b.lines[j];const name=(l.text||'').trim();if(!name){l.drillId='';return;}let d=drillFind(name);if(!d){d={id:uid(),name,cat:b.cat||'',focus:b.focus||'',sub:l.sub||'',obj:l.obj||''};drills().push(d);toast('Added to your drills: '+name);}l.drillId=d.id;l.text=d.name;if(!l.luceo&&d.luceo)l.luceo=d.luceo;drillSync(i,j);persist('settings');}
+function drillApply(i,j,d){const b=S.blocks[i],l=b.lines[j];l.text=d.name;l.drillId=d.id;if(!l.sub&&d.sub)l.sub=d.sub;if(!l.obj&&d.obj)l.obj=d.obj;if(d.luceo)l.luceo=d.luceo;if(!b.cat&&d.cat){b.cat=d.cat;b.focus=d.focus||'';}else if(b.cat===d.cat&&!b.focus&&d.focus)b.focus=d.focus;taxEnsure(b.cat,b.focus,l.sub);persist('settings');up('practice',true);}
+function setCat(i,v){const b=S.blocks[i];v=(v||'').trim();if(b.cat===v)return;b.cat=v;b.focus='';taxEnsure(v);persist('settings');up('practice',true);}
+function setFocus(i,v){const b=S.blocks[i];v=(v||'').trim();if(b.focus===v)return;b.focus=v;taxEnsure(b.cat,v);b.lines.forEach((l,j)=>drillSync(i,j));persist('settings');up('practice',true);}
+function setSub(i,j,v){const b=S.blocks[i],l=b.lines[j];v=(v||'').trim();if(l.sub===v)return;l.sub=v;if(b.cat&&b.focus&&v)taxEnsure(b.cat,b.focus,v);drillSync(i,j);persist('settings');up('practice',true);}
+function setDrillText(i,j,v){const l=S.blocks[i].lines[j];if(l.text===v)return;l.text=v;drillCommit(i,j);up('practice',true);}
+/* Combobox: type to search, pick, or create. Attached to input[data-cb] after each editor render. */
+function cbAttach(input,cfg){if(input._cb)return;input._cb=true;input.setAttribute('autocomplete','off');const wrap=input.parentElement;let list=document.createElement('div');list.className='cb-list';list.hidden=true;wrap.appendChild(list);let idx=-1;let rows=[];
+  const render=()=>{const q=input.value.trim(),ql=q.toLowerCase();const items=cfg.items().filter(it=>!ql||it.label.toLowerCase().includes(ql)).slice(0,40);const exact=items.some(it=>it.label.toLowerCase()===ql);rows=items.slice();if(cfg.allowCreate!==false&&q&&!exact)rows.push({label:q,create:true});
+    list.innerHTML=rows.map((r,k)=>`<div class="cb-it ${k===idx?'on':''} ${r.create?'new':''}" data-k="${k}"><span>${r.create?`Create “${esc(r.label)}”`:esc(r.label)}</span>${r.meta?`<span class="m">${esc(r.meta)}</span>`:''}</div>`).join('')||(cfg.empty?`<div class="cb-it dim">${esc(cfg.empty)}</div>`:'');list.hidden=!rows.length&&!cfg.empty;};
+  const pick=k=>{const r=rows[k];if(!r)return;list.hidden=true;idx=-1;input.value=r.label;cfg.onPick(r);};
+  input.addEventListener('focus',()=>{idx=-1;render();});input.addEventListener('input',()=>{idx=-1;render();});
+  input.addEventListener('keydown',e=>{const n=rows.length;if(e.key==='ArrowDown'){if(list.hidden)render();idx=Math.min(n-1,idx+1);render();e.preventDefault();}else if(e.key==='ArrowUp'){idx=Math.max(0,idx-1);render();e.preventDefault();}
+    else if(e.key==='Enter'){e.preventDefault();if(idx>=0&&!list.hidden){pick(idx);return;}const ql=input.value.trim().toLowerCase();const ex=rows.findIndex(r=>!r.create&&r.label.toLowerCase()===ql);if(ex>=0){pick(ex);return;}const cr=rows.findIndex(r=>r.create);if(cr>=0){pick(cr);return;}list.hidden=true;input.blur();}
+    else if(e.key==='Escape'){list.hidden=true;}});
+  list.addEventListener('mousedown',e=>{const it=e.target.closest('.cb-it');if(it&&it.dataset.k!=null){e.preventDefault();pick(+it.dataset.k);}});
+  input.addEventListener('blur',()=>{list.hidden=true;if(cfg.onCommit)cfg.onCommit(input.value);});}
+function cbInit(root){(root||document).querySelectorAll('input[data-cb]').forEach(inp=>{const [kind,a,b]=inp.dataset.cb.split('|');const i=+a,j=+b;
+  if(kind==='cat')cbAttach(inp,{items:()=>cats().map(l=>({label:l})),onPick:r=>setCat(i,r.label),onCommit:v=>setCat(i,v),empty:'Type a category: Defense, Offense, Film, Warmup'});
+  else if(kind==='focus')cbAttach(inp,{items:()=>focuses(S.blocks[i].cat).map(l=>({label:l})),onPick:r=>setFocus(i,r.label),onCommit:v=>setFocus(i,v),empty:'Type a focus: what this block is working on'});
+  else if(kind==='sub')cbAttach(inp,{items:()=>subs(S.blocks[i].cat,S.blocks[i].focus).map(l=>({label:l})),onPick:r=>setSub(i,j,r.label),onCommit:v=>setSub(i,j,v),allowCreate:!!(S.blocks[i].cat&&S.blocks[i].focus),empty:'Optional. A finer tag under the focus.'});
+  else if(kind==='drill')cbAttach(inp,{items:()=>{const bk=S.blocks[i];const u=drillUses();return drills().slice().sort((x,y)=>((y.cat===bk.cat&&y.focus===bk.focus)-(x.cat===bk.cat&&x.focus===bk.focus))||((u[y.id]||0)-(u[x.id]||0))||x.name.localeCompare(y.name)).map(d=>({label:d.name,meta:[d.cat,d.focus].filter(Boolean).join(' › ')||'untagged',d}));},
+    onPick:r=>{if(r.create)setDrillText(i,j,r.label);else drillApply(i,j,r.d);},onCommit:v=>setDrillText(i,j,v),empty:'Type a drill name. It is saved for next time.'});
+  else if(kind==='section')cbAttach(inp,{items:()=>ST.playbook.map(x=>({label:x.name})).filter(x=>x.label),onPick:r=>{inp.value=r.label;}});});}
 const focuses=c=>{const k=ST.taxonomy.find(x=>x.name===c);return k?k.focuses.map(f=>f.name):[];};
 const subs=(c,f)=>{const k=ST.taxonomy.find(x=>x.name===c);const g=k&&k.focuses.find(x=>x.name===f);return g?g.subs:[];};
 const opt=(list,cur,ph)=>`<option value="">${ph}</option>`+list.map(v=>`<option ${v===cur?'selected':''}>${esc(v)}</option>`).join('')+(cur&&!list.includes(cur)?`<option value="${esc(cur)}" selected>${esc(cur)} · removed</option>`:'');
 
 /* ── Editor ────────────────────────────────────────────── */
-function renderEditor(){
+function renderEditor(){renderEditor0();cbInit(document.getElementById('editor'));renderLibPane();}
+function renderEditor0(){
   const E=document.getElementById('editor');if(!S){E.innerHTML='';return;}
   const t=ST.team,m=S.meta;
   E.innerHTML=`
-  <div class="etabs">${[['library','Library'],['plan','Plan'],['reflect','Results']].map(([k,l])=>`<button class="${ET===k?'on':''}" onclick="ET='${k}';renderEditor()">${l}</button>`).join('')}</div>
-  <div class="etab-desc"><span>${ET==='library'?'Set up once and carry forward: the season, your staff and roster, the drill taxonomy that powers Track, and the playbook that fills the rail.':ET==='plan'?'Write this practice: the session banner, key focus, timed blocks with tagged drills and player groups, and which plays go on the rail.':'What happened, in your name: reps and grades by player group, session and player ratings, the diagrams drawn live, and your reflection.'}</span><button class="help-q" onclick="openTutorial(${ET==='library'?2:ET==='plan'?3:5})" title="How this tab works" aria-label="How this tab works">?</button></div>
+  <div class="etabs">${[['library','Team'],['plan','Plan'],['reflect','Results']].map(([k,l])=>`<button class="${ET===k?'on':''}" onclick="ET='${k}';renderEditor()">${l}</button>`).join('')}</div>
+  <div class="etab-desc"><span>${ET==='library'?'Your team, saved once: season, brand, staff and roster. Drills and plays build themselves as you write plans.':ET==='plan'?'Write this practice. Type a drill or play name to search what you have used before, or create it on the spot; it is saved for every plan after this one.':'What happened, in your name: reps and grades by player group, session and player ratings, the diagrams drawn live, and your reflection.'}</span><button class="help-q" onclick="openTutorial(${ET==='library'?2:ET==='plan'?3:5})" title="How this tab works" aria-label="How this tab works">?</button></div>
   <div class="etab" data-tab="library" ${ET==='library'?'':'hidden'}>
   ${(()=>{const v=viewSeason();const list=seasons().slice().sort((a,b)=>(b.start||'').localeCompare(a.start||''));return `<div class="season-row"><div class="sr-l"><span class="lbl" style="margin:0">Season</span><div class="sr-name">${esc(v?v.name:'')}${v&&v.status==='archived'?'<span class="sr-arch">archived</span>':''}</div><span class="hint" style="margin:0">${v?`${seasonPractices(v.id).length} practice${seasonPractices(v.id).length===1?'':'s'}${v.start?' · from '+esc(v.start):''}`:''}</span></div>
     <div class="sr-r">${list.length>1?`<select class="sr-sel" onchange="setViewSeason(this.value)" aria-label="View season">${list.map(x=>`<option value="${x.id}" ${v&&x.id===v.id?'selected':''}>${esc(x.name)}${x.status==='archived'?' · archived':''}</option>`).join('')}</select>`:''}${v?`<button class="btn btn-ghost btn-sm" onclick="exportSeason('${v.id}')">Export</button>`:''}${isHead()?`<button class="btn btn-secondary btn-sm" onclick="startSeason()">Start new season</button>`:''}</div></div>`;})()}
-  ${isHead()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} owns the library. <button class="lk-btn" onclick="coachGate(true)">Switch coach</button></div>`}
+  ${isHead()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} owns the team setup. <button class="lk-btn" onclick="coachGate(true)">Switch coach</button></div>`}
   <details class="sec">
     <summary><span class="chev">›</span><span class="name">Team brand</span><span class="meta">${esc(t.name)||'no team'}</span></summary>
     <div class="body">
@@ -1385,20 +1455,10 @@ function renderEditor(){
   </details>
 
   <details class="sec">
-    <summary><span class="chev">›</span><span class="name">Drills</span><span class="meta">${ST.taxonomy.length} categories</span></summary>
+    <summary><span class="chev">›</span><span class="name">Team file</span><span class="meta">${drills().length} drills · ${playsAll().length} plays</span></summary>
     <div class="body">
-      <div class="hint" style="margin-bottom:10px">Category › Focus › Sub-focus. Sub-focuses are comma separated. Renaming here does not retag older practices.</div>
-      ${ST.taxonomy.map(taxEd).join('')}
-      <button class="btn btn-secondary" style="width:100%;justify-content:center" onclick="ST.taxonomy.push({name:'',focuses:[{name:'',subs:[]}]});up('settings',true)">+ Add category</button>
-    </div>
-  </details>
-
-  <details class="sec">
-    <summary><span class="chev">›</span><span class="name">Plays</span><span class="meta">${playsAll().length} plays · ${ST.playbook.length} sections</span></summary>
-    <div class="body">
-      <div class="hint" style="margin-bottom:10px">Shared across every practice. Sections are the rail headings. Drag to reorder. Renaming a play keeps its history.</div>
-      ${ST.playbook.map(pbSectionEd).join('')}
-      <button class="btn btn-secondary" style="width:100%;justify-content:center" onclick="pbAddSection()">+ Add section</button>
+      <div class="hint" style="margin-bottom:10px">Everything on this tab plus your drills and plays, in one small file. Save it once your team is set up; load it on a new device or a fresh browser and you are back in one step. Practices are not included (use Backup for those).</div>
+      <div class="tf-row"><button class="btn btn-secondary btn-sm" onclick="exportTeam()">Save team file</button><label class="btn btn-ghost btn-sm">Load team file<input type="file" accept="application/json" style="display:none" onchange="importLibrary(this)"></label><button class="btn btn-ghost btn-sm" onclick="openLibPane()">Manage drills &amp; plays</button></div>
     </div>
   </details>
 
@@ -1442,7 +1502,7 @@ function renderEditor(){
         <div class="hint" style="margin:0">${menuShared()?'Shared menu. Changes apply to every practice.':'Custom menu for this practice only.'}</div>
         ${menuShared()?`<button class="btn btn-ghost btn-sm" onclick="S.menu=[...ST.menu];up('practice',true)">Customize</button>`:`<button class="btn btn-ghost btn-sm" onclick="S.menu=null;up('practice',true)">Revert to shared</button>`}
       </div>
-      <div class="row" style="margin-bottom:10px"><input type="text" id="menuQ" placeholder="Search plays, groups, sections" value="${esc(MQ)}" oninput="MQ=this.value;renderMenuList()"><button class="btn btn-ghost btn-sm" onclick="MQ='';up('practice',true)" ${MQ?'':'disabled'}>Clear</button></div>
+      <div class="row" style="margin-bottom:10px"><input type="text" id="menuQ" placeholder="Search plays, or type a new one to create it" value="${esc(MQ)}" oninput="MQ=this.value;renderMenuList()"><button class="btn btn-ghost btn-sm" onclick="MQ='';up('practice',true)" ${MQ?'':'disabled'}>Clear</button></div>
       <div id="menuList">${menuListHtml()}</div>
     </div>
   </details>
@@ -1506,16 +1566,16 @@ function blockEd(b,i){
       </div>
       <div class="f" style="margin-bottom:8px"><label class="lbl">Title</label><input type="text" value="${esc(b.title)}" oninput="S.blocks[${i}].title=this.value;up()"></div>
       <div class="g2" style="margin-bottom:8px">
-        <div><label class="lbl">Category</label><select onchange="S.blocks[${i}].cat=this.value;S.blocks[${i}].focus='';up('practice',true)">${opt(cats(),b.cat,'None')}</select></div>
-        <div><label class="lbl">Focus</label><select onchange="S.blocks[${i}].focus=this.value;up('practice',true)">${opt(focuses(b.cat),b.focus,'None')}</select></div>
+        <div><label class="lbl">Category</label><div class="cb"><input type="text" data-cb="cat|${i}" value="${esc(b.cat)}" placeholder="Defense, Offense, Film…"></div></div>
+        <div><label class="lbl">Focus</label><div class="cb"><input type="text" data-cb="focus|${i}" value="${esc(b.focus)}" placeholder="${b.cat?'PNR coverage, Closeouts…':'Category first'}" ${b.cat?'':'disabled'}></div></div>
       </div>
       <div class="f" style="margin-bottom:0"><label class="lbl">Side note</label><input type="text" value="${esc(b.note)}" placeholder="Who's on offense, constraints, shot clock" oninput="S.blocks[${i}].note=this.value;up()"></div>
       <div class="lines-hd"><span class="lbl" style="margin:0">Drills</span><span class="hint" style="margin:0">${b.lines.length}</span></div>
       <div class="lines">${b.lines.map((l,j)=>`<div class="ln">
-        <div class="ln-main"><input class="ln-desc" type="text" value="${esc(l.text)}" placeholder="Drill description" oninput="S.blocks[${i}].lines[${j}].text=this.value;up()"><button class="btn btn-ghost btn-sm icon ln-imp" onclick="drillImportOpen(${i},${j})" title="Import from Luceo Drill Library" aria-label="Import from Luceo Drill Library"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5"/><path d="M2.5 11.5v1.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.5"/></svg></button><button class="ln-x" onclick="S.blocks[${i}].lines.splice(${j},1);up('practice',true)" title="Remove drill">✕</button></div>
+        <div class="ln-main"><div class="cb"><input class="ln-desc" type="text" data-cb="drill|${i}|${j}" value="${esc(l.text)}" placeholder="Drill name. Type to search or create"></div><button class="btn btn-ghost btn-sm icon ln-imp" onclick="drillImportOpen(${i},${j})" title="Import from Luceo Drill Library" aria-label="Import from Luceo Drill Library"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5"/><path d="M2.5 11.5v1.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.5"/></svg></button><button class="ln-x" onclick="S.blocks[${i}].lines.splice(${j},1);up('practice',true)" title="Remove drill">✕</button></div>
         <div class="ln-meta two">
-          <label class="ln-f"><select class="${l.sub?'':'empty'}" aria-label="Sub-focus" onchange="S.blocks[${i}].lines[${j}].sub=this.value;this.classList.toggle('empty',!this.value);up()">${opt(subs(b.cat,b.focus),l.sub,'Sub-focus')}</select></label>
-          <label class="ln-f"><input type="text" value="${esc(l.obj||'')}" placeholder="Objective" aria-label="Objective" oninput="S.blocks[${i}].lines[${j}].obj=this.value;up()"></label>
+          <label class="ln-f"><div class="cb"><input type="text" data-cb="sub|${i}|${j}" value="${esc(l.sub||'')}" placeholder="Sub-focus (optional)" aria-label="Sub-focus"></div></label>
+          <label class="ln-f"><input type="text" value="${esc(l.obj||'')}" placeholder="Objective" aria-label="Objective" oninput="S.blocks[${i}].lines[${j}].obj=this.value;drillSync(${i},${j});up()" onblur="persist('settings')"></label>
         </div>
         <button class="grp-btn ${(l.players||[]).length?'on':''}" onclick="openGroupPicker(${i},${j})">${(l.players||[]).length?`<span class="grp-avs">${(l.players||[]).slice(0,6).map(id=>headshotHtml(id,'xs')).join('')}</span><span>${esc(groupLabel(l))}</span>`:'<span class="grp-ph">Player group · whole team</span>'}</button></div>`).join('')}</div>
       <button class="ln-add" onclick="S.blocks[${i}].lines.push({tag:'',text:'',sub:'',obj:'',players:[]});up('practice',true)">+ Add drill</button>
@@ -1538,9 +1598,44 @@ function menuListHtml(){const q=MQ.trim().toLowerCase();const m=new Set(menu());
     return `<div class="menu-sec"><div class="row" style="justify-content:space-between;margin-bottom:4px"><span class="lbl" style="margin:0">${esc(sec.name)||'Untitled'} <span style="color:var(--ink-faint)">${onN}/${ids.length}</span></span>
       <span><button class="btn btn-ghost btn-sm" onclick="menuSet(${JSON.stringify(ids).replace(/"/g,'&quot;')},true)">All</button><button class="btn btn-ghost btn-sm" onclick="menuSet(${JSON.stringify(ids).replace(/"/g,'&quot;')},false)">None</button></span></div>
       <div class="chips">${groups.flatMap(x=>x.plays).map(p=>`<label class="chip ${m.has(p.id)?'on':''}"><input type="checkbox" ${m.has(p.id)?'checked':''} onchange="menuToggle('${p.id}',this.checked)">${esc(p.name)}</label>`).join('')}</div></div>`;}).join('');
-  if(!playsAll().length)return '<div class="hint">Add plays in Playbook first.</div>';
-  return any?html:`<div class="hint">No plays match "${esc(MQ)}".</div>`;}
+  const q0=MQ.trim();const exact=q0&&playsAll().some(p=>p.name.toLowerCase()===q0.toLowerCase());
+  const create=q0&&!exact?`<button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="playCreateOpen(${JSON.stringify(q0).replace(/"/g,'&quot;')})">+ Create play “${esc(q0)}”</button>`:'';
+  if(!playsAll().length)return `<div class="hint">No plays yet. Type a play name above and create it. Each play you add here is saved to your playbook for every practice after this one.</div>${create}`;
+  return (any?html:`<div class="hint">No plays match "${esc(MQ)}".</div>`)+create;}
+function playCreateOpen(name){const ov=document.createElement('div');ov.className='dlg-ov';const secs=ST.playbook.filter(x=>x.name);
+  ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:460px"><div class="dlg-t">New play</div>
+    <div class="f"><label class="lbl">Play name</label><input type="text" id="npName" value="${esc(name||'')}" placeholder="Horns Chest"></div>
+    <div class="f"><label class="lbl">Section</label><div class="cb"><input type="text" id="npSec" data-cb="section" placeholder="${secs.length?'Pick a section or type a new one':'Type a section name'}"></div>
+      <div class="hint">Sections are the headings on the sheet's play rail, so your staff can find a call fast. Group plays the way you call them: <b>Jungle</b> (half-court sets), <b>Turbo</b> (early offense), <b>SOB</b>, <b>BOB</b>, <b>ATO</b>, <b>Zone</b>, <b>Press break</b>.</div></div>
+    <div class="dlg-b"><button class="btn btn-secondary btn-sm" data-r="0">Cancel</button><button class="btn btn-primary btn-sm" data-r="1">Create play</button></div></div>`;
+  const done=()=>{ov.remove();document.removeEventListener('keydown',key);};const key=e=>{if(e.key==='Escape')done();};document.addEventListener('keydown',key);
+  const go=()=>{const n=ov.querySelector('#npName').value.trim(),sn=ov.querySelector('#npSec').value.trim();if(!n){ov.querySelector('#npName').focus();return;}if(!sn){ov.querySelector('#npSec').focus();toast('Pick a section so the play has a home on the rail.');return;}
+    let si=ST.playbook.findIndex(x=>x.name.toLowerCase()===sn.toLowerCase());if(si<0){ST.playbook.push({id:uid(),name:sn,groups:[{id:uid(),name:'',plays:[]}]});si=ST.playbook.length-1;}
+    const p={id:uid(),name:n};if(!ST.playbook[si].groups.length)ST.playbook[si].groups.push({id:uid(),name:'',plays:[]});ST.playbook[si].groups[0].plays.push(p);if(!ST.menu.includes(p.id))ST.menu.push(p.id);if(S&&Array.isArray(S.menu)&&!S.menu.includes(p.id))S.menu.push(p.id);
+    MQ='';done();toast(`${n} added to ${sn} and put on this rail`);up('settings',true);};
+  ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=go;ov.querySelectorAll('input').forEach(x=>x.addEventListener('keydown',e=>{if(e.key==='Enter'&&!x.dataset.cb){e.preventDefault();go();}}));
+  document.body.appendChild(ov);cbInit(ov);ov.querySelector(secs.length||!name?'#npSec':'#npSec').focus();if(!name)ov.querySelector('#npName').focus();}
 function renderMenuList(){const el=document.getElementById('menuList');if(el)el.innerHTML=menuListHtml();const c=document.querySelector('#menuQ + button');if(c)c.disabled=!MQ;}
+function openLibPane(){if(!isHead()){toast('Only the head coach manages drills and plays.');return;}setMode('build');document.getElementById('app').dataset.pane='lib';document.getElementById('kebab').open=false;renderLibPane();}
+function closeLibPane(){delete document.getElementById('app').dataset.pane;renderSheet();}
+function renderLibPane(){const el=document.getElementById('libpane');if(!el||document.getElementById('app').dataset.pane!=='lib')return;const u=drillUses();const list=drills().slice().sort((a,b)=>(a.cat||'').localeCompare(b.cat||'')||(a.focus||'').localeCompare(b.focus||'')||a.name.localeCompare(b.name));
+  el.innerHTML=`<div class="lp-head"><div><h2>Drills &amp; plays</h2><div class="hint">Built from your practice plans. Fix a typo, merge duplicates, or tidy the taxonomy here. Renaming keeps history; merging moves it.</div></div><button class="btn btn-secondary btn-sm" onclick="closeLibPane()">Back to sheet</button></div>
+  <div class="lp-grid">
+    <div class="lp-col"><h3>Drills <span class="hint" style="display:inline">${list.length}</span></h3><div class="hint" style="margin-bottom:8px">Each drill remembers its category, focus, sub-focus and objective, and fills them in when you pick it again.</div>
+      ${list.length?list.map(d=>{const di=drills().indexOf(d);const others=drills().filter(x=>x.id!==d.id);return `<div class="dr-row"><div><input class="drn" type="text" value="${esc(d.name)}" oninput="drillRename(${di},this.value)"><div class="dm">${esc([d.cat,d.focus,d.sub].filter(Boolean).join(' › ')||'untagged')}${d.obj?' · '+esc(d.obj):''} · used ${u[d.id]||0}×</div></div>
+        <select title="Merge into another drill" onchange="if(this.value)drillMerge(${di},this.value)"><option value="">Merge into…</option>${others.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('')}</select>
+        <button class="btn btn-ghost btn-sm btn-danger" onclick="drillDel(${di})" title="Delete drill">✕</button></div>`;}).join(''):'<div class="hint">No drills yet. They appear here as you add them to blocks in Plan.</div>'}
+      <h3 style="margin-top:16px">Taxonomy</h3><div class="hint" style="margin-bottom:8px">Category › Focus › Sub-focus. Track adds up minutes by these. Renaming here does not retag older practices.</div>
+      ${ST.taxonomy.map(taxEd).join('')}
+      <button class="btn btn-secondary btn-sm" onclick="ST.taxonomy.push({name:'',focuses:[{name:'',subs:[]}]});up('settings',true)">+ Add category</button></div>
+    <div class="lp-col"><h3>Plays <span class="hint" style="display:inline">${playsAll().length}</span></h3><div class="hint" style="margin-bottom:8px">Sections are the rail headings. Drag to reorder. Renaming a play keeps its reps and grades.</div>
+      ${ST.playbook.map(pbSectionEd).join('')}
+      <button class="btn btn-secondary btn-sm" onclick="pbAddSection()">+ Add section</button></div>
+  </div>`;initPbDrag(el);}
+function drillRename(di,v){const d=drills()[di];if(!d)return;const old=d.name;d.name=v;Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===old))l.text=v;})));persist('settings');Object.values(LIB).forEach(p=>{if(p.blocks.some(b=>b.lines.some(l=>l.drillId===d.id)))dbSavePractice(p);});renderSheet();}
+async function drillMerge(di,targetId){const d=drills()[di],t=drills().find(x=>x.id===targetId);if(!d||!t)return;if(!await ask(`Merge "${d.name}" into "${t.name}"? Every drill line using "${d.name}" becomes "${t.name}". History moves with it.`,'Merge'))return;
+  Object.values(LIB).forEach(p=>{let hit=false;(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===d.name)){l.drillId=t.id;l.text=t.name;hit=true;}}));if(hit)dbSavePractice(p);});drills().splice(di,1);up('settings',true);renderLibPane();}
+async function drillDel(di){const d=drills()[di];if(!d)return;const n=drillUses()[d.id]||0;if(!await ask(n?`Delete "${d.name}" from your drills? The ${n} drill line${n===1?'':'s'} already using it keep their text.`:`Delete "${d.name}"?`))return;Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id)l.drillId='';})));drills().splice(di,1);up('settings',true);renderLibPane();}
 function pbSectionEd(sec,si){
   const allPlays=sec.groups.flatMap((g,gi)=>g.plays.map((p,pi)=>({p,gi,pi})));
   return `<div class="pb-sec">
@@ -1806,7 +1901,7 @@ function bkRenderStatus(){const el=document.getElementById('bkStatus');if(!el)re
   else if(BK.lastBackup)el.innerHTML=`<span class="bk-dot ok"></span>Backed up ${bkStamp(BK.lastBackup)}`;
   else el.innerHTML=`<span class="bk-dot"></span>Not backed up yet`;
   const f=document.getElementById('bkFolder');if(f)f.textContent=BK.dir?(BK.perm==='granted'?`Folder: ${BK.dir.name}`:`Folder: ${BK.dir.name} (reconnect)`):'No folder · backs up as a download';}
-function libraryPayload(){return {kind:'luceo-library',version:2,exportedAt:new Date().toISOString(),app:'Practice Plan Builder',coachId:coachId(),coachName:coachName(coachId()),settings:JSON.parse(JSON.stringify(ST)),practices:Object.values(LIB).map(p=>JSON.parse(JSON.stringify(p)))};}
+function libraryPayload(){drills();return {kind:'luceo-library',version:2,exportedAt:new Date().toISOString(),app:'Practice Plan Builder',coachId:coachId(),coachName:coachName(coachId()),settings:JSON.parse(JSON.stringify(ST)),practices:Object.values(LIB).map(p=>JSON.parse(JSON.stringify(p)))};}
 function resultsPayload(){const cid=coachId();return {kind:'luceo-results',version:1,exportedAt:new Date().toISOString(),app:'Practice Plan Builder',coachId:cid,coachName:coachName(cid),team:ST.team.name,practices:Object.values(LIB).filter(p=>p.results&&p.results[cid]).map(p=>({id:p.id,number:p.meta.number,date:p.meta.date,results:{[cid]:JSON.parse(JSON.stringify(p.results[cid]))}}))};}
 function backupPayload(){return isHead()?libraryPayload():resultsPayload();}
 function mergeResults(payload){let added=0,updated=0,missing=[];(payload.practices||[]).forEach(fp=>{const p=LIB[fp.id];if(!p){missing.push(`#${fp.number||'?'} ${fp.date||''}`);return;}if(!p.results)p.results={};Object.entries(fp.results||{}).forEach(([cid,b])=>{if(p.results[cid])updated++;else added++;p.results[cid]=b;});});
@@ -1822,7 +1917,8 @@ function summarize(payload){const ps=(payload.practices||[]).slice().sort((a,b)=
 async function applyLibrary(payload){const mine=coachId();const keep={};Object.values(LIB).forEach(p=>{if(p.results)keep[p.id]=p.results;});ST=payload.settings;LIB={};payload.practices.forEach(p=>{p.results={...(keep[p.id]||{}),...(p.results||{})};if(mine&&keep[p.id]&&keep[p.id][mine])p.results[mine]=keep[p.id][mine];LIB[p.id]=p;});if(mine&&!coach(mine)){ACTIVE=null;}migrate();S=sorted()[sorted().length-1]||null;if(!S){S=blankPractice(1);LIB[S.id]=S;}
   saveLocal();if(DB&&CAN_WRITE){try{const q=await DB.collection('practices').get();for(const d of q.docs){if(!LIB[d.id])await DB.doc('practices/'+d.id).delete();}await DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));for(const p of Object.values(LIB))await DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p)));}catch(e){}}
   bkMarkSaved();renderAll(true);toast('Library restored');}
-async function confirmImport(payload,sourceLabel){if(payload&&payload.kind==='luceo-season'&&payload.season&&Array.isArray(payload.practices)){const sn=payload.season;const n=payload.practices.length;
+async function confirmImport(payload,sourceLabel){if(payload&&payload.kind==='luceo-team'){await applyTeam(payload,sourceLabel);return;}
+  if(payload&&payload.kind==='luceo-season'&&payload.season&&Array.isArray(payload.practices)){const sn=payload.season;const n=payload.practices.length;
     const ok=await ask(`Add season ${sn.name} from ${sourceLabel}?\n\n${n} practice${n===1?'':'s'}. It is added as an archived season you can read in Track. Nothing current is changed.`,'Add season');
     if(!ok)return;if(!seasons().some(x=>x.id===sn.id))seasons().push({...sn,status:'archived'});payload.practices.forEach(p=>{p.seasonId=sn.id;LIB[p.id]=p;});migrate();saveLocal();if(DB&&CAN_WRITE){Object.values(LIB).forEach(p=>DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p))).catch(()=>{}));DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST))).catch(()=>{});}renderAll(true);toast('Season '+sn.name+' added');return;}
 if(payload&&payload.kind==='luceo-results'&&Array.isArray(payload.practices)){const n=payload.practices.length;
@@ -1833,6 +1929,12 @@ if(payload&&payload.kind==='luceo-results'&&Array.isArray(payload.practices)){co
   if(isHead()&&payload.coachId&&payload.coachId!==coachId()){const h=(payload.settings.coaches||[]).find(c=>c.id===payload.coachId);if(!(h&&h.role==='head')){toast('That library file was not exported by the head coach.');}}
   const ok=await ask(`Replace this library with ${sourceLabel}?\n\nFile: ${s.team} · ${s.count} practice${s.count===1?'':'s'}${s.from?` · ${s.from}${s.to&&s.to!==s.from?' to '+s.to:''}`:''} · ${s.plays} plays · ${s.roster} players${s.exportedAt?`\nExported ${bkStamp(s.exportedAt)}`:''}\n\nHere now: ${cur.team} · ${cur.count} practice${cur.count===1?'':'s'}${BK.dirtySince?' · unsaved changes since '+bkStamp(BK.dirtySince):''}\n\nThe plan and library are replaced. Results already recorded here by other coaches are kept.`,'Replace');
   if(ok)await applyLibrary(payload);}
+function teamPayload(){return {kind:'luceo-team',version:1,savedAt:new Date().toISOString(),team:ST.team,coaches:coaches(),roster:ST.roster,taxonomy:ST.taxonomy,drills:drills(),playbook:ST.playbook,menu:ST.menu};}
+async function exportTeam(){await deliver(`luceo-team-${slug(ST.team.name)}-${today()}.json`,JSON.stringify(teamPayload(),null,1));toast('Team file saved');}
+async function applyTeam(payload,sourceLabel){const n=(payload.roster||[]).length,c=(payload.coaches||[]).length,d=(payload.drills||[]).length;
+  if(!await ask(`Load team "${payload.team&&payload.team.name||'untitled'}" from ${sourceLabel}?\n\n${c} coaches, ${n} players, ${d} drills, ${(payload.playbook||[]).flatMap(x=>x.groups||[]).flatMap(g=>g.plays||[]).length} plays. This replaces the team setup on this device. Practices and results are not touched.`,'Load team'))return;
+  ST.team=payload.team||ST.team;ST.coaches=payload.coaches||[];ST.roster=payload.roster||[];ST.taxonomy=payload.taxonomy||[];ST.drills=payload.drills||[];ST.playbook=payload.playbook||[];ST.menu=payload.menu||allPlayIds(ST.playbook);ST.pbStructured=true;
+  if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;persist('settings');applyRole();renderAll(true);toast('Team loaded');if(!ACTIVE)coachGate(true);}
 function importLibrary(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{try{await confirmImport(JSON.parse(e.target.result),f.name);}catch(err){toast('That is not a library backup file.');}};r.readAsText(f);inp.value='';}
 
 /* Chrome / Edge folder sync via File System Access */
@@ -1893,7 +1995,7 @@ async function deliver(filename,data,mime){try{const dl=window.claude&&window.cl
 /* ── Glue ──────────────────────────────────────────────── */
 function renderAll(rebuild){renderLib();renderSheet();renderLive();if(rebuild)renderEditor();if(document.getElementById('app').dataset.mode==='track')renderTracker();}
 function up(kind,rebuild){persist(kind==='settings'?'settings':'practice');renderSheet();if(rebuild){const open={},po={},sc=document.getElementById('editor').scrollTop;document.querySelectorAll('.sec').forEach(d=>open[d.querySelector('summary .name').textContent]=d.open);document.querySelectorAll('.rt-player').forEach(d=>po[d.dataset.id]=d.open);renderEditor();document.querySelectorAll('.sec').forEach(d=>{const k=d.querySelector('summary .name').textContent;if(k in open)d.open=open[k];});document.querySelectorAll('.rt-player').forEach(d=>{if(po[d.dataset.id])d.open=true;});document.getElementById('editor').scrollTop=sc;}
-  else{const sp=ratingPct(my().ratings.session);const metas={'Team brand':ST.team.name||'no team','Drills':`${ST.taxonomy.length} categories`,'Plays':`${playsAll().length} plays · ${ST.playbook.length} sections`,'Roster':`${ST.roster.length} players`,'Session':`${S.meta.label} #${S.meta.number}`,'Blocks':`${S.blocks.length} · ${total()} min`,'Play menu':`${menu().length} on rail · ${menuShared()?'shared':'custom'}`,'Play execution':`${Object.values(my().calls).filter(c=>callTotal(c)).length} tallied · ${coachName(coachId())}`,'Ratings':(sp!==null?'session '+sp+'%':'session not rated')+' · '+my().ratings.rated.length+' players','Key focus':kfMeta(),'Court diagrams':(()=>{const C=courtState();const n=C.slots.filter(x=>x.strokes.length||Object.keys(x.pucks||{}).length).length;return n?`${n} of ${C.count} drawn`:`${C.count} blank`;})(),'Coaches':`${coaches().length} · you are ${coachName(coachId())}`};
+  else{const sp=ratingPct(my().ratings.session);const metas={'Team brand':ST.team.name||'no team','Team file':`${drills().length} drills · ${playsAll().length} plays`,'Roster':`${ST.roster.length} players`,'Session':`${S.meta.label} #${S.meta.number}`,'Blocks':`${S.blocks.length} · ${total()} min`,'Play menu':`${menu().length} on rail · ${menuShared()?'shared':'custom'}`,'Play execution':`${Object.values(my().calls).filter(c=>callTotal(c)).length} tallied · ${coachName(coachId())}`,'Ratings':(sp!==null?'session '+sp+'%':'session not rated')+' · '+my().ratings.rated.length+' players','Key focus':kfMeta(),'Court diagrams':(()=>{const C=courtState();const n=C.slots.filter(x=>x.strokes.length||Object.keys(x.pucks||{}).length).length;return n?`${n} of ${C.count} drawn`:`${C.count} blank`;})(),'Coaches':`${coaches().length} · you are ${coachName(coachId())}`};
     document.querySelectorAll('.sec').forEach(d=>{const k=d.querySelector('summary .name').textContent;const el=d.querySelector('summary .meta');if(el&&metas[k]!==undefined)el.textContent=metas[k];});
     document.querySelectorAll('.blk').forEach((el,i)=>{const b=S.blocks[i];if(!b)return;el.querySelector('.ttl').textContent=b.title||'Untitled block';el.querySelector('.mins').textContent=num(b.min)+' min';});}
   renderLib();}
@@ -1984,13 +2086,14 @@ const TUT=[
   <ul><li><b>Head coach</b> builds the plan, manages the library, runs the clock, sets actual block times, and sees the staff comparison. There is only one, and the head coach hands the role to someone else in Library › Coaches.</li>
   <li><b>Assistants</b> read the plan, check off the drills they ran, tally and grade plays for their player group, rate the session and their players, and write their own notes.</li></ul>
   <p>No two coaches can overwrite each other. Each coach's results sit in their own bucket on the practice and the reports combine them.</p>`},
- {t:'Library',k:'Set up once, carry forward',b:`<p>The Library tab in Build holds what carries across every practice.</p>
+ {t:'Team',k:'Set up once, carry forward',b:`<p>The Team tab in Build holds what carries across every practice.</p>
   <ul><li><b>Team brand</b>: name, logo, colors.</li><li><b>Coaches</b>: the staff list and who is head coach.</li><li><b>Roster</b>: players with headshots. Player groups on drills and pucks on the court come from here.</li>
-  <li><b>Drills</b>: a three-level taxonomy, Category › Focus › Sub-focus. Blocks and drills are tagged against it so the tracker can add up time by what it was for.</li><li><b>Plays</b>: the playbook in sections that become the rail on the practice sheet.</li></ul>`},
+  <li><b>Team file</b>: one small file with all of the above plus your drills and plays. Save it once the team is set up; load it on a new device and you are back in one step.</li></ul>
+  <p>Drills and plays are not set up here. They build themselves as you write plans (see Build). To fix a typo or merge duplicates later, open the menu (⋯) › <b>Manage drills &amp; plays</b>.</p>`},
  {t:'Build',k:'Writing the plan',b:`<p>The Plan tab is the practice itself. The sheet on the right updates as you type.</p>
   <ul><li><b>Session</b>: number, date, and the banner line (theme, question, quote, pillars).</li><li><b>Key focus</b>: the one thing the practice is about, with points and video clips.</li>
   <li><b>Blocks</b>: timed sections, each tagged with a Category and Focus. Each block holds drills; a drill gets a Sub-focus, an objective, and a player group picked from the roster.</li><li><b>Play menu</b>: which plays appear on the rail for this practice.</li></ul>
-  <p>Running totals, the planned time, and the rail are all generated. New asks for a title, then starts an empty plan with the next number and today's date. Duplicate copies the selected practice (blocks, drills, groups, key focus, play menu) under a new title; results, clock and diagrams start empty. Titles show in the practice list, on the sheet and in Track, so you can pick what to duplicate without opening each plan.</p>`},
+  <p>Running totals, the planned time, and the rail are all generated. New asks for a title, then starts an empty plan with the next number and today's date. Duplicate copies the selected practice (blocks, drills, groups, key focus, play menu) under a new title; results, clock and diagrams start empty. Titles show in the practice list, on the sheet and in Track, so you can pick what to duplicate without opening each plan.</p><p><b>Drills and plays build themselves.</b> In a block, type a category, focus, or drill name: matches from earlier practices appear as you type, and anything new is created on the spot and saved for next time. Picking a drill you have used before fills in its sub-focus and objective. In Play menu, search for a play; if it is not there yet, create it and give it a section (Jungle, Turbo, SOB, BOB, ATO). Sub-focus is optional.</p>`},
  {t:'Manage',k:'On the floor',b:`<p>Manage shows the sheet full width for a tablet, with a live bar above it.</p>
   <ul><li>The head coach starts the clock. The current block counts down; amber at two minutes, red and a tone when it runs over. Tapping a block checks it off and starts the next.</li>
   <li>Every coach checks the drills they ran, picks their player group, and taps plays on the rail to add reps. The icon beside each rail heading opens reps and grades for that section.</li>
@@ -2006,7 +2109,7 @@ const TUT=[
   <p>Set up shared folder in the Backup menu walks through the Drive setup.</p>`},
  {t:'Seasons',k:'Archiving and starting over',b:`<p>Every practice belongs to a season. The season chip beside the practice list shows which one you're in.</p>
   <ul><li><b>Start a new season</b> (head coach) archives the current one and begins at Practice #1. Coaches, drills and plays carry forward; the roster can carry or start empty.</li><li><b>Archived seasons</b> stay readable: open any practice, read every coach's results, run Track on it. Nothing can be added or changed.</li><li><b>Export a season</b> to its own file for cold storage or to hand off. A season file can be added back later as an archive.</li></ul>
-  <p>Backups always include every season, so archiving changes what you see, not what is kept.</p><p><strong>Starting from nothing.</strong> The builder opens with a demo team so you can see every screen filled in. None of it is yours. When you are ready to build your own team, open the menu (⋯) and choose <em>Clear demo data · start fresh</em>. That removes the demo practices, roster, staff, drills, playbook and team brand, then asks for your head coach's name. From there you set the team brand, add staff and roster, build the drill taxonomy and playbook in Library, and write your first plan. <em>Load demo data</em> brings the demo back at any time without touching anything you have added.</p>`}];
+  <p>Backups always include every season, so archiving changes what you see, not what is kept.</p><p><strong>Starting out.</strong> The builder opens empty: it asks for the head coach's name, then you set the team brand, add staff and roster, build the drill taxonomy and playbook in Library, and write your first plan. To see every screen filled in first, open the menu (⋯) and choose <em>Load demo data</em>; it adds a sample team and five practices without touching anything you have added. <em>Clear demo data · start fresh</em> removes all of it again.</p>`}];
 let TUTi=0;
 function openTutorial(page){TUTi=Number.isInteger(page)?Math.max(0,Math.min(TUT.length-1,page)):0;const ov=document.createElement('div');ov.className='dlg-ov tut';
   const render=()=>{const p=TUT[TUTi];ov.innerHTML=`<div class="dlg tut-dlg"><div class="tut-k">${esc(p.k)} · ${TUTi+1} of ${TUT.length}</div><div class="dlg-t">${esc(p.t)}</div><div class="tut-b">${p.b}</div>
@@ -2146,7 +2249,7 @@ function fullCourt(){const half=`<rect x="190" y="34" width="120" height="190"/>
   <rect x="34" y="34" width="432" height="872"/><line x1="34" y1="470" x2="466" y2="470"/><circle cx="250" cy="470" r="60"/><circle cx="250" cy="470" r="20"/>
   <g>${half}</g><g transform="translate(0,940) scale(1,-1)">${half}</g></g></svg>`;}
 function setView(v){document.getElementById('app').dataset.view=v;document.getElementById('tabEdit').classList.toggle('on',v==='edit');document.getElementById('tabPrev').classList.toggle('on',v==='preview');fitSheet();}
-function setMode(m){document.getElementById('app').dataset.mode=m;['build','manage','track'].forEach(k=>document.getElementById('mode'+k[0].toUpperCase()+k.slice(1)).classList.toggle('on',m===k));if(m==='track')renderTracker();else{renderSheet();renderLive();}}
+function setMode(m){if(m!=='build')delete document.getElementById('app').dataset.pane;document.getElementById('app').dataset.mode=m;['build','manage','track'].forEach(k=>document.getElementById('mode'+k[0].toUpperCase()+k.slice(1)).classList.toggle('on',m===k));if(m==='track')renderTracker();else{renderSheet();renderLive();}}
 function fitSheet(){const st=document.querySelector('.stage');const sh=document.getElementById('sheet');if(!st||!sh)return;
   const manage=document.getElementById('app').dataset.mode==='manage';sh.style.removeProperty('--scale');sh.style.zoom='';
   if(manage){const live=document.getElementById('live');const cs=getComputedStyle(st);const padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight),padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);

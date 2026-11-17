@@ -13,6 +13,6 @@ Replace `index.html` and push to `main`. GitHub Pages republishes within a minut
 
 ## Notes
 
-- Plans, results and the library are stored in the browser on each person's own device. Use Backup (shared Google Drive folder) to move them between devices and coaches.
-- The app opens with a demo team. Menu (⋯) › **Clear demo data · start fresh** wipes it and asks for the head coach's name.
+- Plans, results and the team setup are stored in the browser on each person's own device. Use Backup (shared Google Drive folder) to move them between devices and coaches.
+- The app opens empty and asks for the head coach's name. Drills and plays build themselves as you write plans; Team › Team file saves the whole setup to move to another device. Menu (⋯) › **Load demo data** adds a sample team and five practices; **Clear demo data · start fresh** removes them again.
 - Playbook and Drill Library import icons are placeholders until the Luceo app connects.
