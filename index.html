@@ -136,7 +136,14 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .lines-hd{display:flex;align-items:baseline;gap:8px;margin:16px 0 4px}
 .lines{display:flex;flex-direction:column}
 .ln{padding:10px 0;border-top:1px solid var(--border-soft-color)}
-.ln-main{display:grid;grid-template-columns:1fr auto 24px;gap:6px;align-items:center}
+.ln-main{display:grid;grid-template-columns:1fr 24px;gap:6px;align-items:center}
+.ln-name{display:flex;align-items:center;gap:8px;min-width:0;text-align:left;font-size:14px;color:var(--ink);background:none;border:none;padding:2px 0;cursor:pointer;font-family:inherit}
+.ln-name:hover{color:var(--accent)}
+.ln-name>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ln-name .dm{color:var(--team);font-size:9px}
+.ln-addrow{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;padding:10px 0 2px;border-top:1px solid var(--border-soft-color)}
+.ln-addrow input{border-style:dashed;padding:6px 9px;font-size:13px}
+.ln-meta .grp-btn{margin:0;height:100%}
 .ln-imp{color:var(--ink-faint)}
 .ln:hover .ln-imp,.ln-imp:focus-visible{color:var(--ink-dim)}
 .ln .ln-desc{background:transparent;border:1px solid transparent;padding:6px 8px;margin-left:-8px;font-size:14px;color:var(--ink)}
@@ -192,8 +199,8 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 
 .sh-grid{display:grid;grid-template-columns:1fr 1.9in;gap:16px;margin-top:12px;flex:1}
 .sh-plan{min-width:0}
-.sh-colhead{display:grid;grid-template-columns:.36in .36in 1fr .9in;gap:6px;font-family:var(--font-mono);font-size:7pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:4px;border-bottom:1px solid var(--border-color)}
-.sh-block{display:grid;grid-template-columns:.36in .36in 1fr .9in;gap:6px;padding:7px 0 6px;border-bottom:1px solid var(--border-soft-color);break-inside:avoid}
+.sh-colhead{display:grid;grid-template-columns:.36in .36in 1fr 1.25in;gap:6px;font-family:var(--font-mono);font-size:7pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:4px;border-bottom:1px solid var(--border-color)}
+.sh-block{display:grid;grid-template-columns:.36in .36in 1fr 1.25in;gap:6px;padding:7px 0 6px;border-bottom:1px solid var(--border-soft-color);break-inside:avoid}
 .sh-block:last-child{border-bottom:none}
 .sh-block .tt{font-family:var(--font-mono);font-size:11pt;font-weight:700;color:var(--team);line-height:1}
 .sh-block .dt{font-family:var(--font-mono);font-size:11pt;font-weight:700;line-height:1;color:var(--ink)}
@@ -202,7 +209,7 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .sh-block .bt .note{font-weight:400;font-size:8.5pt;color:var(--ink-dim);margin-left:8px}
 .sh-block ul{list-style:none;margin-top:3px}
 .sh-block li{font-size:9pt;padding:1px 0;color:var(--ink-dim);position:relative}
-.sh-block li .obj{position:absolute;left:calc(100% + 6px);top:2px;width:.9in;text-align:right;font-family:var(--font-mono);font-size:7pt;color:var(--ink-dim);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh-block li .obj{position:absolute;left:calc(100% + 6px);top:2px;width:1.25in;text-align:right;font-family:var(--font-mono);font-size:7pt;color:var(--ink-dim);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sh-block li .tag{font-family:var(--font-mono);font-size:6.5pt;font-weight:700;letter-spacing:.08em;color:var(--team);text-transform:uppercase;margin-left:8px;white-space:nowrap}
 .sh-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px;padding-top:6px;border-top:1px solid var(--border-hi-color);font-family:var(--font-mono);font-size:8pt;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
 .sh-total b{font-size:12pt;color:var(--ink);letter-spacing:0}
@@ -360,8 +367,8 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 
 .sh-grid{display:grid;grid-template-columns:1fr 1.9in;gap:16px;margin-top:12px;flex:1}
 .sh-plan{min-width:0}
-.sh-colhead{display:grid;grid-template-columns:.36in .36in 1fr .9in;gap:6px;font-family:var(--font-mono);font-size:7pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:4px;border-bottom:1px solid var(--border-color)}
-.sh-block{display:grid;grid-template-columns:.36in .36in 1fr .9in;gap:6px;padding:7px 0 6px;border-bottom:1px solid var(--border-soft-color);break-inside:avoid}
+.sh-colhead{display:grid;grid-template-columns:.36in .36in 1fr 1.25in;gap:6px;font-family:var(--font-mono);font-size:7pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:4px;border-bottom:1px solid var(--border-color)}
+.sh-block{display:grid;grid-template-columns:.36in .36in 1fr 1.25in;gap:6px;padding:7px 0 6px;border-bottom:1px solid var(--border-soft-color);break-inside:avoid}
 .sh-block:last-child{border-bottom:none}
 .sh-block .tt{font-family:var(--font-mono);font-size:11pt;font-weight:700;color:var(--team);line-height:1}
 .sh-block .dt{font-family:var(--font-mono);font-size:11pt;font-weight:700;line-height:1;color:var(--ink)}
@@ -477,7 +484,8 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .cb-it.on,.cb-it:hover{background:var(--bg-3);color:var(--ink)}
 .cb-it.new{color:var(--accent)}
 .cb-it.dim{color:var(--ink-faint);cursor:default}
-.cb-it .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap}
+.cb-it>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.cb-it .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap;flex-shrink:0}
 .ln-main .cb{flex:1}
 .ln-f .cb{flex:1}.ln-f .cb input{width:100%}
 .libpane{display:none}
@@ -485,16 +493,72 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .app[data-pane="lib"] .libpane{display:block;max-width:1100px;margin:0 auto}
 .lp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s4)}
 .lp-head h2{font-family:var(--font-display);font-size:20px;letter-spacing:-.02em;margin:0}
-.lp-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);align-items:start}
+.lp-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:var(--s4);align-items:start}
 @media (max-width:1100px){.lp-grid{grid-template-columns:1fr}}
 .lp-col{border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-2);padding:14px}
 .lp-col h3{font-size:13px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
-.dr-row{display:grid;grid-template-columns:minmax(0,1fr) 128px 28px;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-soft-color)}
-.dr-row>div{min-width:0}
-.dr-row input.drn{display:block;width:100%;font-size:13px;padding:5px 8px;margin-bottom:3px}
-.dr-row .dm{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);white-space:nowrap}
-.dr-row select{font-size:11px;padding:4px 6px;width:128px}
+.lp-ttl{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.lp-tools{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;margin-bottom:6px}
+.lp-tools input{padding:6px 9px;font-size:13px;min-width:0}
+.dr-tools{display:flex;gap:6px;align-items:center;margin:8px 0}
+.dr-tools input{flex:1;padding:6px 9px;font-size:13px}
+.dr-g{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);padding:12px 8px 4px;border-bottom:1px solid var(--border-soft-color);display:flex;justify-content:space-between}
+.dr-g:first-child{padding-top:4px}
+.dr-row{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:8px;align-items:center;padding:3px 8px;border-bottom:1px solid var(--border-soft-color)}
+.dr-row:hover{background:var(--bg-3)}
+.dr-row .drn-b{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;color:var(--ink);background:none;border:none;padding:4px 6px;text-align:left;cursor:pointer;font-family:inherit}
+.dr-row .drn-b>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dr-row .drn-b .ds{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--ink-faint);white-space:nowrap}
+.dr-row .drn-b .dm{color:var(--team);font-size:9px}
+.de-step{display:grid;grid-template-columns:22px 1fr;gap:10px;margin-bottom:12px}
+.de-n{width:22px;height:22px;border:1px solid var(--border-hi-color);border-radius:var(--radius);font-family:var(--font-mono);font-size:10px;display:flex;align-items:center;justify-content:center;color:var(--ink-dim);margin-top:1px}
+.de-b .f{margin-bottom:0}.de-opt{font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--ink-faint);margin-left:4px}
+.de-media{margin:8px 0 2px;border:1px solid var(--border-soft-color);border-radius:var(--radius)}
+.de-m{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 4px 10px;font-size:12px;border-bottom:1px solid var(--border-soft-color)}.de-m:last-child{border-bottom:none}
+.dr-row .da{display:flex;gap:2px;justify-content:flex-end;opacity:0;transition:opacity var(--t-fast)}
+.dr-row:hover .da,.dr-row:focus-within .da{opacity:1}
+.dr-row .da button{font-size:11px;padding:3px 7px}
+.dr-empty{padding:12px 8px;font-size:12px;color:var(--ink-faint)}
+.micro{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.tx-c{border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg);margin-top:10px}
+.tx-c>summary{list-style:none;display:grid;grid-template-columns:14px 70px 1fr auto 28px;gap:8px;align-items:center;padding:8px 10px;cursor:pointer}
+.tx-c>summary::-webkit-details-marker{display:none}
+.tx-c>summary .chev{color:var(--ink-faint);transition:transform var(--t-fast) var(--ease)}
+.tx-c[open]>summary .chev{transform:rotate(90deg)}
+.tx-c>summary input{font-family:var(--font-display);font-size:14px;letter-spacing:-.01em;background:none;border:1px solid transparent;padding:3px 6px;color:var(--ink);width:100%}
+.tx-c>summary input:hover{border-color:var(--border-soft-color)}.tx-c>summary input:focus{border-color:var(--blue);background:var(--bg-2)}
+.tx-c>.body{padding:0 10px 10px 10px;border-top:1px solid var(--border-soft-color)}
+.tx-f{margin:10px 0 0 10px;padding-left:10px;border-left:2px solid var(--border-color)}
+.tx-fh{display:grid;grid-template-columns:70px 1fr auto 28px;gap:8px;align-items:center;padding:4px 0}
+.tx-fh input{font-size:13px;font-weight:700;color:var(--ink);background:none;border:1px solid transparent;padding:3px 6px;width:100%}
+.tx-fh input:hover{border-color:var(--border-soft-color)}.tx-fh input:focus{border-color:var(--blue);background:var(--bg-2)}
+.tx-s{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center;padding:4px 0 6px}
+.tx-s .chips{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.tx-sub{display:inline-flex;align-items:center;gap:4px;padding:2px 4px 2px 8px;border:1px solid var(--border-soft-color);border-radius:var(--radius);font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--ink-dim)}
+.tx-sub button{color:var(--border-hi-color);font-size:11px;line-height:1;padding:0 3px}.tx-sub button:hover{color:var(--red)}
+.tx-d{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:start;padding:2px 0 4px}
+.tx-d .micro{padding-top:8px}
+.tx-x{color:var(--border-hi-color);height:24px;border-radius:var(--radius);opacity:.35}.tx-x:hover{opacity:1;color:var(--red);background:rgba(240,68,68,.1)}
+.tx-cnt{font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);white-space:nowrap}
+.add-lk{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-dim);background:none;border:none;padding:4px 6px;cursor:pointer;font-family:inherit;border-radius:var(--radius)}
+.add-lk:hover{color:var(--ink);background:var(--bg-3)}
+.add-fm{display:none;grid-template-columns:1fr auto;gap:4px;margin:4px 0}
+.add-fm.on{display:grid}.add-fm input{padding:5px 9px;font-size:12px}
+.dr-row{margin-left:0}
+.dr-row .drn-b .ds{padding:1px 6px;border:1px solid var(--border-soft-color);border-radius:var(--radius);flex-shrink:0}
 .tf-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mn-sec{margin-bottom:10px}
+.mn-h{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border-color);margin-bottom:2px}
+.mn-row{display:grid;grid-template-columns:1fr 24px;align-items:center;padding:5px 8px;border-bottom:1px solid var(--border-soft-color);font-size:13px}
+.mn-row .x{color:var(--border-hi-color);border-radius:var(--radius);height:22px;opacity:0}
+.mn-row:hover .x{opacity:1}.mn-row .x:hover{color:var(--red);background:rgba(240,68,68,.1)}
+.mn-add{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;margin-top:4px}.mn-add input{border-style:dashed;padding:6px 9px;font-size:13px}.mn-row .ln-name{font-size:13px;padding:0}
+.tpl{border:1px solid var(--border-color);border-radius:var(--radius);background:var(--bg);max-height:260px;overflow:auto;margin:6px 0 8px}
+.tpl-g{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);padding:8px 10px 2px}
+.tpl-r{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:7px 10px;border-top:1px solid var(--border-soft-color)}
+.tpl-r .n{font-size:13px;color:var(--ink)}
+.tpl-r .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--ink-faint);margin-top:2px}
+.tpl-r .a{display:flex;gap:4px}
 .menu-sec{margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid var(--border-color);border-radius:var(--radius);font-size:12px;color:var(--ink-faint);cursor:pointer;background:var(--bg);user-select:none}
@@ -854,8 +918,8 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .app[data-role="assistant"] .season-row,.app[data-archived="1"] .season-row{pointer-events:auto;opacity:1}
 
 /* drill notes */
-.app[data-mode="manage"] .sh-block li .obj{width:calc(.9in - 18px)}
-.dn{position:absolute;left:calc(100% + 6px + .9in - 12px);top:1px;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-faint);border:1px solid transparent;border-radius:2px;padding:0}
+.app[data-mode="manage"] .sh-block li .obj{width:calc(1.25in - 18px)}
+.dn{position:absolute;left:calc(100% + 6px + 1.25in - 12px);top:1px;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-faint);border:1px solid transparent;border-radius:2px;padding:0}
 .dn:hover{color:var(--ink);border-color:var(--border-hi-color)}
 .dn.has{color:var(--team);border-color:var(--team)}
 .dn svg{display:block}
@@ -999,10 +1063,10 @@ const seedPlaybook=()=>{const sec=(name,plays)=>({id:uid(),name,groups:[{id:uid(
     sec('SOB',['Box','Line','Stack']),sec('BOB',['Elevator','Hammer','Triangle'])];};
 const allPlayIds=pb=>pb.flatMap(s=>s.groups.flatMap(g=>g.plays.map(p=>p.id)));
 const DEMO_ROSTER=['Amari Williams','Caleb Grill','Chris Cenac Jr.','Dillon Mitchell','Hank Morgan','Hayden Gray','Milos Uzan','Tucker DeVries'];
-const freshSettings=()=>({team:{name:'',logo:'',accent:'#E85D2C',ink:'#ECECEC'},coaches:[],roster:[],taxonomy:[],drills:[],playbook:[],menu:[],seasons:[],drillsBuilt:true,demoLoaded:true,cleanup1:true,demoCoaches:true,demoStaff:2,demoRoster:2,demoNames:2,pbStructured:true,demoPurged:true});
+const freshSettings=()=>({team:{name:'',logo:'',accent:'#E85D2C',ink:'#ECECEC'},coaches:[],roster:[],taxonomy:[],drills:[],playbook:[],menu:[],templates:[],seasons:[],drillsBuilt:true,demoLoaded:true,cleanup1:true,demoCoaches:true,demoStaff:2,demoRoster:2,demoNames:2,pbStructured:true,demoPurged:true});
 const seedSettings=()=>{const pb=seedPlaybook();return {team:{name:'Maine Celtics',logo:'',accent:'#007A33',ink:'#ECECEC'},taxonomy:seedTax(),playbook:pb,menu:allPlayIds(pb),roster:DEMO_ROSTER.map(n=>({id:uid(),name:n}))};};
 const blankPractice=(n,date,title='')=>({id:uid(),meta:{label:'Practice',number:String(n),title,date:date||today(),time:'',focus:''},
-  blocks:[],menu:null,results:{},keyFocus:{text:'',bullets:[],clips:[]}});
+  blocks:[],menu:[],results:{},keyFocus:{text:'',bullets:[],clips:[]}});
 function today(){const d=new Date();return d.toISOString().slice(0,10);}
 
 /* Five-practice demo season. Built after settings exist so plays and players resolve by name. */
@@ -1088,7 +1152,7 @@ function loadDemo(){ST.demoOptIn=true;ST.drillsBuilt=false;Object.values(LIB).fi
   const have=new Set(Object.values(LIB).filter(p=>p.demo).map(p=>p.meta.number));demoPractices().forEach(p=>{if(!have.has(p.meta.number)){p.seasonId=(activeSeason()||{}).id;LIB[p.id]=p;}});ST.demoLoaded=true;ST.drillsBuilt=false;migrate();
   ST.demoStaff=null;{demoStaff();ST.demoCoaches=true;ST.demoRoster=2;ST.demoNames=2;const hid=(coaches().find(c=>c.role==='head')||coaches()[0]).id;Object.values(LIB).forEach(p=>{if(p.results&&p.results.__head){p.results[hid]=p.results.__head;delete p.results.__head;}});demoAssistantResults();}S=sorted()[sorted().length-1];persist('settings');
   if(DB&&CAN_WRITE){Object.values(LIB).filter(p=>p.demo).forEach(p=>DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p))).catch(()=>{}));}
-  saveLocal();renderAll(true);toast('Demo season loaded: 5 practices');}
+  saveLocal();renderAll(true);toast('Sample season loaded: 5 practices with results');}
 async function clearDemo(){const n=Object.values(LIB).length;
   if(!await ask(`Start fresh?\n\nThis removes everything the demo put here: ${n} practice${n===1?'':'s'}, the roster, the coaching staff, the drill taxonomy, the playbook, the team brand and the season. You will name your head coach next and build your own team from an empty library.\n\nThis cannot be undone. Back up first if you want to keep any of it.`,'Start fresh'))return;
   const ids=Object.keys(LIB);ids.forEach(id=>dbDelete(id));LIB={};
@@ -1158,7 +1222,7 @@ function migrate(){
   {const fresh=demoPractices();Object.values(LIB).forEach(p=>{if(!p.demo||!p.keyFocus)return;if((p.keyFocus.text||'').length<80){const f=fresh.find(x=>x.meta.number===p.meta.number);if(f){p.keyFocus.text=f.keyFocus.text;p.keyFocus.bullets=f.keyFocus.bullets.slice();}}});}
   ST.playbook.forEach(sec=>{if(sec.groups.length>1){const all=sec.groups.flatMap(g=>g.plays);sec.groups=[{id:sec.groups[0].id,name:'',plays:all}];}});
   if(!Array.isArray(ST.menu))ST.menu=allPlayIds(ST.playbook);
-  Object.values(LIB).forEach(p=>{if(p.menu===undefined)p.menu=null;delete p.rails;if(!p.results)p.results={};delete p.results._;});
+  Object.values(LIB).forEach(p=>{if(!Array.isArray(p.menu))p.menu=(ST.menu||[]).slice();delete p.rails;if(!p.results)p.results={};delete p.results._;});
   if(ST.demoCoaches)demoAssistantResults();
 }
 function bootLocal(){const l=loadLocal();if(l){ST=l.settings;LIB=l.lib;S=LIB[l.current]||Object.values(LIB)[0]||null;}
@@ -1179,8 +1243,11 @@ async function bootDb(){
     migrate();if(!st.exists||!st.data().playbook||!st.data().playbook[0]||!st.data().playbook[0].groups){if(CAN_WRITE)await db.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));}
     db.collection('practices').onSnapshot(snap=>{let changed=false;snap.docChanges().forEach(ch=>{const id=ch.doc.id;
       if(ch.type==='removed'){if(LIB[id]){delete LIB[id];changed=true;}}
-      else{if(!ch.doc.metadata.hasPendingWrites){const p=JSON.parse(JSON.stringify(ch.doc.data()));p.id=id;LIB[id]=p;if(S&&S.id===id)S=p;changed=true;}}});
-      if(changed){if(!LIB[S&&S.id])S=sorted()[0]||null;migrate();renderAll(true);}},()=>{});
+      else{if(!ch.doc.metadata.hasPendingWrites){const p=JSON.parse(JSON.stringify(ch.doc.data()));p.id=id;const inc=JSON.stringify(p);
+        if(inc===dbEcho[id]||inc===JSON.stringify(LIB[id]||null))return; /* our own write coming back, or nothing new */
+        if(S&&S.id===id&&(dbT.practice||dbDirty.has(id)))return; /* local copy is newer: a save is still in flight */
+        LIB[id]=p;if(S&&S.id===id)S=p;changed=true;}}});
+      if(changed){if(!LIB[S&&S.id])S=sorted()[0]||null;migrate();dbRenderRemote();}},()=>{});
     setStatus(CAN_WRITE?'saved to artifact':'read only');if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;applyRole();if(!ACTIVE)coachGate(true);
     if(!ST.cleanup1){ST.cleanup1=true;ST.demoLoaded=true;persist('settings');}
     if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;S=b;persist('practice');}
@@ -1188,12 +1255,15 @@ async function bootDb(){
   }catch(e){setStatus('local only');}
 }
 function setStatus(t){const el=document.getElementById('status');if(el){el.textContent='Storage: '+t;el.classList.toggle('live',/artifact/.test(t));}}
-let dbT={};
-function dbSavePractice(p){saveLocal();if(!DB||!CAN_WRITE||!p)return;DB.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p))).catch(()=>{});}
-function persist(kind){saveLocal();bkTouch();if(!DB||!CAN_WRITE)return;
-  clearTimeout(dbT[kind]);dbT[kind]=setTimeout(async()=>{try{
+let dbT={};const dbEcho={};const dbDirty=new Set();let dbDeferred=false;
+/* Remote changes never rebuild the editor while a field has focus; they wait for blur. */
+function dbRenderRemote(){const a=document.activeElement;const typing=a&&a.closest&&a.closest('#editor, .dlg, #libpane')&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);if(typing){dbDeferred=true;renderSheet();return;}dbDeferred=false;renderAll(true);}
+document.addEventListener('focusout',()=>{if(dbDeferred)setTimeout(()=>{const a=document.activeElement;if(dbDeferred&&!(a&&a.closest&&a.closest('#editor, .dlg, #libpane')&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)))dbRenderRemote();},150);});
+function dbSavePractice(p){saveLocal();if(!DB||!CAN_WRITE||!p)return;const body=JSON.stringify(p);dbEcho[p.id]=body;DB.doc('practices/'+p.id).set(JSON.parse(body)).catch(()=>{});}
+function persist(kind){saveLocal();bkTouch();if(!DB||!CAN_WRITE)return;if(kind!=='settings'&&S)dbDirty.add(S.id);
+  clearTimeout(dbT[kind]);dbT[kind]=setTimeout(async()=>{dbT[kind]=null;try{
     if(kind==='settings')await DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));
-    else if(S)await DB.doc('practices/'+S.id).set(JSON.parse(JSON.stringify(S)));
+    else if(S){const body=JSON.stringify(S);dbEcho[S.id]=body;dbDirty.delete(S.id);await DB.doc('practices/'+S.id).set(JSON.parse(body));}
     setStatus('saved to artifact');}catch(e){setStatus('save failed: '+(e.code||'error'));}},600);}
 async function dbDelete(id){if(!DB)return;if(!CAN_WRITE)return false;try{await DB.doc('practices/'+id).delete();return true;}catch(e){return false;}}
 /* ── Seasons ───────────────────────────────────────────── */
@@ -1229,12 +1299,12 @@ function seasonMenuHtml(){const v=viewSeason();const list=seasons().slice().sort
 function sorted(){const v=viewSeason();return Object.values(LIB).filter(p=>!v||p.seasonId===v.id).sort((a,b)=>(a.meta.date||'').localeCompare(b.meta.date||'')||num(a.meta.number)-num(b.meta.number));}
 
 /* ── Playbook helpers ──────────────────────────────────── */
-function playsAll(){const out=[];ST.playbook.forEach(sec=>sec.groups.forEach(g=>g.plays.forEach(p=>out.push({id:p.id,name:p.name,section:sec.name,group:g.name,luceo:p.luceo||null}))));return out;}
+function playsAll(){const out=[];ST.playbook.forEach(sec=>sec.groups.forEach(g=>g.plays.forEach(p=>out.push({id:p.id,name:p.name,section:sec.name,group:g.name,luceo:p.luceo||null,media:p.media,desc:p.desc||''}))));return out;}
 function playName(id){const p=playsAll().find(x=>x.id===id);return p?p.name:'(deleted play)';}
-const menu=()=>S&&Array.isArray(S.menu)?S.menu:ST.menu;
-const menuShared=()=>!(S&&Array.isArray(S.menu));
-function menuToggle(id,on){const m=menu();const i=m.indexOf(id);if(on&&i<0)m.push(id);if(!on&&i>=0)m.splice(i,1);up(menuShared()?'settings':'practice');renderMenuList();refreshCalls();}
-function menuSet(ids,on){ids.forEach(id=>{const m=menu();const i=m.indexOf(id);if(on&&i<0)m.push(id);if(!on&&i>=0)m.splice(i,1);});up(menuShared()?'settings':'practice');renderMenuList();refreshCalls();}
+const menu=()=>{if(!S)return [];if(!Array.isArray(S.menu))S.menu=[];return S.menu;};
+const menuShared=()=>false;
+function menuToggle(id,on){const m=menu();const i=m.indexOf(id);if(on&&i<0)m.push(id);if(!on&&i>=0)m.splice(i,1);up('practice',true);refreshCalls();}
+function menuSet(ids,on){ids.forEach(id=>{const m=menu();const i=m.indexOf(id);if(on&&i<0)m.push(id);if(!on&&i>=0)m.splice(i,1);});up('practice',true);refreshCalls();}
 function refreshCalls(){const secs=[...document.querySelectorAll('.sec')];const cw=secs.find(d=>d.querySelector('summary .name').textContent==='Play execution');if(!cw)return;cw.querySelector('.body').innerHTML=callsBodyHtml();}
 function railsView(){const m=new Set(menu());return ST.playbook.map(sec=>({name:sec.name,plays:sec.groups.flatMap(g=>g.plays).filter(p=>m.has(p.id))})).filter(sec=>sec.name);}
 const GR={A:4,B:3,C:2,D:1};const GL=['','A','B','C','D'];
@@ -1246,8 +1316,8 @@ function pbImportOpen(si){const sec=ST.playbook[si];const ov=document.createElem
 function drillImportOpen(i,j){const b=S.blocks[i];const ov=document.createElement('div');ov.className='dlg-ov';
   ov.innerHTML=`<div class="dlg" style="max-width:380px"><div class="dlg-t">Import from Luceo Drill Library</div><div class="dlg-m">Pulls a drill from your team's Luceo Drill Library into ${esc(b.title||'this block')}, with its name, description and diagram, and tags it to the matching Focus and Sub-focus for tracking. Feature coming soon.</div><div class="dlg-b"><button class="btn btn-primary btn-sm" data-r="0">OK</button></div></div>`;
   ov.addEventListener('click',e=>{if(e.target.closest('[data-r="0"]')||e.target===ov)ov.remove();});document.body.appendChild(ov);ov.querySelector('[data-r="0"]').focus();}
-function pbAddSection(){ST.playbook.push({id:uid(),name:'',groups:[{id:uid(),name:'',plays:[]}]});up('settings',true);}
-function pbAddPlay(si,gi,name){const n=(name||'').trim();if(!n)return;const p={id:uid(),name:n};if(!ST.playbook[si].groups.length)ST.playbook[si].groups.push({id:uid(),name:'',plays:[]});ST.playbook[si].groups[0].plays.push(p);ST.menu.push(p.id);up('settings',true);}
+function pbAddSection(name){ST.playbook.push({id:uid(),name:(name||'').trim(),groups:[{id:uid(),name:'',plays:[]}]});up('settings',true);return ST.playbook.length-1;}
+function pbAddPlay(si,gi,name){const n=(name||'').trim();if(!n)return;const p={id:uid(),name:n};if(!ST.playbook[si].groups.length)ST.playbook[si].groups.push({id:uid(),name:'',plays:[]});ST.playbook[si].groups[0].plays.push(p);if(!ST.menu.includes(p.id))ST.menu.push(p.id);up('settings',true);return p;}
 async function pbDelPlay(si,gi,pi){const p=ST.playbook[si].groups[gi].plays[pi];const used=Object.values(LIB).filter(x=>buckets(x).some(([,b])=>b.calls&&b.calls[p.id])).length;if(used&&!await ask(`"${p.name}" has tallies in ${used} practice(s). Delete anyway? History will show it as deleted.`))return;ST.playbook[si].groups[gi].plays.splice(pi,1);ST.menu=ST.menu.filter(x=>x!==p.id);up('settings',true);}
 async function pbDelGroup(si,gi){const g=ST.playbook[si].groups[gi];if(g.plays.length&&!await ask(`Delete group "${g.name||'untitled'}" and its ${g.plays.length} plays?`))return;ST.playbook[si].groups.splice(gi,1);up('settings',true);}
 async function pbDelSection(si){const sec=ST.playbook[si];const n=sec.groups.reduce((a,g)=>a+g.plays.length,0);if(n&&!await ask(`Delete section "${sec.name||'untitled'}" and its ${n} plays?`))return;ST.playbook.splice(si,1);up('settings',true);}
@@ -1300,7 +1370,7 @@ function groupHas(groupKey,playerId){const pl=ST.roster.find(x=>x.id===playerId)
 
 /* coach selection gate + switcher */
 function coachGate(force){const list=coaches();
-  if(!force&&ACTIVE&&coach(ACTIVE))return;
+  if(!force&&ACTIVE&&coach(ACTIVE))return;document.querySelectorAll('.coach-gate').forEach(x=>x.remove());
   const ov=document.createElement('div');ov.className='dlg-ov coach-gate';
   const render=()=>{const first=!list.length;
     ov.innerHTML=first?`<div class="dlg" style="max-width:400px"><div class="dlg-t">Who's the head coach?</div><div class="hint" style="margin-bottom:12px">The head coach writes the plan and owns the team setup. Next: team name and logo in Team › Team brand, then staff and roster. Drills and plays build themselves as you write practices.</div>
@@ -1360,7 +1430,7 @@ function ratingsBodyHtml(){const R=my().ratings;const sp=ratingPct(R.session);co
   ${R.rated.map(id=>{const o=R.players[id]||{};const pp=ratingPct(o);return `<details class="rt-player" data-id="${id}"><summary><span class="rt-name">${headshotHtml(id)}${esc(playerName(id))}</span>${pp!==null?`<span class="rt-pct">${pp}%</span>`:'<span class="hint" style="margin:0">Not rated</span>'}</summary>${scaleHtml(id,o)}</details>`;}).join('')}`;}
 
 /* ── Library actions ───────────────────────────────────── */
-function renderLib(){document.getElementById('app').dataset.archived=seasonEditable()?'0':'1';const db=document.getElementById('demoBtn');if(db){db.textContent=hasDemo()?'Clear demo data · start fresh':'Load demo data';db.classList.toggle('danger',hasDemo());}const sel=document.getElementById('pracSel');const list=sorted();
+function renderLib(){document.getElementById('app').dataset.archived=seasonEditable()?'0':'1';const db=document.getElementById('demoBtn');if(db){db.textContent=hasDemo()?'Clear sample season · start fresh':'Load sample season';db.classList.toggle('danger',hasDemo());}const sel=document.getElementById('pracSel');const list=sorted();
   sel.innerHTML=list.map(p=>`<option value="${p.id}" ${S&&p.id===S.id?'selected':''}>${esc(p.meta.label)} #${esc(p.meta.number)} · ${esc(p.meta.date||'no date')}${p.meta.title?' · '+esc(p.meta.title):''}</option>`).join('')||'<option>No practices this season</option>';}
 function openPractice(id){if(!LIB[id])return;S=LIB[id];saveLocal();renderAll(true);}
 async function newPractice(givenTitle){if(!seasonEditable()){toast('This season is archived. Start a new season to add practices.');return;}const list=sorted();const n=list.length?Math.max(...list.map(p=>num(p.meta.number)))+1:1;
@@ -1378,9 +1448,97 @@ function drills(){if(!Array.isArray(ST.drills))ST.drills=[];return ST.drills;}
 function drillFind(name){const n=(name||'').trim().toLowerCase();return n?drills().find(d=>d.name.toLowerCase()===n):null;}
 function drillUses(){const u={};Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{const d=l.drillId&&drills().find(x=>x.id===l.drillId)||drillFind(l.text);if(d){u[d.id]=(u[d.id]||0)+1;}})));return u;}
 function drillsFromPractices(){Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{const name=(l.text||'').trim();if(!name)return;let d=drillFind(name);if(!d){d={id:uid(),name,cat:b.cat||'',focus:b.focus||'',sub:l.sub||'',obj:l.obj||'',...(l.luceo?{luceo:l.luceo}:{})};drills().push(d);}if(!l.drillId)l.drillId=d.id;})));}
-function drillSync(i,j){const b=S.blocks[i],l=b.lines[j];const d=l.drillId&&drills().find(x=>x.id===l.drillId);if(!d)return;if(b.cat)d.cat=b.cat;if(b.focus)d.focus=b.focus;if(l.sub)d.sub=l.sub;if(l.obj)d.obj=l.obj;}
+const drillOf=l=>l.drillId&&drills().find(x=>x.id===l.drillId)||drillFind(l.text);
+const drillMedia=d=>{if(!d.media)d.media={diagram:null,clips:[]};if(!Array.isArray(d.media.clips))d.media.clips=[];return d.media;};
+const drillHasMedia=l=>{const d=drillOf(l);return !!(d&&d.media&&((d.media.diagram&&d.media.diagram.strokes.length)||(d.media.clips||[]).length));};
+let DE=null; /* {di} drill editor state */
+function drillEditOpen(di,preset){document.querySelectorAll('.drill-ed').forEach(x=>x.remove());const isNew=di==null;const d=isNew?{id:uid(),name:(preset||{}).name||'',cat:(preset||{}).cat||'',focus:(preset||{}).focus||'',sub:'',obj:'',media:{diagram:null,clips:[]}}:drills()[di];const onSave=(preset||{}).onSave;if(!d)return;drillMedia(d);DE={di,d,isNew};
+  const ov=document.createElement('div');ov.className='dlg-ov drill-ed';const m=d.media;const dg=m.diagram&&m.diagram.strokes.length;
+  ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:560px;max-height:92vh;overflow:auto"><div class="dlg-t">${isNew?'New drill':'Drill'}</div>
+    <div class="de-step"><div class="de-n">1</div><div class="de-b"><label class="lbl">Name</label><input type="text" id="deName" value="${esc(d.name)}" placeholder="Shell 4v4, Form shooting, 3-man weave"><div class="hint">What you call it on the floor. This is what you type into a block.</div></div></div>
+    <div class="de-step"><div class="de-n">2</div><div class="de-b"><label class="lbl">Show it <span class="de-opt">optional</span></label>
+      <div class="tf-row"><button class="btn btn-secondary btn-sm" id="deDraw">${dg?'Edit diagram':'Draw a diagram'}</button><label class="btn btn-secondary btn-sm">Upload video<input type="file" accept="video/*" style="display:none" id="deVid"></label><button class="btn btn-secondary btn-sm" id="deLink">Add a link</button></div>
+      <div id="deMedia">${drillMediaHtml(d)}</div>
+      <div class="hint">A diagram on the court, a clip from your phone, or a link to YouTube, Hudl or Drive. In Manage the drill name becomes a link that opens it.</div></div></div>
+    <div class="de-step"><div class="de-n">3</div><div class="de-b"><label class="lbl">Category <span class="de-opt">optional</span></label><div class="cb"><input type="text" id="deCat" value="${esc(d.cat)}" placeholder="Offense, Defense, Transition, Skill"></div>
+      <div class="hint"><b>What is this drill for?</b> The broad subject. Track adds up minutes by category, so over a season you see the balance: how much offense vs defense vs skill work your team got.</div></div></div>
+    <div class="de-step"><div class="de-n">4</div><div class="de-b"><label class="lbl">Focus <span class="de-opt">optional</span></label><div class="cb"><input type="text" id="deFoc" value="${esc(d.focus)}" placeholder="Shooting, PNR coverage, Closeouts" ${d.cat?'':'disabled'}></div>
+      <div class="hint">A specific aspect of the category. Track shows which focuses got time this week and which have gone cold, so you can plan the next practice around what has been missed.</div></div></div>
+    <div class="de-step"><div class="de-n">5</div><div class="de-b"><label class="lbl">Sub-focus <span class="de-opt">optional</span></label><div class="cb"><input type="text" id="deSub" value="${esc(d.sub)}" placeholder="Form shooting, Catch and shoot" ${d.cat&&d.focus?'':'disabled'}></div>
+      <div class="hint">A specific type within the focus, the finest grain Track reports on. Example: <b>Offense › Shooting › Form shooting</b>.</div></div></div>
+    <div class="de-step"><div class="de-n">6</div><div class="de-b"><label class="lbl">Objective cue <span class="de-opt">optional</span></label><input type="text" id="deObj" value="${esc(d.obj||'')}" placeholder="6 stops in a row"><div class="hint">Short. Fills the Objective column when you pick this drill in a block.</div></div></div>
+    <div class="dlg-b">${isNew?'':`<button class="btn btn-ghost btn-sm btn-danger" data-r="del">Delete drill</button><span style="flex:1"></span>`}<button class="btn btn-secondary btn-sm" data-r="0">Cancel</button><button class="btn btn-primary btn-sm" data-r="1">${isNew?'Create drill':'Save'}</button></div></div>`;
+  const done=()=>{ov.remove();DE=null;document.removeEventListener('keydown',key);};const key=e=>{if(e.key==='Escape')done();};document.addEventListener('keydown',key);
+  const cat=ov.querySelector('#deCat'),foc=ov.querySelector('#deFoc'),sub=ov.querySelector('#deSub');
+  const gate=()=>{foc.disabled=!cat.value.trim();if(foc.disabled)foc.value='';sub.disabled=!(cat.value.trim()&&foc.value.trim());if(sub.disabled)sub.value='';};
+  cbAttach(cat,{items:()=>cats().map(l=>({label:l})),onPick:r=>{cat.value=r.label;gate();foc.focus();},onCommit:gate});
+  cbAttach(foc,{items:()=>focuses(cat.value.trim()).map(l=>({label:l})),onPick:r=>{foc.value=r.label;gate();sub.focus();},onCommit:gate,empty:'Type a focus'});
+  cbAttach(sub,{items:()=>subs(cat.value.trim(),foc.value.trim()).map(l=>({label:l})),onPick:r=>{sub.value=r.label;},empty:'Type a sub-focus'});
+  cat.addEventListener('input',gate);foc.addEventListener('input',gate);
+  const commit=()=>{d.name=ov.querySelector('#deName').value.trim();d.cat=cat.value.trim();d.focus=foc.value.trim();d.sub=sub.value.trim();d.obj=ov.querySelector('#deObj').value.trim();};
+  const save=()=>{commit();if(!d.name){ov.querySelector('#deName').focus();toast('Give the drill a name.');return false;}const dup=drillFind(d.name);if(dup&&dup.id!==d.id){toast('A drill with that name already exists. Merge them instead.');return false;}
+    if(d.cat)taxEnsure(d.cat,d.focus,d.sub);if(isNew&&!drills().includes(d))drills().push(d);
+    if(!isNew){Object.values(LIB).forEach(p=>{let h=false;(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id){if(l.text!==d.name||l.sub!==(d.sub||'')){l.text=d.name;l.sub=d.sub||'';h=true;}}}));if(h)dbSavePractice(p);});}
+    return true;};
+  DE.oldName=d.name;
+  ov.querySelector('#deDraw').onclick=()=>{commit();if(!m.diagram)m.diagram={strokes:[],full:false,pucks:{},v:2};const keep=isNew;ov.remove();CT.targetBack=()=>{if(keep&&!drills().includes(d))drills().push(d);drillEditOpen(drills().indexOf(d));};openCourt({title:d.name||'New drill',source:'Your drills'},m.diagram);};
+  ov.querySelector('#deVid').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const c=await saveClipFile(f,'drill');if(c){m.clips.push(c);ov.querySelector('#deMedia').innerHTML=drillMediaHtml(d);}});
+  ov.querySelector('#deLink').onclick=async()=>{const url=await askText('Link to the drill',{placeholder:'https://youtube.com/… or a Drive / Hudl link',okLabel:'Add link'});if(!url)return;if(!/^https?:\/\//.test(url)){toast('Paste a full link starting with https://');return;}m.clips.push({id:uid(),kind:'link',url,title:url.replace(/^https?:\/\/(www\.)?/,'').slice(0,40)});ov.querySelector('#deMedia').innerHTML=drillMediaHtml(d);};
+  ov.addEventListener('click',e=>{const x=e.target.closest('[data-clip-del]');if(x){m.clips.splice(+x.dataset.clipDel,1);ov.querySelector('#deMedia').innerHTML=drillMediaHtml(d);}const pl=e.target.closest('[data-clip-play]');if(pl){playClipObj(m.clips[+pl.dataset.clipPlay]);}const dd=e.target.closest('[data-diag-del]');if(dd){m.diagram=null;ov.querySelector('#deMedia').innerHTML=drillMediaHtml(d);ov.querySelector('#deDraw').textContent='Draw a diagram';}});
+  ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=()=>{if(!save())return;done();if(onSave)onSave(d);else{up('settings',true);Object.values(LIB).forEach(p=>{if(p.blocks.some(b=>b.lines.some(l=>l.drillId===d.id)))dbSavePractice(p);});}toast(isNew?'Drill created: '+d.name:'Saved');};
+  const del=ov.querySelector('[data-r="del"]');if(del)del.onclick=()=>{done();drillDel(di);};
+  ov.querySelectorAll('input[type=text]').forEach(x=>x.addEventListener('keydown',e=>{if(e.key==='Enter'&&!x.dataset.cb&&!x._cb){e.preventDefault();ov.querySelector('[data-r="1"]').click();}}));
+  document.body.appendChild(ov);ov.querySelector('#deName').focus();}
+function drillMediaHtml(d){const m=drillMedia(d);const dg=m.diagram&&m.diagram.strokes.length;if(!dg&&!m.clips.length)return '';
+  return `<div class="de-media">${dg?`<div class="de-m"><span>Diagram · ${m.diagram.strokes.length} strokes</span><button class="btn btn-ghost btn-sm btn-danger" data-diag-del title="Remove diagram">✕</button></div>`:''}${m.clips.map((c,i)=>`<div class="de-m"><button class="lk-btn" data-clip-play="${i}">${c.kind==='link'?'↗ ':'▶ '}${esc(c.title||'Clip')}</button><button class="btn btn-ghost btn-sm btn-danger" data-clip-del="${i}" title="Remove">✕</button></div>`).join('')}</div>`;}
+async function saveClipFile(f,prefix){if(!BK.dir){const go=await ask('Clips are stored in the shared backup folder, which is not set up yet. Set it up now?','Set up folder');if(go)bkOpenSetup();return null;}
+  if(BK.perm!=='granted'){await bkReconnect();if(BK.perm!=='granted')return null;}
+  try{const dir=await BK.dir.getDirectoryHandle('clips',{create:true});const safe=f.name.replace(/[^\w.\-]+/g,'_');const name=`${prefix||'clip'}-${Date.now().toString(36)}-${safe}`;const fh=await dir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(f);await w.close();toast('Clip saved to '+BK.dir.name+'/clips');return {id:uid(),kind:'file',name,title:f.name.replace(/\.[^.]+$/,''),size:f.size};}
+  catch(e){toast('Could not save the clip: '+(e.message||'error'));return null;}}
+async function playClipObj(c){if(!c)return;if(c.kind==='link'){window.open(c.url,'_blank','noopener');return;}
+  if(!BK.dir){toast('Connect the shared backup folder to play clips.');return;}if(BK.perm!=='granted'){await bkReconnect();if(BK.perm!=='granted')return;}
+  try{const dir=await BK.dir.getDirectoryHandle('clips');const fh=await dir.getFileHandle(c.name);const file=await fh.getFile();const url=URL.createObjectURL(file);
+    const ov=document.createElement('div');ov.className='dlg-ov';ov.innerHTML=`<div class="dlg vid"><div class="row" style="justify-content:space-between;margin-bottom:8px"><div class="dlg-t" style="margin:0">${esc(c.title||'Clip')}</div><button class="btn btn-ghost btn-sm" data-r="0">Close</button></div><video controls autoplay playsinline src="${url}"></video></div>`;
+    ov.addEventListener('click',e=>{if(e.target.closest('[data-r="0"]')||e.target===ov){ov.remove();URL.revokeObjectURL(url);}});document.body.appendChild(ov);}
+  catch(e){toast('Clip not found in '+BK.dir.name+'/clips. Has Drive finished syncing?');}}
+const playMedia=p=>{if(!p.media)p.media={diagram:null,clips:[]};if(!Array.isArray(p.media.clips))p.media.clips=[];return p.media;};
+const playHasMedia=p=>!!(p&&p.media&&((p.media.diagram&&p.media.diagram.strokes.length)||(p.media.clips||[]).length));
+function playLoc(id){for(let si=0;si<ST.playbook.length;si++){const sec=ST.playbook[si];for(let gi=0;gi<sec.groups.length;gi++){const pi=sec.groups[gi].plays.findIndex(p=>p.id===id);if(pi>=0)return {si,gi,pi,p:sec.groups[gi].plays[pi],sec};}}return null;}
+function playEditOpen(id,preset){document.querySelectorAll('.play-ed').forEach(x=>x.remove());const isNew=!id;const loc=isNew?null:playLoc(id);if(!isNew&&!loc)return;const p=isNew?((preset||{})._p||{id:uid(),name:(preset||{}).name||'',desc:'',media:{diagram:null,clips:[]}}):loc.p;playMedia(p);if(p.desc==null)p.desc='';
+  const secName=isNew?((preset||{}).si!=null&&ST.playbook[preset.si]?ST.playbook[preset.si].name:''):loc.sec.name;const onSave=(preset||{}).onSave;const m=p.media;const dg=m.diagram&&m.diagram.strokes.length;
+  const ov=document.createElement('div');ov.className='dlg-ov play-ed';
+  ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:560px;max-height:92vh;overflow:auto"><div class="dlg-t">${isNew?'New play':'Play'}</div>
+    <div class="de-step"><div class="de-n">1</div><div class="de-b"><label class="lbl">Name</label><input type="text" id="peName" value="${esc(p.name)}" placeholder="Horns Chest, Fist, Zipper"><div class="hint">The call. This is what goes on the rail and what you tally.</div></div></div>
+    <div class="de-step"><div class="de-n">2</div><div class="de-b"><label class="lbl">Section</label><div class="cb"><input type="text" id="peSec" value="${esc(secName)}" placeholder="Jungle, Turbo, SOB, BOB, ATO"></div><div class="hint">The heading it sits under on the rail. Group plays the way you call them: <b>Jungle</b> (half-court sets), <b>Turbo</b> (early offense), <b>SOB</b>, <b>BOB</b>, <b>ATO</b>, <b>Zone</b>. Type a new one to create it.</div></div></div>
+    <div class="de-step"><div class="de-n">3</div><div class="de-b"><label class="lbl">Show it <span class="de-opt">optional</span></label>
+      <div class="tf-row"><button class="btn btn-secondary btn-sm" id="peDraw">${dg?'Edit diagram':'Draw the play'}</button><label class="btn btn-secondary btn-sm">Upload video<input type="file" accept="video/*" style="display:none" id="peVid"></label><button class="btn btn-secondary btn-sm" id="peLink">Add a link</button></div>
+      <div id="peMedia">${drillMediaHtml(p)}</div>
+      <div class="hint">A diagram on the court, a clip, or a link to YouTube, Hudl or Drive. In Manage the call on the rail becomes a link that opens it.</div></div></div>
+    <div class="de-step"><div class="de-n">4</div><div class="de-b"><label class="lbl">Description <span class="de-opt">optional</span></label><textarea id="peDesc" rows="4" placeholder="Entry, reads, counters. What the players need to know.">${esc(p.desc)}</textarea></div></div>
+    <div class="dlg-b">${isNew?'':`<button class="btn btn-ghost btn-sm btn-danger" data-r="del">Delete play</button><span style="flex:1"></span>`}<button class="btn btn-secondary btn-sm" data-r="0">Cancel</button><button class="btn btn-primary btn-sm" data-r="1">${isNew?'Create play':'Save'}</button></div></div>`;
+  const done=()=>{ov.remove();document.removeEventListener('keydown',key);};const key=e=>{if(e.key==='Escape')done();};document.addEventListener('keydown',key);
+  const sec=ov.querySelector('#peSec');cbAttach(sec,{items:()=>ST.playbook.map(x=>({label:x.name})).filter(x=>x.label),onPick:r=>{sec.value=r.label;}});
+  const commit=()=>{p.name=ov.querySelector('#peName').value.trim();p.desc=ov.querySelector('#peDesc').value.trim();};
+  const save=()=>{commit();const sn=sec.value.trim();if(!p.name){ov.querySelector('#peName').focus();toast('Give the play a name.');return false;}if(!sn){sec.focus();toast('Pick a section so the play has a home on the rail.');return false;}
+    const dup=playsAll().find(x=>x.name.toLowerCase()===p.name.toLowerCase()&&x.id!==p.id);if(dup){toast('A play with that name already exists.');return false;}
+    let si=ST.playbook.findIndex(x=>x.name.toLowerCase()===sn.toLowerCase());if(si<0){ST.playbook.push({id:uid(),name:sn,groups:[{id:uid(),name:'',plays:[]}]});si=ST.playbook.length-1;}
+    const cur=playLoc(p.id);if(cur&&cur.si!==si){cur.sec.groups[cur.gi].plays.splice(cur.pi,1);}
+    if(!cur||cur.si!==si){if(!ST.playbook[si].groups.length)ST.playbook[si].groups.push({id:uid(),name:'',plays:[]});ST.playbook[si].groups[0].plays.push(p);}
+    if(!ST.menu.includes(p.id))ST.menu.push(p.id);return true;};
+  ov.querySelector('#peDraw').onclick=()=>{commit();if(!m.diagram)m.diagram={strokes:[],full:false,pucks:{},v:2};ov.remove();CT.targetBack=()=>{if(isNew)playEditOpen(null,Object.assign({},preset||{},{name:p.name,_p:p}));else playEditOpen(p.id);};openCourt({title:p.name||'New play',source:'Your playbook'},m.diagram);};
+  ov.querySelector('#peVid').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const c=await saveClipFile(f,'play');if(c){m.clips.push(c);ov.querySelector('#peMedia').innerHTML=drillMediaHtml(p);}});
+  ov.querySelector('#peLink').onclick=async()=>{const url=await askText('Link to the play',{placeholder:'https://youtube.com/… or a Drive / Hudl link',okLabel:'Add link'});if(!url)return;if(!/^https?:\/\//.test(url)){toast('Paste a full link starting with https://');return;}m.clips.push({id:uid(),kind:'link',url,title:url.replace(/^https?:\/\/(www\.)?/,'').slice(0,40)});ov.querySelector('#peMedia').innerHTML=drillMediaHtml(p);};
+  ov.addEventListener('click',e=>{const x=e.target.closest('[data-clip-del]');if(x){m.clips.splice(+x.dataset.clipDel,1);ov.querySelector('#peMedia').innerHTML=drillMediaHtml(p);}const pl=e.target.closest('[data-clip-play]');if(pl){playClipObj(m.clips[+pl.dataset.clipPlay]);}const dd=e.target.closest('[data-diag-del]');if(dd){m.diagram=null;ov.querySelector('#peMedia').innerHTML=drillMediaHtml(p);ov.querySelector('#peDraw').textContent='Draw the play';}});
+  ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=()=>{if(!save())return;done();persist('settings');if(onSave)onSave(p);else up('settings',true);renderLibPane();toast(isNew?'Play created: '+p.name:'Saved');};
+  const del=ov.querySelector('[data-r="del"]');if(del)del.onclick=()=>{done();const l=playLoc(p.id);if(l)pbDelPlay(l.si,l.gi,l.pi);};
+  ov.querySelectorAll('input[type=text]').forEach(x=>x.addEventListener('keydown',e=>{if(e.key==='Enter'&&!x.dataset.cb&&!x._cb){e.preventDefault();ov.querySelector('[data-r="1"]').click();}}));
+  document.body.appendChild(ov);ov.querySelector(p.name?'#peSec':'#peName').focus();}
+function lineAddDrill(i,d){const b=S.blocks[i];if(!b)return;b.lines.push({tag:'',text:'',sub:'',obj:'',players:[]});drillApply(i,b.lines.length-1,d);}
+function drillNewForBlock(i,name){const b=S.blocks[i];if(!b)return;drillEditOpen(null,{name:name||'',cat:b.cat||'',focus:b.focus||'',onSave:d=>lineAddDrill(i,d)});}
+function drillEditFromLine(i,j){const l=S.blocks[i].lines[j];let d=drillOf(l);if(!d){if(!(l.text||'').trim()){drillNewForBlock(i);S.blocks[i].lines.splice(j,1);return;}drillCommit(i,j);d=drillOf(l);}drillEditOpen(drills().indexOf(d));}
+function drillSync(i,j){const b=S.blocks[i],l=b.lines[j];const d=l.drillId&&drills().find(x=>x.id===l.drillId);if(!d)return;if(b.cat&&!d.cat){d.cat=b.cat;d.focus=b.focus||'';}if(l.obj)d.obj=l.obj;}
 function drillCommit(i,j){const b=S.blocks[i],l=b.lines[j];const name=(l.text||'').trim();if(!name){l.drillId='';return;}let d=drillFind(name);if(!d){d={id:uid(),name,cat:b.cat||'',focus:b.focus||'',sub:l.sub||'',obj:l.obj||''};drills().push(d);toast('Added to your drills: '+name);}l.drillId=d.id;l.text=d.name;if(!l.luceo&&d.luceo)l.luceo=d.luceo;drillSync(i,j);persist('settings');}
-function drillApply(i,j,d){const b=S.blocks[i],l=b.lines[j];l.text=d.name;l.drillId=d.id;if(!l.sub&&d.sub)l.sub=d.sub;if(!l.obj&&d.obj)l.obj=d.obj;if(d.luceo)l.luceo=d.luceo;if(!b.cat&&d.cat){b.cat=d.cat;b.focus=d.focus||'';}else if(b.cat===d.cat&&!b.focus&&d.focus)b.focus=d.focus;taxEnsure(b.cat,b.focus,l.sub);persist('settings');up('practice',true);}
+function drillApply(i,j,d){const b=S.blocks[i],l=b.lines[j];l.text=d.name;l.drillId=d.id;l.sub=d.sub||'';if(!l.obj&&d.obj)l.obj=d.obj;if(d.luceo)l.luceo=d.luceo;if(!b.cat&&d.cat){b.cat=d.cat;b.focus=d.focus||'';}else if(b.cat===d.cat&&!b.focus&&d.focus)b.focus=d.focus;taxEnsure(b.cat,b.focus,l.sub);persist('settings');up('practice',true);}
 function setCat(i,v){const b=S.blocks[i];v=(v||'').trim();if(b.cat===v)return;b.cat=v;b.focus='';taxEnsure(v);persist('settings');up('practice',true);}
 function setFocus(i,v){const b=S.blocks[i];v=(v||'').trim();if(b.focus===v)return;b.focus=v;taxEnsure(b.cat,v);b.lines.forEach((l,j)=>drillSync(i,j));persist('settings');up('practice',true);}
 function setSub(i,j,v){const b=S.blocks[i],l=b.lines[j];v=(v||'').trim();if(l.sub===v)return;l.sub=v;if(b.cat&&b.focus&&v)taxEnsure(b.cat,b.focus,v);drillSync(i,j);persist('settings');up('practice',true);}
@@ -1393,7 +1551,7 @@ function cbAttach(input,cfg){if(input._cb)return;input._cb=true;input.setAttribu
   input.addEventListener('focus',()=>{idx=-1;render();});input.addEventListener('input',()=>{idx=-1;render();});
   input.addEventListener('keydown',e=>{const n=rows.length;if(e.key==='ArrowDown'){if(list.hidden)render();idx=Math.min(n-1,idx+1);render();e.preventDefault();}else if(e.key==='ArrowUp'){idx=Math.max(0,idx-1);render();e.preventDefault();}
     else if(e.key==='Enter'){e.preventDefault();if(idx>=0&&!list.hidden){pick(idx);return;}const ql=input.value.trim().toLowerCase();const ex=rows.findIndex(r=>!r.create&&r.label.toLowerCase()===ql);if(ex>=0){pick(ex);return;}const cr=rows.findIndex(r=>r.create);if(cr>=0){pick(cr);return;}list.hidden=true;input.blur();}
-    else if(e.key==='Escape'){list.hidden=true;}});
+    else if(e.key==='Escape'){if(!list.hidden){list.hidden=true;e.stopPropagation();}}});
   list.addEventListener('mousedown',e=>{const it=e.target.closest('.cb-it');if(it&&it.dataset.k!=null){e.preventDefault();pick(+it.dataset.k);}});
   input.addEventListener('blur',()=>{list.hidden=true;if(cfg.onCommit)cfg.onCommit(input.value);});}
 function cbInit(root){(root||document).querySelectorAll('input[data-cb]').forEach(inp=>{const [kind,a,b]=inp.dataset.cb.split('|');const i=+a,j=+b;
@@ -1402,6 +1560,9 @@ function cbInit(root){(root||document).querySelectorAll('input[data-cb]').forEac
   else if(kind==='sub')cbAttach(inp,{items:()=>subs(S.blocks[i].cat,S.blocks[i].focus).map(l=>({label:l})),onPick:r=>setSub(i,j,r.label),onCommit:v=>setSub(i,j,v),allowCreate:!!(S.blocks[i].cat&&S.blocks[i].focus),empty:'Optional. A finer tag under the focus.'});
   else if(kind==='drill')cbAttach(inp,{items:()=>{const bk=S.blocks[i];const u=drillUses();return drills().slice().sort((x,y)=>((y.cat===bk.cat&&y.focus===bk.focus)-(x.cat===bk.cat&&x.focus===bk.focus))||((u[y.id]||0)-(u[x.id]||0))||x.name.localeCompare(y.name)).map(d=>({label:d.name,meta:[d.cat,d.focus].filter(Boolean).join(' › ')||'untagged',d}));},
     onPick:r=>{if(r.create)setDrillText(i,j,r.label);else drillApply(i,j,r.d);},onCommit:v=>setDrillText(i,j,v),empty:'Type a drill name. It is saved for next time.'});
+  else if(kind==='drillpick'){cbAttach(inp,{items:()=>{const bk=S.blocks[i];return drills().slice().sort((x,y)=>((y.cat===bk.cat&&y.focus===bk.focus)-(x.cat===bk.cat&&x.focus===bk.focus))||x.name.localeCompare(y.name)).map(d=>({label:d.name,meta:[d.cat,d.focus].filter(Boolean).join(' › ')||'uncategorized',d}));},
+    onPick:r=>{if(r.create)drillNewForBlock(i,r.label);else lineAddDrill(i,r.d);},onCommit:v=>{v=v.trim();if(!v)return;const d=drillFind(v);if(d)lineAddDrill(i,d);else drillNewForBlock(i,v);},empty:'Type a drill name'});}
+  else if(kind==='play'){const si=i;cbAttach(inp,{items:()=>{const m=new Set(menu());return (ST.playbook[si]||{groups:[]}).groups.flatMap(g=>g.plays).filter(p=>!m.has(p.id)).map(p=>({label:p.name,p}));},onPick:r=>menuAdd(si,r),onCommit:v=>{if(v.trim())menuAdd(si,{label:v,create:true});},empty:'Type a play name'});}
   else if(kind==='section')cbAttach(inp,{items:()=>ST.playbook.map(x=>({label:x.name})).filter(x=>x.label),onPick:r=>{inp.value=r.label;}});});}
 const focuses=c=>{const k=ST.taxonomy.find(x=>x.name===c);return k?k.focuses.map(f=>f.name):[];};
 const subs=(c,f)=>{const k=ST.taxonomy.find(x=>x.name===c);const g=k&&k.focuses.find(x=>x.name===f);return g?g.subs:[];};
@@ -1480,6 +1641,9 @@ function renderEditor0(){
 
       </div>
       <div class="f"><label class="lbl">Theme / question / quote / pillars</label><input type="text" value="${esc(m.focus)}" placeholder="15/15? · Awareness · Connection · Toughness" oninput="S.meta.focus=this.value;up()"><div class="hint">Shows as the banner under the practice title.</div></div>
+      <div class="f" style="margin-top:14px;margin-bottom:0"><label class="lbl">Templates</label><div class="hint" style="margin:0">Start today's plan from a saved structure: blocks, drills, key focus and theme are copied in and the drills join your library. Results stay empty. Edit anything after.</div>
+        ${templatesHtml()}
+        <button class="btn btn-ghost btn-sm" onclick="saveTemplate()" ${S.blocks.length?'':'disabled'}>Save this practice as a template</button></div>
     </div>
   </details>
 
@@ -1496,13 +1660,9 @@ function renderEditor0(){
   </details>
 
   <details class="sec">
-    <summary><span class="chev">›</span><span class="name">Play menu</span><span class="meta">${menu().length} on rail · ${menuShared()?'shared':'custom'}</span></summary>
+    <summary><span class="chev">›</span><span class="name">Play menu</span><span class="meta">${menu().length} on rail</span></summary>
     <div class="body">
-      <div class="row" style="margin-bottom:10px;justify-content:space-between">
-        <div class="hint" style="margin:0">${menuShared()?'Shared menu. Changes apply to every practice.':'Custom menu for this practice only.'}</div>
-        ${menuShared()?`<button class="btn btn-ghost btn-sm" onclick="S.menu=[...ST.menu];up('practice',true)">Customize</button>`:`<button class="btn btn-ghost btn-sm" onclick="S.menu=null;up('practice',true)">Revert to shared</button>`}
-      </div>
-      <div class="row" style="margin-bottom:10px"><input type="text" id="menuQ" placeholder="Search plays, or type a new one to create it" value="${esc(MQ)}" oninput="MQ=this.value;renderMenuList()"><button class="btn btn-ghost btn-sm" onclick="MQ='';up('practice',true)" ${MQ?'':'disabled'}>Clear</button></div>
+      <div class="hint" style="margin-bottom:8px">The rail on this practice's sheet. Starts empty each practice; add the calls you will run today, one per row, under their section. Type a play that is not in your playbook yet and it is created there.</div>
       <div id="menuList">${menuListHtml()}</div>
     </div>
   </details>
@@ -1572,13 +1732,12 @@ function blockEd(b,i){
       <div class="f" style="margin-bottom:0"><label class="lbl">Side note</label><input type="text" value="${esc(b.note)}" placeholder="Who's on offense, constraints, shot clock" oninput="S.blocks[${i}].note=this.value;up()"></div>
       <div class="lines-hd"><span class="lbl" style="margin:0">Drills</span><span class="hint" style="margin:0">${b.lines.length}</span></div>
       <div class="lines">${b.lines.map((l,j)=>`<div class="ln">
-        <div class="ln-main"><div class="cb"><input class="ln-desc" type="text" data-cb="drill|${i}|${j}" value="${esc(l.text)}" placeholder="Drill name. Type to search or create"></div><button class="btn btn-ghost btn-sm icon ln-imp" onclick="drillImportOpen(${i},${j})" title="Import from Luceo Drill Library" aria-label="Import from Luceo Drill Library"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5"/><path d="M2.5 11.5v1.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.5"/></svg></button><button class="ln-x" onclick="S.blocks[${i}].lines.splice(${j},1);up('practice',true)" title="Remove drill">✕</button></div>
+        <div class="ln-main"><button class="ln-name" onclick="drillEditFromLine(${i},${j})" title="Open this drill">${esc(l.text)||'<span class="hint" style="margin:0">Untitled drill</span>'}${drillHasMedia(l)?'<span class="dm">◉</span>':''}</button><button class="ln-x" onclick="S.blocks[${i}].lines.splice(${j},1);up('practice',true)" title="Remove drill">✕</button></div>
         <div class="ln-meta two">
-          <label class="ln-f"><div class="cb"><input type="text" data-cb="sub|${i}|${j}" value="${esc(l.sub||'')}" placeholder="Sub-focus (optional)" aria-label="Sub-focus"></div></label>
           <label class="ln-f"><input type="text" value="${esc(l.obj||'')}" placeholder="Objective" aria-label="Objective" oninput="S.blocks[${i}].lines[${j}].obj=this.value;drillSync(${i},${j});up()" onblur="persist('settings')"></label>
-        </div>
-        <button class="grp-btn ${(l.players||[]).length?'on':''}" onclick="openGroupPicker(${i},${j})">${(l.players||[]).length?`<span class="grp-avs">${(l.players||[]).slice(0,6).map(id=>headshotHtml(id,'xs')).join('')}</span><span>${esc(groupLabel(l))}</span>`:'<span class="grp-ph">Player group · whole team</span>'}</button></div>`).join('')}</div>
-      <button class="ln-add" onclick="S.blocks[${i}].lines.push({tag:'',text:'',sub:'',obj:'',players:[]});up('practice',true)">+ Add drill</button>
+          <button class="grp-btn ${(l.players||[]).length?'on':''}" onclick="openGroupPicker(${i},${j})">${(l.players||[]).length?`<span class="grp-avs">${(l.players||[]).slice(0,6).map(id=>headshotHtml(id,'xs')).join('')}</span><span>${esc(groupLabel(l))}</span>`:'<span class="grp-ph">Player group · whole team</span>'}</button>
+        </div></div>`).join('')}</div>
+      <div class="ln-addrow"><div class="cb"><input type="text" data-cb="drillpick|${i}" placeholder="${drills().length?'Add a drill from your library':'Search or create a drill'}"></div><button class="btn btn-secondary btn-sm" onclick="drillNewForBlock(${i})">New drill</button></div>
     </div></div>`;
 }
 function groupChipsHtml(){const gs=practiceGroups(S);return `<div class="gchips"><span class="lbl" style="margin:0 6px 0 0">Tallying for</span><button class="gchip ${TG===''?'on':''}" onclick="TG='';up('practice',true)">Whole team</button>${gs.map(g=>`<button class="gchip ${TG===g?'on':''}" onclick="TG=${JSON.stringify(g).replace(/"/g,'&quot;')};up('practice',true)">${esc(g)}</button>`).join('')}</div>`;}
@@ -1591,17 +1750,16 @@ function callsBodyHtml(){return `
       ${groupChipsHtml()}
       ${railsView().length?railsView().map(sec=>`<div class="lbl" style="margin:10px 0 4px">${esc(sec.name)||'Untitled'}</div><div class="calls">${sec.plays.map(callRowHtml).join('')}</div>`).join(''):'<div class="hint">Nothing on the play menu for this practice.</div>'}
 `;}
-function menuListHtml(){const q=MQ.trim().toLowerCase();const m=new Set(menu());let any=false;
-  const html=ST.playbook.map(sec=>{const secHit=q&&sec.name.toLowerCase().includes(q);
-    const groups=sec.groups.map(g=>{const gHit=q&&g.name.toLowerCase().includes(q);const plays=g.plays.filter(p=>!q||secHit||gHit||p.name.toLowerCase().includes(q));return {g,plays};}).filter(x=>x.plays.length);
-    const ids=groups.flatMap(x=>x.plays.map(p=>p.id));if(!ids.length)return '';any=true;const onN=ids.filter(x=>m.has(x)).length;
-    return `<div class="menu-sec"><div class="row" style="justify-content:space-between;margin-bottom:4px"><span class="lbl" style="margin:0">${esc(sec.name)||'Untitled'} <span style="color:var(--ink-faint)">${onN}/${ids.length}</span></span>
-      <span><button class="btn btn-ghost btn-sm" onclick="menuSet(${JSON.stringify(ids).replace(/"/g,'&quot;')},true)">All</button><button class="btn btn-ghost btn-sm" onclick="menuSet(${JSON.stringify(ids).replace(/"/g,'&quot;')},false)">None</button></span></div>
-      <div class="chips">${groups.flatMap(x=>x.plays).map(p=>`<label class="chip ${m.has(p.id)?'on':''}"><input type="checkbox" ${m.has(p.id)?'checked':''} onchange="menuToggle('${p.id}',this.checked)">${esc(p.name)}</label>`).join('')}</div></div>`;}).join('');
-  const q0=MQ.trim();const exact=q0&&playsAll().some(p=>p.name.toLowerCase()===q0.toLowerCase());
-  const create=q0&&!exact?`<button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="playCreateOpen(${JSON.stringify(q0).replace(/"/g,'&quot;')})">+ Create play “${esc(q0)}”</button>`:'';
-  if(!playsAll().length)return `<div class="hint">No plays yet. Type a play name above and create it. Each play you add here is saved to your playbook for every practice after this one.</div>${create}`;
-  return (any?html:`<div class="hint">No plays match "${esc(MQ)}".</div>`)+create;}
+function menuListHtml(){const m=new Set(menu());
+  const secs=ST.playbook.map((sec,si)=>{const plays=sec.groups.flatMap(g=>g.plays);const on=plays.filter(p=>m.has(p.id));
+    return `<div class="mn-sec"><div class="mn-h"><span class="lbl" style="margin:0">${esc(sec.name)||'Untitled section'}</span><span class="hint" style="margin:0">${on.length?on.length+' on rail':''}</span></div>
+      ${on.map(p=>`<div class="mn-row"><button class="mn-n ln-name" onclick="playEditOpen('${p.id}')" title="Open this play">${esc(p.name)}${playHasMedia(p)?'<span class="dm">◉</span>':''}</button><button class="x" onclick="menuToggle('${p.id}',false)" title="Take off the rail">✕</button></div>`).join('')}
+      <div class="mn-add"><div class="cb"><input type="text" data-cb="play|${si}" placeholder="${plays.length>on.length?'Add a play from '+esc(sec.name||'this section'):'Search or create a play'}"></div><button class="btn btn-secondary btn-sm" onclick="playNewForSection(${si})">New play</button></div></div>`;}).join('');
+  return `<div class="pb-add" style="margin-bottom:12px"><input type="text" placeholder="New section (Jungle, Turbo, SOB, BOB)" onkeydown="if(event.key==='Enter'&&this.value.trim()){pbAddSection(this.value);}"><button class="btn btn-ghost btn-sm" onclick="if(this.previousElementSibling.value.trim())pbAddSection(this.previousElementSibling.value)">Add section</button></div>`+
+    (secs||`<div class="hint">No play sections yet. Sections are the rail headings: group plays the way you call them (Jungle for half-court sets, Turbo for early offense, SOB, BOB, ATO, Zone).</div>`);}
+function renderMenuList(){const el=document.getElementById('menuList');if(el){el.innerHTML=menuListHtml();cbInit(el);}}
+function menuAdd(si,r){let p=r.create?null:r.p;if(!p){p=playsAll().find(x=>x.name.toLowerCase()===r.label.trim().toLowerCase());}if(!p){playNewForSection(si,r.label);return;}const m=menu();if(!m.includes(p.id))m.push(p.id);up('practice',true);refreshCalls();}
+function playNewForSection(si,name){playEditOpen(null,{si,name:name||'',onSave:p=>{const m=menu();if(!m.includes(p.id))m.push(p.id);up('practice',true);refreshCalls();}});}
 function playCreateOpen(name){const ov=document.createElement('div');ov.className='dlg-ov';const secs=ST.playbook.filter(x=>x.name);
   ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:460px"><div class="dlg-t">New play</div>
     <div class="f"><label class="lbl">Play name</label><input type="text" id="npName" value="${esc(name||'')}" placeholder="Horns Chest"></div>
@@ -1615,35 +1773,80 @@ function playCreateOpen(name){const ov=document.createElement('div');ov.classNam
     MQ='';done();toast(`${n} added to ${sn} and put on this rail`);up('settings',true);};
   ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=go;ov.querySelectorAll('input').forEach(x=>x.addEventListener('keydown',e=>{if(e.key==='Enter'&&!x.dataset.cb){e.preventDefault();go();}}));
   document.body.appendChild(ov);cbInit(ov);ov.querySelector(secs.length||!name?'#npSec':'#npSec').focus();if(!name)ov.querySelector('#npName').focus();}
-function renderMenuList(){const el=document.getElementById('menuList');if(el)el.innerHTML=menuListHtml();const c=document.querySelector('#menuQ + button');if(c)c.disabled=!MQ;}
 function openLibPane(){if(!isHead()){toast('Only the head coach manages drills and plays.');return;}setMode('build');document.getElementById('app').dataset.pane='lib';document.getElementById('kebab').open=false;renderLibPane();}
 function closeLibPane(){delete document.getElementById('app').dataset.pane;renderSheet();}
-function renderLibPane(){const el=document.getElementById('libpane');if(!el||document.getElementById('app').dataset.pane!=='lib')return;const u=drillUses();const list=drills().slice().sort((a,b)=>(a.cat||'').localeCompare(b.cat||'')||(a.focus||'').localeCompare(b.focus||'')||a.name.localeCompare(b.name));
+let DQ='';
+function drillRowsHtml(){const q=DQ.trim().toLowerCase();const hit=d=>!q||d.name.toLowerCase().includes(q)||(d.sub||'').toLowerCase().includes(q);
+  const row=d=>{const di=drills().indexOf(d);const m=d.media||{};const has=(m.diagram&&m.diagram.strokes&&m.diagram.strokes.length)||(m.clips||[]).length;return `<div class="dr-row"><button class="drn-b" onclick="drillEditOpen(${di})" title="${esc([d.sub,d.obj].filter(Boolean).join(' · '))}"><span>${esc(d.name)}</span>${d.sub?`<span class="ds">${esc(d.sub)}</span>`:''}${has?'<span class="dm" title="Has a diagram or clip">◉</span>':''}</button><span class="da"><button class="btn btn-ghost btn-sm" onclick="drillMergeOpen(${di})">Merge</button><button class="btn btn-ghost btn-sm btn-danger" onclick="drillDel(${di})" title="Delete drill">✕</button></span></div>`;};
+  const sorted_=list=>list.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  const addRow=(label,ph,fn)=>`<button class="add-lk" onclick="const f=this.nextElementSibling;f.classList.toggle('on');if(f.classList.contains('on'))f.querySelector('input').focus()">+ ${esc(label)}</button><div class="add-fm"><input type="text" placeholder="${esc(ph)}" onkeydown="if(event.key==='Enter'&&this.value.trim()){${fn}this.value);}else if(event.key==='Escape'){this.closest('.add-fm').classList.remove('on');}"><button class="btn btn-ghost btn-sm" onclick="const i=this.previousElementSibling;if(i.value.trim())${fn}i.value)">Add</button></div>`;
+  let out='';
+  ST.taxonomy.forEach((c,ci)=>{const cHit=!q||c.name.toLowerCase().includes(q);const cCount=drills().filter(d=>d.cat===c.name).length;
+    const focHtml=c.focuses.map((f,fi)=>{const fHit=cHit||f.name.toLowerCase().includes(q);const ds=sorted_(drills().filter(d=>d.cat===c.name&&d.focus===f.name&&(fHit||hit(d))));if(q&&!fHit&&!ds.length)return '';
+      return `<div class="tx-f"><div class="tx-fh"><span class="micro">Focus</span><input type="text" value="${esc(f.name)}" placeholder="Focus name" onchange="taxRenameFocus(${ci},${fi},this.value)"><span class="tx-cnt">${ds.length} drill${ds.length===1?'':'s'}</span><button class="tx-x" onclick="taxDelFocus(${ci},${fi})" title="Delete focus">✕</button></div>
+        <div class="tx-s"><span class="micro">Sub-focus</span><div class="chips">${f.subs.map((sb,si)=>`<span class="tx-sub">${esc(sb)}<button onclick="taxDelSub(${ci},${fi},${si})" title="Remove sub-focus">✕</button></span>`).join('')||'<span class="hint" style="margin:0">none yet</span>'}${addRow('Sub-focus','Form shooting, Catch and shoot',`taxAddSub(${ci},${fi},`)}</div></div>
+        <div class="tx-d"><span class="micro">Drills</span><div>${ds.map(row).join('')||'<div class="hint" style="margin:4px 0 0 6px">No drills here yet.</div>'}${addRow('Drill in '+(f.name||'this focus'),'Drill name',`drillCreateIn(${ci},${fi},`)}</div></div></div>`;}).join('');
+    if(q&&!cHit&&!focHtml)return;
+    out+=`<details class="tx-c" ${q?'open':''}><summary><span class="chev">›</span><span class="micro">Category</span><input type="text" value="${esc(c.name)}" placeholder="Category name" onclick="event.preventDefault();event.stopPropagation()" onchange="taxRenameCat(${ci},this.value)"><span class="tx-cnt">${c.focuses.length} focus${c.focuses.length===1?'':'es'} · ${cCount} drill${cCount===1?'':'s'}</span><button class="tx-x" onclick="event.preventDefault();taxDelCat(${ci})" title="Delete category">✕</button></summary>
+      <div class="body">${focHtml}<div style="margin:8px 0 0 6px">${addRow('Focus in '+(c.name||'this category'),'Shooting, PNR coverage, Closeouts',`taxAddFocus(${ci},`)}</div></div></details>`;});
+  const untagged=sorted_(drills().filter(d=>!(ST.taxonomy.some(c=>c.name===d.cat&&c.focuses.some(f=>f.name===d.focus)))&&hit(d)));
+  if(untagged.length)out+=`<details class="tx-c" open><summary style="grid-template-columns:14px 1fr auto 28px"><span class="chev">›</span><span class="micro">Uncategorized</span><span class="tx-cnt">${untagged.length} drills</span><span></span></summary><div class="body"><div class="hint" style="margin:8px 0">These drills have no category and focus: they were typed into a block that had none, or their category was deleted later. Track cannot add up their minutes until they are categorized. Click one and fill in its category and focus.</div>${untagged.map(row).join('')}</div></details>`;
+  if(!out)out=`<div class="dr-empty">${drills().length||ST.taxonomy.length?`Nothing matches "${esc(DQ)}".`:'Nothing yet. Add a category above, or just write a practice: categories, focuses and drills are created as you type them in Plan.'}</div>`;
+  return out;}
+function taxRenameCat(ci,v){const c=ST.taxonomy[ci];v=(v||'').trim();if(!c||!v||v===c.name)return renderDrillRows();const old=c.name;if(ST.taxonomy.some((x,k)=>k!==ci&&x.name===v)){toast('A category with that name already exists.');return renderDrillRows();}c.name=v;drills().forEach(d=>{if(d.cat===old)d.cat=v;});Object.values(LIB).forEach(p=>{let h=false;(p.blocks||[]).forEach(b=>{if(b.cat===old){b.cat=v;h=true;}});if(h)dbSavePractice(p);});up('settings',true);}
+function taxRenameFocus(ci,fi,v){const c=ST.taxonomy[ci],f=c&&c.focuses[fi];v=(v||'').trim();if(!f||!v||v===f.name)return renderDrillRows();const old=f.name;if(c.focuses.some((x,k)=>k!==fi&&x.name===v)){toast('That focus already exists in this category.');return renderDrillRows();}f.name=v;drills().forEach(d=>{if(d.cat===c.name&&d.focus===old)d.focus=v;});Object.values(LIB).forEach(p=>{let h=false;(p.blocks||[]).forEach(b=>{if(b.cat===c.name&&b.focus===old){b.focus=v;h=true;}});if(h)dbSavePractice(p);});up('settings',true);}
+function taxAddCat(v){v=(v||'').trim();if(!v)return;taxEnsure(v);up('settings',true);}
+function taxAddFocus(ci,v){const c=ST.taxonomy[ci];v=(v||'').trim();if(!c||!v)return;taxEnsure(c.name,v);up('settings',true);}
+function taxAddSub(ci,fi,v){const c=ST.taxonomy[ci],f=c&&c.focuses[fi];v=(v||'').trim();if(!f||!v)return;taxEnsure(c.name,f.name,v);up('settings',true);}
+function taxDelSub(ci,fi,si){const f=ST.taxonomy[ci].focuses[fi];f.subs.splice(si,1);up('settings',true);}
+async function taxDelFocus(ci,fi){const c=ST.taxonomy[ci],f=c.focuses[fi];const n=drills().filter(d=>d.cat===c.name&&d.focus===f.name).length;if(!await ask(n?`Delete focus "${f.name}"? Its ${n} drill${n===1?'':'s'} become untagged. Older practices keep their tags.`:`Delete focus "${f.name}"?`))return;drills().forEach(d=>{if(d.cat===c.name&&d.focus===f.name){d.focus='';}});c.focuses.splice(fi,1);up('settings',true);}
+async function taxDelCat(ci){const c=ST.taxonomy[ci];const n=drills().filter(d=>d.cat===c.name).length;if(!await ask(n?`Delete category "${c.name}" and its ${c.focuses.length} focus${c.focuses.length===1?'':'es'}? Its ${n} drill${n===1?'':'s'} become untagged. Older practices keep their tags.`:`Delete category "${c.name}"?`))return;drills().forEach(d=>{if(d.cat===c.name){d.cat='';d.focus='';}});ST.taxonomy.splice(ci,1);up('settings',true);}
+function drillCreateIn(ci,fi,name){const c=ST.taxonomy[ci],f=c&&c.focuses[fi];if(!f)return;drillCreate(c.name,f.name,name);}
+function drillCreate(cat,focus,name){name=(name||'').trim();if(!name)return;if(drillFind(name)){toast('That drill already exists.');return;}drills().push({id:uid(),name,cat,focus,sub:'',obj:''});up('settings',true);}
+function renderDrillRows(){const el=document.getElementById('drRows');if(el)el.innerHTML=drillRowsHtml();}
+function renderLibPane(){const el=document.getElementById('libpane');if(!el||document.getElementById('app').dataset.pane!=='lib')return;
   el.innerHTML=`<div class="lp-head"><div><h2>Drills &amp; plays</h2><div class="hint">Built from your practice plans. Fix a typo, merge duplicates, or tidy the taxonomy here. Renaming keeps history; merging moves it.</div></div><button class="btn btn-secondary btn-sm" onclick="closeLibPane()">Back to sheet</button></div>
   <div class="lp-grid">
-    <div class="lp-col"><h3>Drills <span class="hint" style="display:inline">${list.length}</span></h3><div class="hint" style="margin-bottom:8px">Each drill remembers its category, focus, sub-focus and objective, and fills them in when you pick it again.</div>
-      ${list.length?list.map(d=>{const di=drills().indexOf(d);const others=drills().filter(x=>x.id!==d.id);return `<div class="dr-row"><div><input class="drn" type="text" value="${esc(d.name)}" oninput="drillRename(${di},this.value)"><div class="dm">${esc([d.cat,d.focus,d.sub].filter(Boolean).join(' › ')||'untagged')}${d.obj?' · '+esc(d.obj):''} · used ${u[d.id]||0}×</div></div>
-        <select title="Merge into another drill" onchange="if(this.value)drillMerge(${di},this.value)"><option value="">Merge into…</option>${others.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('')}</select>
-        <button class="btn btn-ghost btn-sm btn-danger" onclick="drillDel(${di})" title="Delete drill">✕</button></div>`;}).join(''):'<div class="hint">No drills yet. They appear here as you add them to blocks in Plan.</div>'}
-      <h3 style="margin-top:16px">Taxonomy</h3><div class="hint" style="margin-bottom:8px">Category › Focus › Sub-focus. Track adds up minutes by these. Renaming here does not retag older practices.</div>
-      ${ST.taxonomy.map(taxEd).join('')}
-      <button class="btn btn-secondary btn-sm" onclick="ST.taxonomy.push({name:'',focuses:[{name:'',subs:[]}]});up('settings',true)">+ Add category</button></div>
-    <div class="lp-col"><h3>Plays <span class="hint" style="display:inline">${playsAll().length}</span></h3><div class="hint" style="margin-bottom:8px">Sections are the rail headings. Drag to reorder. Renaming a play keeps its reps and grades.</div>
+    <div class="lp-col"><div class="lp-ttl"><h3 style="margin:0">Drills <span class="hint" style="display:inline">${drills().length}</span></h3><span class="hint" style="margin:0">Organized by Category › Focus › Sub-focus, the structure Track adds minutes by.</span></div>
+      <div class="lp-tools"><input type="text" placeholder="Search" value="${esc(DQ)}" oninput="DQ=this.value;renderDrillRows()"><button class="btn btn-primary btn-sm" onclick="drillEditOpen(null)">+ New drill</button></div>
+      <div id="drRows">${drillRowsHtml()}</div></div>
+    <div class="lp-col"><div class="lp-ttl"><h3 style="margin:0">Plays <span class="hint" style="display:inline">${playsAll().length}</span></h3><span class="hint" style="margin:0">Sections are the rail headings. Drag to reorder; renaming keeps history.</span></div>
       ${ST.playbook.map(pbSectionEd).join('')}
       <button class="btn btn-secondary btn-sm" onclick="pbAddSection()">+ Add section</button></div>
   </div>`;initPbDrag(el);}
-function drillRename(di,v){const d=drills()[di];if(!d)return;const old=d.name;d.name=v;Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===old))l.text=v;})));persist('settings');Object.values(LIB).forEach(p=>{if(p.blocks.some(b=>b.lines.some(l=>l.drillId===d.id)))dbSavePractice(p);});renderSheet();}
-async function drillMerge(di,targetId){const d=drills()[di],t=drills().find(x=>x.id===targetId);if(!d||!t)return;if(!await ask(`Merge "${d.name}" into "${t.name}"? Every drill line using "${d.name}" becomes "${t.name}". History moves with it.`,'Merge'))return;
-  Object.values(LIB).forEach(p=>{let hit=false;(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===d.name)){l.drillId=t.id;l.text=t.name;hit=true;}}));if(hit)dbSavePractice(p);});drills().splice(di,1);up('settings',true);renderLibPane();}
+function drillMoveOpen(di){const d=drills()[di];if(!d)return;const ov=document.createElement('div');ov.className='dlg-ov';
+  ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:460px"><div class="dlg-t">File “${esc(d.name)}”</div><div class="hint" style="margin-bottom:10px">Pick the category and focus this drill belongs to. Type a new one to create it. Future plans pick these up when you choose the drill; Track adds up its minutes under them.</div>
+    <div class="g2"><div class="f"><label class="lbl">Category</label><div class="cb"><input type="text" id="mvCat" value="${esc(d.cat||'')}" placeholder="Defense, Offense, Film…"></div></div>
+    <div class="f"><label class="lbl">Focus</label><div class="cb"><input type="text" id="mvFoc" value="${esc(d.focus||'')}" placeholder="PNR coverage, Closeouts…"></div></div></div>
+    <label class="hint" style="display:flex;gap:6px;align-items:center;margin-top:4px"><input type="checkbox" id="mvRetag" checked> Also retag past practices that used this drill</label>
+    <div class="dlg-b"><button class="btn btn-secondary btn-sm" data-r="0">Cancel</button><button class="btn btn-primary btn-sm" data-r="1">Save</button></div></div>`;
+  const done=()=>{ov.remove();document.removeEventListener('keydown',key);};const key=e=>{if(e.key==='Escape')done();};document.addEventListener('keydown',key);
+  const cat=ov.querySelector('#mvCat'),foc=ov.querySelector('#mvFoc');
+  cbAttach(cat,{items:()=>cats().map(l=>({label:l})),onPick:r=>{cat.value=r.label;foc.focus();}});
+  cbAttach(foc,{items:()=>focuses(cat.value.trim()).map(l=>({label:l})),onPick:r=>{foc.value=r.label;},empty:'Type a focus'});
+  ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=()=>{const c=cat.value.trim(),f=foc.value.trim();if(!c||!f){toast('Both a category and a focus are needed.');(c?foc:cat).focus();return;}
+    taxEnsure(c,f,d.sub);d.cat=c;d.focus=f;if(ov.querySelector('#mvRetag').checked){Object.values(LIB).forEach(p=>{let h=false;(p.blocks||[]).forEach(b=>{if((b.lines||[]).some(l=>l.drillId===d.id||(!l.drillId&&l.text===d.name))&&(!b.cat||!b.focus)){b.cat=c;b.focus=f;h=true;}});if(h)dbSavePractice(p);});}
+    done();up('settings',true);toast(`${d.name} filed under ${c} › ${f}`);};
+  document.body.appendChild(ov);(d.cat?foc:cat).focus();}
+function drillMergeOpen(di){const d=drills()[di];if(!d)return;const ov=document.createElement('div');ov.className='dlg-ov';
+  ov.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" style="max-width:440px"><div class="dlg-t">Merge “${esc(d.name)}”</div><div class="hint" style="margin-bottom:10px;line-height:1.5">Merge is for duplicates. Because drills are created by typing, the same drill ends up here under two or three spellings over a season: “Shell 4v4”, “Shell 4 on 4”, “4v4 shell”. Each one is its own entry, so Track splits that drill's minutes across three names and the search in Plan offers three near-identical choices.<br><br>Pick the drill to keep. Every practice that used “${esc(d.name)}” is rewritten to that name, its minutes and history roll into one line in Track, and this entry disappears. Use Rename instead when only the spelling is wrong.</div>
+    <div class="f"><label class="lbl">Into</label><div class="cb"><input type="text" id="mgInto" placeholder="Type the drill to keep"></div></div>
+    <div class="dlg-b"><button class="btn btn-secondary btn-sm" data-r="0">Cancel</button><button class="btn btn-primary btn-sm" data-r="1">Merge</button></div></div>`;
+  const done=()=>{ov.remove();document.removeEventListener('keydown',key);};const key=e=>{if(e.key==='Escape')done();};document.addEventListener('keydown',key);
+  const inp=ov.querySelector('#mgInto');let target=null;cbAttach(inp,{items:()=>drills().filter(x=>x.id!==d.id).map(x=>({label:x.name,meta:[x.cat,x.focus].filter(Boolean).join(' › '),x})),allowCreate:false,onPick:r=>{target=r.x;},onCommit:v=>{if(!target||target.name!==v.trim()){target=drills().find(x=>x.id!==d.id&&x.name.toLowerCase()===v.trim().toLowerCase())||null;}}});
+  ov.querySelector('[data-r="0"]').onclick=done;ov.querySelector('[data-r="1"]').onclick=()=>{if(!target){inp.focus();toast('Pick an existing drill to merge into.');return;}done();drillMerge(di,target.id);};
+  document.body.appendChild(ov);inp.focus();}
+function drillRename(di,v){const d=drills()[di];if(!d)return;v=(v||'').trim();if(!v||v===d.name){renderDrillRows();return;}const old=d.name;d.name=v;Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===old))l.text=v;})));persist('settings');Object.values(LIB).forEach(p=>{if(p.blocks.some(b=>b.lines.some(l=>l.drillId===d.id)))dbSavePractice(p);});renderSheet();renderDrillRows();}
+async function drillMerge(di,targetId){const d=drills()[di],t=drills().find(x=>x.id===targetId);if(!d||!t||d===t)return;
+  Object.values(LIB).forEach(p=>{let hit=false;(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id||(!l.drillId&&l.text===d.name)){l.drillId=t.id;l.text=t.name;hit=true;}}));if(hit)dbSavePractice(p);});drills().splice(di,1);up('settings',true);renderLibPane();toast(`Merged into ${t.name}`);}
 async function drillDel(di){const d=drills()[di];if(!d)return;const n=drillUses()[d.id]||0;if(!await ask(n?`Delete "${d.name}" from your drills? The ${n} drill line${n===1?'':'s'} already using it keep their text.`:`Delete "${d.name}"?`))return;Object.values(LIB).forEach(p=>(p.blocks||[]).forEach(b=>(b.lines||[]).forEach(l=>{if(l.drillId===d.id)l.drillId='';})));drills().splice(di,1);up('settings',true);renderLibPane();}
 function pbSectionEd(sec,si){
   const allPlays=sec.groups.flatMap((g,gi)=>g.plays.map((p,pi)=>({p,gi,pi})));
   return `<div class="pb-sec">
     <div class="row" style="margin-bottom:6px"><input type="text" value="${esc(sec.name)}" placeholder="Section (Jungle, SOB, BOB)" style="font-weight:700" oninput="ST.playbook[${si}].name=this.value;up('settings')">
-      <button class="btn btn-ghost btn-sm icon" onclick="pbImportOpen(${si})" title="Import from Luceo Playbook" aria-label="Import from Luceo Playbook"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5"/><path d="M2.5 11.5v1.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.5"/></svg></button>
       <button class="btn btn-ghost btn-sm btn-danger" onclick="pbDelSection(${si})" title="Delete section">✕</button></div>
-    <div class="pb-list" data-si="${si}">${allPlays.map(({p,gi,pi})=>`<div class="pb-play" draggable="true" data-si="${si}" data-gi="${gi}" data-pi="${pi}"><span class="drag">⠿</span><input class="pn" type="text" value="${esc(p.name)}" oninput="ST.playbook[${si}].groups[${gi}].plays[${pi}].name=this.value;up('settings')"><button class="x" onclick="pbDelPlay(${si},${gi},${pi})" title="Remove">✕</button></div>`).join('')}</div>
-    <div class="pb-add"><input type="text" placeholder="New play name" onkeydown="if(event.key==='Enter'){pbAddPlay(${si},0,this.value);}"><button class="btn btn-ghost btn-sm" onclick="pbAddPlay(${si},0,this.previousElementSibling.value)">Add</button></div>
+    <div class="pb-list" data-si="${si}">${allPlays.map(({p,gi,pi})=>`<div class="pb-play" draggable="true" data-si="${si}" data-gi="${gi}" data-pi="${pi}"><span class="drag">⠿</span><button class="pn ln-name" onclick="playEditOpen('${p.id}')" title="Open this play">${esc(p.name)}${playHasMedia(p)?'<span class="dm">◉</span>':''}</button><button class="x" onclick="pbDelPlay(${si},${gi},${pi})" title="Remove">✕</button></div>`).join('')}</div>
+    <div style="margin-top:6px"><button class="add-lk" onclick="playEditOpen(null,{si:${si}})">+ Play in ${esc(sec.name||'this section')}</button></div>
   </div>`;
 }
 function mv(i,d){const b=S.blocks.splice(i,1)[0];S.blocks.splice(i+d,0,b);up('practice',true);}
@@ -1662,14 +1865,14 @@ function renderSheet(){if(S)syncTags(S);
   const m=S.meta;let run=0;
   const mg=document.getElementById('app').dataset.mode==='manage';const LV=S.live||{};const AD=aggDrills(S);const head=isHead();
   const blocks=S.blocks.map((b,bi)=>{const am=mg?actualMin(S,bi):num(b.min);run+=am;
-    const lines=b.lines.map((l,j)=>!(l.text||'').trim()?'':`<li>${mg?`<span class="chk ${AD[bi+':'+j]?'on':''} ${AD[bi+':'+j]&&!my().drills[bi+':'+j]?'other':''}" data-bi="${bi}" data-j="${j}" role="checkbox" aria-checked="${AD[bi+':'+j]?'true':'false'}" title="${AD[bi+':'+j]?'Ran by '+AD[bi+':'+j].map(coachName).join(', '):'Mark as run'}"></span>`:''}${mg&&l.luceo?`<span class="lk" data-ref-drill="${bi}:${j}" title="Open on the court">${esc(l.text)}</span>`:esc(l.text)}${l.tag?`<span class="tag">${esc(l.tag)}</span>`:''}${l.obj?`<span class="obj">${esc(l.obj)}</span>`:''}${mg?`<button class="dn ${(my().drillNotes||{})[bi+':'+j]?'has':''}" data-dn="${bi}:${j}" title="${(my().drillNotes||{})[bi+':'+j]?'Edit note':'Add a note'}" aria-label="Drill note"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2.5l2 2L5 13l-3 1 1-3z"/><path d="M10 4l2 2"/></svg></button>`:''}</li>`).join('');
+    const lines=b.lines.map((l,j)=>!(l.text||'').trim()?'':`<li>${mg?`<span class="chk ${AD[bi+':'+j]?'on':''} ${AD[bi+':'+j]&&!my().drills[bi+':'+j]?'other':''}" data-bi="${bi}" data-j="${j}" role="checkbox" aria-checked="${AD[bi+':'+j]?'true':'false'}" title="${AD[bi+':'+j]?'Ran by '+AD[bi+':'+j].map(coachName).join(', '):'Mark as run'}"></span>`:''}${mg&&(l.luceo||drillHasMedia(l))?`<span class="lk" data-ref-drill="${bi}:${j}" title="Open on the court">${esc(l.text)}</span>`:esc(l.text)}${l.tag?`<span class="tag">${esc(l.tag)}</span>`:''}${l.obj?`<span class="obj">${esc(l.obj)}</span>`:''}${mg?`<button class="dn ${(my().drillNotes||{})[bi+':'+j]?'has':''}" data-dn="${bi}:${j}" title="${(my().drillNotes||{})[bi+':'+j]?'Edit note':'Add a note'}" aria-label="Drill note"><svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2.5l2 2L5 13l-3 1 1-3z"/><path d="M10 4l2 2"/></svg></button>`:''}</li>`).join('');
     const cf=[b.cat,b.focus].filter(Boolean).join(' · ');
     const done=S.live&&S.live.done&&S.live.done[bi];
     const adj=mg&&am!==num(b.min);
     return `<div class="sh-block ${done?'done':''}" data-bi="${bi}"><div class="tt">${run}</div><div class="dt ${mg&&head?'tap':''} ${adj?'adj':''}" data-bi="${bi}" ${mg&&head?'title="Tap to set actual minutes"':''}>${am}${adj?`<div class="pl">plan ${num(b.min)}</div>`:''}</div>
       <div><div class="bt">${esc(b.title)}${b.note?`<span class="note">${esc(b.note)}</span>`:''}</div>${cf?`<div class="cf">${esc(cf)}</div>`:''}${lines?`<ul>${lines}</ul>`:''}</div>
       <div class="ob"></div></div>`;}).join('');
-  const railHtml=railsView().map(sec=>`<div class="rail"><div class="rt">${esc(sec.name)||'&nbsp;'}${mg&&sec.plays.length?`<button class="rt-ex" data-sec="${esc(sec.name)}" title="Reps and grades for ${esc(sec.name)}" aria-label="Reps and grades for ${esc(sec.name)}"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 12V7M8 12V4M13 12V9"/><path d="M2 13.5h12"/></svg></button>`:''}</div><div class="rc">${sec.plays.map(p=>{const pl=playsAll().find(x=>x.id===p.id);const linked=mg&&pl&&pl.luceo;return linked?`<span class="call-line lk" data-ref-play="${p.id}" title="Open ${esc(p.name)} on the court">${esc(p.name)}</span>`:`<span class="call-line" data-call="${p.id}" title="Tap to add a rep">${esc(p.name)}</span>`;}).join('')}</div></div>`).join('');
+  const railHtml=railsView().map(sec=>`<div class="rail"><div class="rt">${esc(sec.name)||'&nbsp;'}${mg&&sec.plays.length?`<button class="rt-ex" data-sec="${esc(sec.name)}" title="Reps and grades for ${esc(sec.name)}" aria-label="Reps and grades for ${esc(sec.name)}"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 12V7M8 12V4M13 12V9"/><path d="M2 13.5h12"/></svg></button>`:''}</div><div class="rc">${sec.plays.map(p=>{const pl=playsAll().find(x=>x.id===p.id);const linked=mg&&pl&&(pl.luceo||playHasMedia(pl));return linked?`<span class="call-line lk" data-ref-play="${p.id}" title="Open ${esc(p.name)} on the court">${esc(p.name)}</span>`:`<span class="call-line" data-call="${p.id}" title="Tap to add a rep">${esc(p.name)}</span>`;}).join('')}</div></div>`).join('');
   const initial=(t.name||'L').trim().charAt(0).toUpperCase();
   sh.innerHTML=`
     <div class="sh-head">
@@ -1695,8 +1898,8 @@ function renderSheet(){if(S)syncTags(S);
   sh.querySelectorAll('.rt-ex').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();openSectionTally(el.dataset.sec);}));
   sh.querySelectorAll('.dn').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();const [bi,j]=el.dataset.dn.split(':').map(Number);openDrillNote(bi,j);}));
   sh.querySelectorAll('.lk').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();
-    if(el.dataset.refPlay){const pl=playsAll().find(x=>x.id===el.dataset.refPlay);if(pl)openCourt({title:pl.name,source:'Luceo Playbook',svg:diagramFor(pl.name,pl.luceo),playId:pl.id});}
-    else{const [bi,j]=el.dataset.refDrill.split(':').map(Number);const l=S.blocks[bi].lines[j];openCourt({title:l.text,source:'Luceo Drill Library',svg:diagramFor(l.text,l.luceo)});}}));
+    if(el.dataset.refPlay){const pl=playsAll().find(x=>x.id===el.dataset.refPlay);if(!pl)return;if(pl.media&&pl.media.diagram&&pl.media.diagram.strokes.length){CT.targetBack=null;openCourt({title:pl.name,source:'Your playbook',playId:pl.id},pl.media.diagram);}else if(playHasMedia(pl)){playEditOpen(pl.id);}else openCourt({title:pl.name,source:'Luceo Playbook',svg:diagramFor(pl.name,pl.luceo),playId:pl.id});}
+    else{const [bi,j]=el.dataset.refDrill.split(':').map(Number);const l=S.blocks[bi].lines[j];const d=drillOf(l);if(d&&d.media&&d.media.diagram&&d.media.diagram.strokes.length){CT.targetBack=null;openCourt({title:l.text,source:'Your drills'},d.media.diagram);}else if(d&&d.media&&d.media.clips.length){drillEditOpen(drills().indexOf(d));}else openCourt({title:l.text,source:'Luceo Drill Library',svg:diagramFor(l.text,l.luceo)});}}));
   sh.querySelectorAll('.dt.tap').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();openActual(+el.dataset.bi);}));
   fitSheet();
 }
@@ -1929,11 +2132,65 @@ if(payload&&payload.kind==='luceo-results'&&Array.isArray(payload.practices)){co
   if(isHead()&&payload.coachId&&payload.coachId!==coachId()){const h=(payload.settings.coaches||[]).find(c=>c.id===payload.coachId);if(!(h&&h.role==='head')){toast('That library file was not exported by the head coach.');}}
   const ok=await ask(`Replace this library with ${sourceLabel}?\n\nFile: ${s.team} · ${s.count} practice${s.count===1?'':'s'}${s.from?` · ${s.from}${s.to&&s.to!==s.from?' to '+s.to:''}`:''} · ${s.plays} plays · ${s.roster} players${s.exportedAt?`\nExported ${bkStamp(s.exportedAt)}`:''}\n\nHere now: ${cur.team} · ${cur.count} practice${cur.count===1?'':'s'}${BK.dirtySince?' · unsaved changes since '+bkStamp(BK.dirtySince):''}\n\nThe plan and library are replaced. Results already recorded here by other coaches are kept.`,'Replace');
   if(ok)await applyLibrary(payload);}
-function teamPayload(){return {kind:'luceo-team',version:1,savedAt:new Date().toISOString(),team:ST.team,coaches:coaches(),roster:ST.roster,taxonomy:ST.taxonomy,drills:drills(),playbook:ST.playbook,menu:ST.menu};}
+function teamPayload(){return {kind:'luceo-team',version:1,savedAt:new Date().toISOString(),team:ST.team,coaches:coaches(),roster:ST.roster,taxonomy:ST.taxonomy,drills:drills(),playbook:ST.playbook,menu:ST.menu,templates:templates()};}
+/* Templates: a plan's structure without results. Starters ship with the app; My templates are saved by the team. */
+function templates(){if(!Array.isArray(ST.templates))ST.templates=[];return ST.templates;}
+const stripBlocks=(blocks,keepPlayers)=>blocks.map(b=>({min:b.min,obj:b.obj||'',title:b.title||'',note:b.note||'',cat:b.cat||'',focus:b.focus||'',lines:(b.lines||[]).map(l=>({tag:keepPlayers?(l.tag||''):'',text:l.text||'',sub:l.sub||'',obj:l.obj||'',players:keepPlayers?(l.players||[]).slice():[],...(l.luceo?{luceo:l.luceo}:{})}))}));
+/* Hand-built starters from coaching material: a motion offense install, a no-middle man-to-man install, and a live session that puts them against each other. */
+const TB=(min,title,cat,focus,note,lines)=>({min,obj:'',title,note:note||'',cat,focus,lines:lines.map(([text,sub,obj])=>({tag:'',text,sub:sub||'',obj:obj||'',players:[]}))});
+const STARTERS_CURATED=[
+ {id:'starter-motion',name:'Motion offense install',focus:'Don\'t let it stick · Cut hard · A counter for everything',
+  keyFocus:{text:'Install the 1-4 pick and pop motion: transition spots, the butt screen and sprint screen, scoring reads, and what to do when the pattern breaks.',bullets:['Get a layup or an open three; move the ball quickly','Read the defense and cut hard; always have an outlet','The offense starts when 4 catches; 4 sprints into his screen','When it breaks down, play basketball: pass and screen away, stagger, DHO under pressure'],clips:[]},
+  blocks:[
+   TB(10,'Dynamic warmup and form shooting','Warmup','Team Warmup','',[['Dynamic warmup','','Game speed'],['Form shooting 1-2-3 catches','','Feet set, follow through']]),
+   TB(10,'Transition into spots','Offense','Motion Offense','5-out spots: 1 ft-line extended, 2 and 3 corners, 4 trails, 5 rim',[['Spots walkthrough, no defense','Transition spots','Spots in 4 seconds'],['3 lines full court to spots','Transition spots','5 runs rim first']]),
+   TB(15,'Initiating: 1-4 pick and pop','Offense','Motion Offense','Offense starts when 4 catches',[['1-4 pick and pop, both directions','Initiating','Score first'],['5 slides opposite the ball','Initiating','Move on first dribble'],['2v2 live: 1 and 4 vs their defenders','Initiating','Score or hit the pop']]),
+   TB(15,'Violent cuts and the butt screen','Offense','Motion Offense','4 passes to the sprinting wing; 1 walks to the butt screen spot',[['Wing sprint and 5 fill ball-side corner','Violent cuts','Catch on the move'],['Butt screen: 3 sprints to the front of the rim','Butt screen','Cut on the catch'],['4 sprint screen: lane line extended','Butt screen','Sprint to the screen']]),
+   TB(15,'Scoring reads','Offense','Motion Offense','Most common read: pass to the popping 1',[['Read 1: rim-cutting wing','Scoring reads','Layup'],['Read 2: popping 1 for three','Scoring reads','Pop, never stop'],['Read 3: short roll, 4 faces up','Scoring reads','Face up and play'],['3v3 reads, passer cannot telegraph','Scoring reads','No telegraphed pass']]),
+   TB(10,'Pick, roll, replace','Offense','Motion Offense','',[['1-4 pick and roll with 3 replace cut','Pick roll replace','Middle, replace, roll'],['Repeat from the other side','Pick roll replace','Opposite hand']]),
+   TB(15,'When it breaks down: play basketball','Offense','Motion Offense','Pass and screen away · stagger · back screen 4 to the post · DHO when pressured',[['5v5 live from a dead pattern','Breakdown','Play basketball'],['Shot discipline: 3, 4, 5 crash, 1 and 2 back','Breakdown','3 crash, 2 back']])
+  ]},
+ {id:'starter-nomiddle',name:'No-middle man-to-man install',focus:'No middle · No reversal · No help one pass away · No face cuts · Move on the pass',
+  keyFocus:{text:'Teach the five rules of the man-to-man and the three roles: on-ball, deny, help. Force sideline and baseline, deny the reversal, help from the weak side.',bullets:['On-ball: overplay the middle, arm\'s length, eyes on the chest','One pass away: hand and foot in the lane, chest to your man, see both','Two passes away: ball-you-man with a foot on the split line (high-I, low-I)','Help always comes from the weak side; one pass away can stunt, never help'],clips:[]},
+  blocks:[
+   TB(10,'Stance and slides','Warmup','Team Warmup','',[['Dynamic warmup','','Low hips, chest up'],['Lane slides and closeouts','','Balanced, hands active']]),
+   TB(10,'Five rules walkthrough','Defense','No-middle man','Teach it standing still before it moves',[['Shell: five rules on the whiteboard and on the floor','Rules','Say the five rules'],['Three roles: on-ball, deny, help','Rules','Name your role']]),
+   TB(15,'On-ball: force sideline and baseline','Defense','No-middle man','Top: force sideline. Wing: force baseline.',[['1v1 from the top, dribbler goes sideline only','On-ball','No middle'],['1v1 from the wing, force baseline','On-ball','Baseline only'],['Contain, no reaching','On-ball','Eyes on the chest']]),
+   TB(15,'Deny one pass away','Defense','No-middle man','No ball reversal once the ball is on a side',[['2v2 wing denial: deny the reversal to the top','Deny','Hand and foot in lane'],['Backdoor cut: flick the head, slide to the rim','Deny','Flick the head'],['Jump to the ball on the pass','Deny','No face cuts']]),
+   TB(15,'Help: high-I and low-I','Defense','No-middle man','Ball on the wing or corner: two helpers with a foot on the split line',[['4v4 shell, ball moves and everyone moves','Help','Move on the pass'],['Ball at the top: get it out of there','Help','Get it out of there']]),
+   TB(20,'Rotations on penetration','Defense','No-middle man','Help always comes from the weak side',[['Top of the key drive: low weak-side helper steps across','Rotations','x5 helps, x1 drops'],['Wing baseline drive: low-I traps, high-I drops','Rotations','Trap, x1 reads skip'],['Corner baseline drive','Rotations','Deny the reverse'],['Skip pass closeouts in a banana cut','Rotations','Banana closeout']]),
+   TB(15,'Live 5v5, defense scores','Defense','No-middle man','Defense scores a point for a stop, loses one for a middle drive or a reversal',[['5v5 no-middle scoring','Live','Win on the rules']])
+  ]},
+ {id:'starter-live',name:'Motion vs no-middle: live and situations',focus:'Spots on the break · Over the screen · 3 crash, 2 back',
+  keyFocus:{text:'Put the motion offense against the no-middle defense. Transition both ways, pick and roll coverage, post defense, dead ball, then live play with scoring rules.',bullets:['Offense: spots in 4 seconds, 4 sprints into the screen, pop behind it','Defense: 3 to the glass and 2 back; top and bottom defender on every shot','Pick and roll: fight over with a hedge first; switch and under are the counters','Post: beat them down the floor, 3/4 front above the line, 1/2 front below it'],clips:[]},
+  blocks:[
+   TB(10,'Warmup and transition spots','Warmup','Team Warmup','',[['Dynamic warmup','','Game speed'],['Transition into spots, 3 lines','Transition spots','Spots in 4 seconds']]),
+   TB(15,'Transition defense: 3 crash, 2 back','Defense','Transition D','Nobody stands and watches after a shot',[['Shot goes up: 3 to the glass, 2 back','Transition D','Top and bottom'],['5v5 continuous, offense into spots, defense back','Transition D','No transition layups']]),
+   TB(15,'Pick and roll both ways','Defense','No-middle man','Offense runs 1-4 pick and pop; defense covers it three ways',[['Fight over the screen with a hedge','PNR coverage','Hedge and recover'],['Switch the screen','PNR coverage','Switch, no gap'],['Go under the screen','PNR coverage','Step back, squeeze']]),
+   TB(15,'Post defense','Defense','No-middle man','Don\'t let it get there',[['Beat the post down the floor','Post defense','Beat them down'],['3/4 front above the free-throw line, 1/2 front below','Post defense','Ball-side line'],['Trap the dominant post with low-I','Post defense','Trap high, x1 intercepts']]),
+   TB(10,'Dead ball: defending BLOBs','Special','Dead Ball','Make them throw it to the top',[['Inbounder\'s defender at the rim, switch everything','BLOB defense','Nothing at the rim'],['2-3 on the inbound, back to man on the catch','BLOB defense','Flood the key']]),
+   TB(25,'Live 5v5 motion vs no-middle','Offense','Motion Offense','Offense scores on layups and open threes; defense scores on stops and forced reversals',[['Live to 7, winners stay','Live','Stick vs middle'],['Breakdown possessions: pass and screen away, stagger, DHO','Breakdown','Play basketball']]),
+   TB(10,'Film and teach','Film','Curriculum','Clips from today',[['Two clips each: motion reads, no-middle rotations','','One point per clip']])
+  ]}
+];
+function starterTemplates(){const curated=STARTERS_CURATED.map(t=>({id:t.id,name:t.name,builtin:true,focus:t.focus,keyFocus:{text:t.keyFocus.text,bullets:t.keyFocus.bullets.slice(),clips:[]},blocks:stripBlocks(t.blocks,false)}));
+  const sample=demoPractices().map(p=>({id:'starter-'+p.meta.number,name:p.meta.title,builtin:true,focus:p.meta.focus,keyFocus:{text:p.keyFocus.text||'',bullets:(p.keyFocus.bullets||[]).slice(),clips:[]},blocks:stripBlocks(p.blocks,false)}));return curated.concat(sample);}
+function templateById(id){return starterTemplates().find(t=>t.id===id)||templates().find(t=>t.id===id)||null;}
+function templateSummary(t){const mins=t.blocks.reduce((a,b)=>a+num(b.min),0);const n=t.blocks.reduce((a,b)=>a+(b.lines||[]).length,0);const cats={};t.blocks.forEach(b=>{if(b.cat)cats[b.cat]=(cats[b.cat]||0)+num(b.min);});const top=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([c])=>c).join(', ');return `${t.blocks.length} blocks · ${mins} min · ${n} drills${top?' · '+top:''}`;}
+function templatesHtml(){const mine=templates();const row=t=>`<div class="tpl-r"><div><div class="n">${esc(t.name||'Untitled')}</div><div class="m">${esc(templateSummary(t))}</div></div><div class="a"><button class="btn btn-secondary btn-sm" onclick="applyTemplate('${t.id}')">Use</button>${t.builtin?'':`<button class="btn btn-ghost btn-sm btn-danger" onclick="delTemplate('${t.id}')" title="Delete template">✕</button>`}</div></div>`;
+  return `<div class="tpl"><div class="tpl-g">My templates</div>${mine.length?mine.map(row).join(''):'<div class="hint" style="padding:4px 10px 8px">None yet. Save any practice as a template with the button below.</div>'}<div class="tpl-g">Luceo starters</div>${starterTemplates().map(row).join('')}</div>`;}
+async function applyTemplate(id){if(!seasonEditable()){toast('This season is archived.');return;}const t=templateById(id);if(!t||!S)return;
+  if(S.blocks.length&&!await ask(`Replace this practice's ${S.blocks.length} block${S.blocks.length===1?'':'s'}, key focus and theme with "${t.name}"? Results are not affected.`,'Use template'))return;
+  if(Array.isArray(t.menu))S.menu=t.menu.filter(id=>playsAll().some(p=>p.id===id));S.blocks=stripBlocks(t.blocks,true);S.keyFocus={text:t.keyFocus.text||'',bullets:(t.keyFocus.bullets||[]).slice(),clips:[]};if(!S.meta.focus&&t.focus)S.meta.focus=t.focus;if(!S.meta.title&&t.name)S.meta.title=t.name;
+  S.blocks.forEach((b,i)=>{taxEnsure(b.cat,b.focus);b.lines.forEach((l,j)=>{if(b.cat&&b.focus&&l.sub)taxEnsure(b.cat,b.focus,l.sub);drillCommit(i,j);});});syncTags(S);
+  persist('settings');up('practice',true);renderLib();toast(`Plan built from "${t.name}". Edit anything.`);}
+async function saveTemplate(){if(!S||!S.blocks.length){toast('Add blocks first.');return;}const name=await askText('Save this practice as a template',{value:S.meta.title||'',placeholder:'Tryouts, Game day minus one, Shootaround',okLabel:'Save template',hint:'Blocks, drills, key focus, theme and the play rail are kept. Results, clock and diagrams are not.'});if(name===null||!name)return;
+  templates().push({id:uid(),name,focus:S.meta.focus||'',keyFocus:{text:kf().text||'',bullets:kf().bullets.slice(),clips:[]},blocks:stripBlocks(S.blocks,true),menu:menu().slice()});up('settings',true);toast('Template saved: '+name);}
+async function delTemplate(id){const i=templates().findIndex(t=>t.id===id);if(i<0)return;if(!await ask(`Delete template "${templates()[i].name}"?`))return;templates().splice(i,1);up('settings',true);}
 async function exportTeam(){await deliver(`luceo-team-${slug(ST.team.name)}-${today()}.json`,JSON.stringify(teamPayload(),null,1));toast('Team file saved');}
 async function applyTeam(payload,sourceLabel){const n=(payload.roster||[]).length,c=(payload.coaches||[]).length,d=(payload.drills||[]).length;
   if(!await ask(`Load team "${payload.team&&payload.team.name||'untitled'}" from ${sourceLabel}?\n\n${c} coaches, ${n} players, ${d} drills, ${(payload.playbook||[]).flatMap(x=>x.groups||[]).flatMap(g=>g.plays||[]).length} plays. This replaces the team setup on this device. Practices and results are not touched.`,'Load team'))return;
-  ST.team=payload.team||ST.team;ST.coaches=payload.coaches||[];ST.roster=payload.roster||[];ST.taxonomy=payload.taxonomy||[];ST.drills=payload.drills||[];ST.playbook=payload.playbook||[];ST.menu=payload.menu||allPlayIds(ST.playbook);ST.pbStructured=true;
+  ST.team=payload.team||ST.team;ST.coaches=payload.coaches||[];ST.roster=payload.roster||[];ST.taxonomy=payload.taxonomy||[];ST.drills=payload.drills||[];ST.playbook=payload.playbook||[];ST.menu=payload.menu||allPlayIds(ST.playbook);ST.templates=payload.templates||[];ST.pbStructured=true;
   if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;persist('settings');applyRole();renderAll(true);toast('Team loaded');if(!ACTIVE)coachGate(true);}
 function importLibrary(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{try{await confirmImport(JSON.parse(e.target.result),f.name);}catch(err){toast('That is not a library backup file.');}};r.readAsText(f);inp.value='';}
 
@@ -1995,7 +2252,7 @@ async function deliver(filename,data,mime){try{const dl=window.claude&&window.cl
 /* ── Glue ──────────────────────────────────────────────── */
 function renderAll(rebuild){renderLib();renderSheet();renderLive();if(rebuild)renderEditor();if(document.getElementById('app').dataset.mode==='track')renderTracker();}
 function up(kind,rebuild){persist(kind==='settings'?'settings':'practice');renderSheet();if(rebuild){const open={},po={},sc=document.getElementById('editor').scrollTop;document.querySelectorAll('.sec').forEach(d=>open[d.querySelector('summary .name').textContent]=d.open);document.querySelectorAll('.rt-player').forEach(d=>po[d.dataset.id]=d.open);renderEditor();document.querySelectorAll('.sec').forEach(d=>{const k=d.querySelector('summary .name').textContent;if(k in open)d.open=open[k];});document.querySelectorAll('.rt-player').forEach(d=>{if(po[d.dataset.id])d.open=true;});document.getElementById('editor').scrollTop=sc;}
-  else{const sp=ratingPct(my().ratings.session);const metas={'Team brand':ST.team.name||'no team','Team file':`${drills().length} drills · ${playsAll().length} plays`,'Roster':`${ST.roster.length} players`,'Session':`${S.meta.label} #${S.meta.number}`,'Blocks':`${S.blocks.length} · ${total()} min`,'Play menu':`${menu().length} on rail · ${menuShared()?'shared':'custom'}`,'Play execution':`${Object.values(my().calls).filter(c=>callTotal(c)).length} tallied · ${coachName(coachId())}`,'Ratings':(sp!==null?'session '+sp+'%':'session not rated')+' · '+my().ratings.rated.length+' players','Key focus':kfMeta(),'Court diagrams':(()=>{const C=courtState();const n=C.slots.filter(x=>x.strokes.length||Object.keys(x.pucks||{}).length).length;return n?`${n} of ${C.count} drawn`:`${C.count} blank`;})(),'Coaches':`${coaches().length} · you are ${coachName(coachId())}`};
+  else{const sp=ratingPct(my().ratings.session);const metas={'Team brand':ST.team.name||'no team','Team file':`${drills().length} drills · ${playsAll().length} plays`,'Roster':`${ST.roster.length} players`,'Session':`${S.meta.label} #${S.meta.number}`,'Blocks':`${S.blocks.length} · ${total()} min`,'Play menu':`${menu().length} on rail`,'Play execution':`${Object.values(my().calls).filter(c=>callTotal(c)).length} tallied · ${coachName(coachId())}`,'Ratings':(sp!==null?'session '+sp+'%':'session not rated')+' · '+my().ratings.rated.length+' players','Key focus':kfMeta(),'Court diagrams':(()=>{const C=courtState();const n=C.slots.filter(x=>x.strokes.length||Object.keys(x.pucks||{}).length).length;return n?`${n} of ${C.count} drawn`:`${C.count} blank`;})(),'Coaches':`${coaches().length} · you are ${coachName(coachId())}`};
     document.querySelectorAll('.sec').forEach(d=>{const k=d.querySelector('summary .name').textContent;const el=d.querySelector('summary .meta');if(el&&metas[k]!==undefined)el.textContent=metas[k];});
     document.querySelectorAll('.blk').forEach((el,i)=>{const b=S.blocks[i];if(!b)return;el.querySelector('.ttl').textContent=b.title||'Untitled block';el.querySelector('.mins').textContent=num(b.min)+' min';});}
   renderLib();}
@@ -2093,7 +2350,7 @@ const TUT=[
  {t:'Build',k:'Writing the plan',b:`<p>The Plan tab is the practice itself. The sheet on the right updates as you type.</p>
   <ul><li><b>Session</b>: number, date, and the banner line (theme, question, quote, pillars).</li><li><b>Key focus</b>: the one thing the practice is about, with points and video clips.</li>
   <li><b>Blocks</b>: timed sections, each tagged with a Category and Focus. Each block holds drills; a drill gets a Sub-focus, an objective, and a player group picked from the roster.</li><li><b>Play menu</b>: which plays appear on the rail for this practice.</li></ul>
-  <p>Running totals, the planned time, and the rail are all generated. New asks for a title, then starts an empty plan with the next number and today's date. Duplicate copies the selected practice (blocks, drills, groups, key focus, play menu) under a new title; results, clock and diagrams start empty. Titles show in the practice list, on the sheet and in Track, so you can pick what to duplicate without opening each plan.</p><p><b>Drills and plays build themselves.</b> In a block, type a category, focus, or drill name: matches from earlier practices appear as you type, and anything new is created on the spot and saved for next time. Picking a drill you have used before fills in its sub-focus and objective. In Play menu, search for a play; if it is not there yet, create it and give it a section (Jungle, Turbo, SOB, BOB, ATO). Sub-focus is optional.</p>`},
+  <p>Running totals, the planned time, and the rail are all generated. New asks for a title, then starts an empty plan with the next number and today's date. Duplicate copies the selected practice (blocks, drills, groups, key focus, play menu) under a new title; results, clock and diagrams start empty. Titles show in the practice list, on the sheet and in Track, so you can pick what to duplicate without opening each plan.</p><p><b>Templates.</b> Session › Templates lists Luceo starter plans and your own saved ones. Use one and its blocks, drills, key focus and theme are copied into today's practice; results stay empty. Save any practice as a template once it is a shape you will reuse (tryouts, game day minus one, shootaround).</p><p><b>Drills and plays build themselves.</b> In a block, type a category or focus: matches appear as you type and anything new is created on the spot. Under Drills, search your library to add one, or press New drill to create one in the drill editor (name, diagram or video, category › focus › sub-focus); it is saved for every plan after this one. Each drill row shows its objective and player group; click the name to open the drill. The Play menu is this practice's rail and starts empty. Under each section, add the calls you will run today one row at a time: pick from your playbook, or press New play to open the play editor (name, section, a diagram or video, a description). Click any play on the rail to open it. New sections are added at the bottom (Jungle, Turbo, SOB, BOB, ATO). Sub-focus on drills is optional.</p>`},
  {t:'Manage',k:'On the floor',b:`<p>Manage shows the sheet full width for a tablet, with a live bar above it.</p>
   <ul><li>The head coach starts the clock. The current block counts down; amber at two minutes, red and a tone when it runs over. Tapping a block checks it off and starts the next.</li>
   <li>Every coach checks the drills they ran, picks their player group, and taps plays on the rail to add reps. The icon beside each rail heading opens reps and grades for that section.</li>
@@ -2109,7 +2366,7 @@ const TUT=[
   <p>Set up shared folder in the Backup menu walks through the Drive setup.</p>`},
  {t:'Seasons',k:'Archiving and starting over',b:`<p>Every practice belongs to a season. The season chip beside the practice list shows which one you're in.</p>
   <ul><li><b>Start a new season</b> (head coach) archives the current one and begins at Practice #1. Coaches, drills and plays carry forward; the roster can carry or start empty.</li><li><b>Archived seasons</b> stay readable: open any practice, read every coach's results, run Track on it. Nothing can be added or changed.</li><li><b>Export a season</b> to its own file for cold storage or to hand off. A season file can be added back later as an archive.</li></ul>
-  <p>Backups always include every season, so archiving changes what you see, not what is kept.</p><p><strong>Starting out.</strong> The builder opens empty: it asks for the head coach's name, then you set the team brand, add staff and roster, build the drill taxonomy and playbook in Library, and write your first plan. To see every screen filled in first, open the menu (⋯) and choose <em>Load demo data</em>; it adds a sample team and five practices without touching anything you have added. <em>Clear demo data · start fresh</em> removes all of it again.</p>`}];
+  <p>Backups always include every season, so archiving changes what you see, not what is kept.</p><p><strong>Starting out.</strong> The builder opens empty: it asks for the head coach's name, then you set the team brand, add staff and roster, build the drill taxonomy and playbook in Library, and write your first plan. Want a plan without starting from scratch? Open Plan › Session › <em>Templates</em>: five Luceo starter plans, plus any practice you save as a template. To see Track and Results filled in, the menu (⋯) has <em>Load sample season</em>, a sample team with five practices and results; <em>Clear sample season · start fresh</em> removes it again.</p>`}];
 let TUTi=0;
 function openTutorial(page){TUTi=Number.isInteger(page)?Math.max(0,Math.min(TUT.length-1,page)):0;const ov=document.createElement('div');ov.className='dlg-ov tut';
   const render=()=>{const p=TUT[TUTi];ov.innerHTML=`<div class="dlg tut-dlg"><div class="tut-k">${esc(p.k)} · ${TUTi+1} of ${TUT.length}</div><div class="dlg-t">${esc(p.t)}</div><div class="tut-b">${p.b}</div>
@@ -2141,44 +2398,44 @@ function openSectionTally(secName){document.querySelectorAll('.dlg-ov.sec-tally'
 
 /* ── Court markup screen ───────────────────────────────── */
 const CT={color:null,cur:null,wood:false,ref:null,hideRef:false};
-function openCourt(ref){const C=courtState();if(ref){CT.ref=ref;}else if(ref===null)CT.ref=null;
+function openCourt(ref,target){const C=courtState();if(ref){CT.ref=ref;}else if(ref===null)CT.ref=null;if(target!==undefined)CT.target=target;
   CT.color=CT.color||(ST.team.accent||'#E85D2C');if(CT.color==='#ECECEC')CT.color='#111111';document.querySelectorAll('.court-ov').forEach(x=>x.remove());
-  const slot=C.slots[C.active];const full=slot.full;const ov=document.createElement('div');ov.className='court-ov';ov.id='courtOv';
+  const pers=()=>persist(CT.target?'settings':'practice');const slot=CT.target||C.slots[C.active];const full=slot.full;const ov=document.createElement('div');ov.className='court-ov';ov.id='courtOv';
   ov.innerHTML=`<div class="court-bar"><div class="court-tools">
       <button class="btn btn-secondary btn-sm ${CT.drawOpen?'on':''}" id="ctDraw" aria-expanded="${!!CT.drawOpen}"><span class="pen-dot" style="background:${CT.color}"></span>Draw</button>
       <details class="exp cm"><summary>${full?'Full court':'Half court'} · ${CT.wood?'Wood':'White'}</summary><div>
         <div class="bk-hd">View</div><button data-view="half" class="${full?'':'sel'}">Half court</button><button data-view="full" class="${full?'sel':''}">Full court</button>
         <div class="bk-sep"></div><div class="bk-hd">Floor</div><button data-floor="white" class="${CT.wood?'':'sel'}">White</button><button data-floor="wood" class="${CT.wood?'sel':''}">Wood</button></div></details>
-      <details class="exp cm"><summary>Diagram ${C.active+1} of ${C.count}</summary><div>
+      ${CT.target?'':`      <details class="exp cm"><summary>Diagram ${C.active+1} of ${C.count}</summary><div>
         ${C.slots.map((sl,k)=>`<button data-slot="${k}" class="${k===C.active?'sel':''}">Diagram ${k+1}${sl.strokes.length?'<i class="dot"></i>':''}</button>`).join('')}
-        <div class="bk-sep"></div><button id="ctMore" ${C.count>=8?'disabled':''}>Add diagram</button><button id="ctLess" ${C.count<=1?'disabled':''} class="danger">Remove diagram ${C.count}</button></div></details>
+        <div class="bk-sep"></div><button id="ctMore" ${C.count>=8?'disabled':''}>Add diagram</button><button id="ctLess" ${C.count<=1?'disabled':''} class="danger">Remove diagram ${C.count}</button></div></details>`}
       <details class="exp cm"><summary>Roster${Object.keys(slot.pucks).length?` · ${Object.keys(slot.pucks).length}`:''}</summary><div>
         ${ST.roster.map(r=>`<button data-puck="${r.id}" class="${slot.pucks[r.id]?'sel':''}">${headshotHtml(r.id,'xs')}${esc(r.name)}</button>`).join('')||'<div class="bk-hd">No players in the roster</div>'}
         <div class="bk-sep"></div><button id="ctPuckClear" ${Object.keys(slot.pucks).length?'':'disabled'} class="danger">Remove all pucks</button></div></details>
-    </div><button class="btn btn-primary btn-sm" id="ctClose">Back to plan</button></div>
+    </div><button class="btn btn-primary btn-sm" id="ctClose">${CT.target?'Done':'Back to plan'}</button></div>
     <div class="draw-tray ${CT.drawOpen?'':'hidden'}" id="drawTray">
       ${[ST.team.accent||'#E85D2C','#111111','#F04444','#1D4ED8'].map(c=>`<button class="swatch ${CT.color===c?'on':''}" style="background:${c}" data-c="${c}" aria-label="Pen ${c}"></button>`).join('')}
       <span class="court-sep"></span>
       <button class="btn btn-secondary btn-sm" id="ctUndo">Undo</button><button class="btn btn-secondary btn-sm" id="ctClear">Clear diagram</button>
     </div>
-    ${CT.ref?`<div class="court-ref"><span class="cr-src">${esc(CT.ref.source)}</span><span class="cr-t">${esc(CT.ref.title)}</span>${CT.ref.playId?`<button class="btn btn-secondary btn-sm" id="ctRep">+1 rep</button>`:''}${CT.ref.svg?`<button class="btn btn-ghost btn-sm" id="ctHide">${CT.hideRef?'Show diagram':'Hide diagram'}</button>`:'<span class="hint" style="margin:0">No diagram on file</span>'}<button class="btn btn-ghost btn-sm" id="ctBlank">Blank court</button></div>`:''}
+    ${CT.ref?`<div class="court-ref"><span class="cr-src">${esc(CT.ref.source)}</span><span class="cr-t">${esc(CT.ref.title)}</span>${CT.ref.playId?`<button class="btn btn-secondary btn-sm" id="ctRep">+1 rep</button>`:''}${CT.target?'<span class="hint" style="margin:0">Draw this drill. Open Draw, pick a pen, and sketch. Done saves it to the drill.</span>':CT.ref.svg?`<button class="btn btn-ghost btn-sm" id="ctHide">${CT.hideRef?'Show diagram':'Hide diagram'}</button>`:'<span class="hint" style="margin:0">No diagram on file</span>'}${CT.target?'':'<button class="btn btn-ghost btn-sm" id="ctBlank">Blank court</button>'}</div>`:''}
     <div class="court-stage ${full?'fit':'bleed'}"><div class="court-wrap ${CT.wood?'wood':''}" id="courtWrap"><div class="floor" id="courtFloor">${CT.wood?woodSvg(true):''}</div>${fullCourt()}${CT.ref&&CT.ref.svg?`<div class="diagram ${CT.hideRef?'off':''}" id="courtDiag"><svg viewBox="0 0 500 940"><svg x="34" y="34" width="432" height="436" viewBox="0 0 500 470" preserveAspectRatio="none">${CT.ref.svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'')}</svg></svg></div>`:''}<canvas id="courtCanvas"></canvas><div class="pucks" id="pucks"></div></div></div>`;
   document.body.appendChild(ov);
   const cv=ov.querySelector('#courtCanvas'),wrap=ov.querySelector('#courtWrap');const ctx=cv.getContext('2d');
   const size=()=>{const r=wrap.getBoundingClientRect();cv.width=Math.round(r.width*devicePixelRatio);cv.height=Math.round(r.height*devicePixelRatio);cv.style.width=r.width+'px';cv.style.height=r.height+'px';draw();};
   const draw=()=>{ctx.clearRect(0,0,cv.width,cv.height);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=4*devicePixelRatio;[...slot.strokes,CT.cur].filter(Boolean).forEach(st=>{ctx.strokeStyle=st.c;ctx.beginPath();st.p.forEach(([x,y],i)=>{const X=x*cv.width,Y=y*cv.height;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);});ctx.stroke();});};
   const pt=e=>{const r=cv.getBoundingClientRect();return [+((e.clientX-r.left)/r.width).toFixed(4),+((e.clientY-r.top)/r.height).toFixed(4)];};
-  const save=()=>{persist('practice');const t=ov.querySelector(`[data-slot="${C.active}"]`);if(t){const has=slot.strokes.length>0;const d=t.querySelector('.dot');if(has&&!d)t.insertAdjacentHTML('beforeend','<i class="dot"></i>');if(!has&&d)d.remove();}};
+  const save=()=>{pers();const t=ov.querySelector(`[data-slot="${C.active}"]`);if(t){const has=slot.strokes.length>0;const d=t.querySelector('.dot');if(has&&!d)t.insertAdjacentHTML('beforeend','<i class="dot"></i>');if(!has&&d)d.remove();}};
   const puckLayer=ov.querySelector('#pucks');
   const renderPucks=()=>{puckLayer.innerHTML=Object.entries(slot.pucks).map(([id,pos])=>{const r=ST.roster.find(x=>x.id===id);if(!r)return '';return `<div class="puck" data-id="${id}" style="left:${(pos.x*100).toFixed(2)}%;top:${(pos.y*100).toFixed(2)}%" title="${esc(r.name)}">${r.photo?`<img src="${r.photo}" alt="">`:`<span>${esc(initialsOf(r.name))}</span>`}</div>`;}).join('');
     puckLayer.querySelectorAll('.puck').forEach(el=>{el.addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();el.setPointerCapture(e.pointerId);el.classList.add('drag');
       const move=ev=>{const r=wrap.getBoundingClientRect();const x=Math.min(.98,Math.max(.02,(ev.clientX-r.left)/r.width)),y=Math.min(.98,Math.max(.02,(ev.clientY-r.top)/r.height));el.style.left=(x*100)+'%';el.style.top=(y*100)+'%';slot.pucks[el.dataset.id]={x:+x.toFixed(4),y:+y.toFixed(4)};};
-      const end=ev=>{el.classList.remove('drag');el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',end);el.removeEventListener('pointercancel',end);persist('practice');};
+      const end=ev=>{el.classList.remove('drag');el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',end);el.removeEventListener('pointercancel',end);pers();};
       el.addEventListener('pointermove',move);el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);});});};
   const PUCK_SPOTS=[[.5,.36],[.22,.26],[.78,.26],[.34,.12],[.66,.12],[.5,.22],[.15,.42],[.85,.42],[.5,.46],[.3,.4]];
   ov.querySelectorAll('[data-puck]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.puck;if(slot.pucks[id]){delete slot.pucks[id];}else{const used=Object.values(slot.pucks).map(p=>p.x+','+p.y);const spot=PUCK_SPOTS.find(sp=>!used.includes(sp[0]+','+sp[1]))||[.5,.3];slot.pucks[id]={x:spot[0],y:spot[1]};}
-    persist('practice');renderPucks();b.classList.toggle('sel',!!slot.pucks[id]);const sum=b.closest('details').querySelector('summary');const n=Object.keys(slot.pucks).length;sum.textContent='Roster'+(n?' · '+n:'');ov.querySelector('#ctPuckClear').disabled=!n;}));
-  ov.querySelector('#ctPuckClear').addEventListener('click',()=>{slot.pucks={};persist('practice');renderPucks();ov.querySelectorAll('[data-puck]').forEach(x=>x.classList.remove('sel'));ov.querySelector('#ctPuckClear').disabled=true;ov.querySelector('#ctPuckClear').closest('details').querySelector('summary').textContent='Roster';});
+    pers();renderPucks();b.classList.toggle('sel',!!slot.pucks[id]);const sum=b.closest('details').querySelector('summary');const n=Object.keys(slot.pucks).length;sum.textContent='Roster'+(n?' · '+n:'');ov.querySelector('#ctPuckClear').disabled=!n;}));
+  ov.querySelector('#ctPuckClear').addEventListener('click',()=>{slot.pucks={};pers();renderPucks();ov.querySelectorAll('[data-puck]').forEach(x=>x.classList.remove('sel'));ov.querySelector('#ctPuckClear').disabled=true;ov.querySelector('#ctPuckClear').closest('details').querySelector('summary').textContent='Roster';});
   renderPucks();
   cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);CT.cur={c:CT.color,p:[pt(e)]};draw();});
   cv.addEventListener('pointermove',e=>{if(!CT.cur)return;CT.cur.p.push(pt(e));draw();});
@@ -2190,10 +2447,10 @@ function openCourt(ref){const C=courtState();if(ref){CT.ref=ref;}else if(ref===n
   ov.querySelector('#ctDraw').addEventListener('click',()=>{CT.drawOpen=!CT.drawOpen;ov.querySelector('#drawTray').classList.toggle('hidden',!CT.drawOpen);ov.querySelector('#ctDraw').classList.toggle('on',CT.drawOpen);ov.querySelector('#ctDraw').setAttribute('aria-expanded',CT.drawOpen);requestAnimationFrame(size);});
   ov.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{slot.full=b.dataset.view==='full';save();ov.remove();openCourt();}));
   ov.querySelectorAll('[data-floor]').forEach(b=>b.addEventListener('click',()=>{CT.wood=b.dataset.floor==='wood';ov.remove();openCourt();}));
-  ov.querySelectorAll('[data-slot]').forEach(b=>b.addEventListener('click',()=>{C.active=+b.dataset.slot;CT.ref=null;persist('practice');ov.remove();openCourt();}));
-  ov.querySelector('#ctMore').addEventListener('click',()=>{C.count=Math.min(8,C.count+1);courtState();C.active=C.count-1;CT.ref=null;persist('practice');ov.remove();openCourt();});
-  ov.querySelector('#ctLess').addEventListener('click',async()=>{if(C.count<=1)return;const last=C.slots[C.count-1];if(last.strokes.length&&!await ask(`Remove diagram ${C.count}? Its markup is deleted.`,'Remove'))return;C.count--;C.slots.length=C.count;if(C.active>=C.count)C.active=C.count-1;CT.ref=null;persist('practice');ov.remove();openCourt();});
-  ov.querySelector('#ctClose').addEventListener('click',()=>{ov.remove();window.removeEventListener('resize',size);renderLive();});
+  ov.querySelectorAll('[data-slot]').forEach(b=>b.addEventListener('click',()=>{C.active=+b.dataset.slot;CT.ref=null;pers();ov.remove();openCourt();}));
+  const _More=ov.querySelector('#ctMore');if(_More)_More.addEventListener('click',()=>{C.count=Math.min(8,C.count+1);courtState();C.active=C.count-1;CT.ref=null;pers();ov.remove();openCourt();});
+  const _Less=ov.querySelector('#ctLess');if(_Less)_Less.addEventListener('click',async()=>{if(C.count<=1)return;const last=C.slots[C.count-1];if(last.strokes.length&&!await ask(`Remove diagram ${C.count}? Its markup is deleted.`,'Remove'))return;C.count--;C.slots.length=C.count;if(C.active>=C.count)C.active=C.count-1;CT.ref=null;pers();ov.remove();openCourt();});
+  ov.querySelector('#ctClose').addEventListener('click',()=>{ov.remove();window.removeEventListener('resize',size);const t=CT.target;CT.target=null;if(t&&CT.targetBack){const f=CT.targetBack;CT.targetBack=null;f();}else renderLive();});
   const rb=ov.querySelector('#ctRep');if(rb)rb.addEventListener('click',()=>{tally(CT.ref.playId,1);const c=my().calls[CT.ref.playId];toast(`${CT.ref.title} ×${c?callTotal(c):1}`);});
   const hb=ov.querySelector('#ctHide');if(hb)hb.addEventListener('click',()=>{CT.hideRef=!CT.hideRef;ov.querySelector('#courtDiag').classList.toggle('off',CT.hideRef);hb.textContent=CT.hideRef?'Show diagram':'Hide diagram';});
   const bb=ov.querySelector('#ctBlank');if(bb)bb.addEventListener('click',()=>{ov.remove();openCourt(null);});
