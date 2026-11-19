@@ -240,6 +240,11 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .lib select{width:auto;min-width:200px;max-width:60vw}
 .lib .status{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-left:auto}
 .lib .status.live{color:var(--green)}
+.team-sel{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-soft-color)}
+.team-sel select{flex:1;min-width:0}
+.start-here{border:1px solid var(--accent);border-radius:var(--radius-md);padding:10px 12px;margin-bottom:12px;font-size:13px;color:var(--ink);line-height:1.5}
+.start-here .micro{color:var(--accent);display:block;margin-bottom:4px}
+.me-btn.on{color:var(--green);border-color:transparent}
 .mode{display:inline-flex;border:1px solid var(--border-color);border-radius:var(--radius);overflow:hidden}
 .mode button{padding:8px 14px;font-size:12px;font-weight:600;color:var(--ink-dim)}
 .mode button.on{background:var(--bg-4);color:var(--ink)}
@@ -874,13 +879,21 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 .diag-thumb .dt-l{font-family:var(--font-mono);font-size:10px;color:var(--ink-dim);letter-spacing:.04em}
 
 /* header + sub-header cleanup */
-.topbar .mode{justify-self:center}
-.topbar #coachBtn{justify-self:end}
+.topbar .team-pick{justify-self:center;width:auto;min-width:220px;max-width:50vw;font-family:var(--font-display);font-size:15px;letter-spacing:-.01em;padding:7px 36px 7px 12px;text-align:center}
+.lib{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.lib .bk-status{justify-self:start}
+.lib .mode{justify-self:center}
+.lib .exp.kebab{justify-self:end;margin-left:0}
 .lib{row-gap:8px}
 .lib .bk-status{margin-left:2px}
 .exp.kebab{margin-left:auto}
 .exp.kebab>summary{padding:6px 10px;font-size:16px;line-height:1;font-weight:700}
-.exp.kebab>div{right:0;left:auto;min-width:200px}
+.exp.kebab>div{right:0;left:auto;min-width:220px}
+.kb-h{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);padding:10px 10px 3px;border-top:1px solid var(--border-soft-color);margin-top:4px}
+.kb-h:first-child{border-top:none;margin-top:0;padding-top:4px}
+.kb-note{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--ink-faint);padding:4px 10px 6px}
+.kb-note.live{color:var(--green)}
+.exp.kebab>div #demoBtn{color:var(--ink-dim)}.exp.kebab>div #demoBtn.danger{color:var(--red)}
 .exp>div button.danger{color:var(--red)}
 .exp>div .bk-hd.live{color:var(--green)}
 @media (max-width:1023px){.lib .tabs{margin-left:auto}.lib .tabs+.exp.kebab{margin-left:8px}}
@@ -967,41 +980,36 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
 <div class="app" id="app" data-view="edit" data-mode="build">
   <header class="topbar">
     <svg class="logo" viewBox="0 0 1097 841" role="img" aria-label="Luceo" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1,0,0,1,-251.120088,-865.138023)"><g transform="matrix(1.060922,0,-0.265511,1.024931,213.274082,-28.550479)"><path fill="currentColor" d="M1287.088,1174.21L1287.088,1603.862C1287.088,1655.565 1251.053,1691.674 1199.454,1691.674L580.087,1691.674C542.76,1691.674 503.058,1674.023 472.565,1643.871C442.071,1613.719 424.221,1574.462 424.221,1537.552L424.221,871.95L700.294,871.95L696.44,1420.669L1037.47,1423.807L1037.752,1391.841C1037.752,1391.841 894.636,1390.524 804.102,1389.691C786.665,1389.531 768.195,1381.084 754.031,1366.794C739.868,1352.503 731.589,1333.961 731.589,1316.528L731.589,915.81C731.589,889.986 749.588,871.95 775.36,871.95L1287.088,871.95L1287.088,1142.242L945.885,1139.103L945.604,1171.068L1287.088,1174.21Z"/></g></g></svg>
+    <select class="team-pick" id="teamPick" onchange="if(this.value==='__new'){this.value=TEAM();newTeam();}else switchTeam(this.value)" title="Team"></select>
+    <span></span>
+  </header>
+  <div class="lib">
+    <span class="bk-status" id="bkStatus"></span>
     <div class="mode" role="tablist">
       <button id="modeBuild" class="on" onclick="setMode('build')">Build</button>
       <button id="modeManage" onclick="setMode('manage')">Manage</button>
       <button id="modeTrack" onclick="setMode('track')">Track</button>
     </div>
-    <button class="btn btn-secondary btn-sm" id="coachBtn" onclick="coachGate(true)">Select coach ▾</button>
-  </header>
-  <div class="lib">
-    <select id="pracSel" onchange="openPractice(this.value)"></select>
-    <button class="btn btn-secondary btn-sm only-build" onclick="newPractice()">+ New</button>
-    <button class="btn btn-ghost btn-sm only-build" onclick="dupPractice()">Duplicate</button>
-    <button class="btn btn-ghost btn-sm btn-danger only-build" onclick="delPractice()">Delete</button>
-    <details class="exp bk"><summary>Backup</summary><div>
-      <div class="bk-hd" id="bkFolder">No backup folder</div>
-      <button onclick="bkBackupNow()">Back up now</button>
-      <button onclick="bkRestore()">Restore…</button>
-      <div class="bk-sep"></div>
-      <button onclick="bkOpenSetup()">Set up shared folder…</button>
-      <input type="file" id="bkFile" accept="application/json" style="display:none" onchange="importLibrary(this)">
-    </div></details>
-    <span class="bk-status" id="bkStatus"></span>
+    <input type="file" id="bkFile" accept="application/json" style="display:none" onchange="importLibrary(this)">
     <div class="tabs" role="tablist">
       <button id="tabEdit" class="on" onclick="setView('edit')">Edit</button>
       <button id="tabPrev" onclick="setView('preview')">Sheet</button>
     </div>
     <details class="exp kebab" id="kebab"><summary aria-label="More">⋮</summary><div>
-      <button onclick="openTutorial()">How the builder works</button>
-      <button onclick="openLibPane()">Manage drills &amp; plays</button>
-      <div class="bk-sep"></div>
+      <div class="kb-h">Export</div>
       <button onclick="printSheet('plan')">Save plan PDF</button>
       <button onclick="printSheet('report')">Save report PDF</button>
-      <div class="bk-sep"></div>
+      <div class="kb-h">Backup</div>
+      <button onclick="bkBackupNow()">Back up now</button>
+      <button onclick="bkRestore()">Restore…</button>
+      <button onclick="bkOpenSetup()">Set up shared folder…</button>
+      <div class="kb-note" id="bkFolder">No backup folder</div>
+      <div class="kb-h">Library</div>
+      <button onclick="openLibPane()">Manage drills &amp; plays</button>
+      <div class="kb-h">Help</div>
+      <button onclick="openTutorial()">How the builder works</button>
       <button id="demoBtn" onclick="hasDemo()?clearDemo():loadDemo()"></button>
-      <div class="bk-sep"></div>
-      <div class="bk-hd" id="status">local only</div>
+      <div class="kb-note" id="status">local only</div>
     </div></details>
   </div>
   <div class="main">
@@ -1019,7 +1027,14 @@ input.mono,textarea.mono{font-family:var(--font-mono);font-size:12px}
    Taxonomy: [{name, focuses:[{name, subs:[...]}]}]
    Block: {min,obj,title,note,cat,focus,lines:[{tag,text,sub}]}
 ──────────────────────────────────────────────────────── */
-const KEY='luceo.practice-plan.v2';
+const KEY='luceo.practice-plan.v2';const TKEY='luceo.practice-plan.teams';
+let TEAMS={active:'main',list:[{id:'main',name:''}]};
+function teamsLoad(){try{const t=JSON.parse(localStorage.getItem(TKEY)||'null');if(t&&Array.isArray(t.list)&&t.list.length&&t.list.some(x=>x.id===t.active))TEAMS=t;}catch(e){}}
+function teamsSave(){try{localStorage.setItem(TKEY,JSON.stringify(TEAMS));}catch(e){}if(DB&&CAN_WRITE)DB.doc('settings/teams').set(JSON.parse(JSON.stringify(TEAMS))).catch(()=>{});}
+const TEAM=()=>TEAMS.active;const keyFor=id=>id==='main'?KEY:KEY+'.'+id;const sdoc=id=>'settings/'+(id==='main'?'main':'t-'+id);const ckeyFor=id=>id==='main'?'luceo.coach':'luceo.coach.'+id;
+function teamEntry(){let t=TEAMS.list.find(x=>x.id===TEAM());if(!t){t={id:TEAM(),name:''};TEAMS.list.push(t);}return t;}
+function teamNameSync(){const t=teamEntry();const n=(ST.team&&ST.team.name||'').trim();if(t.name!==n){t.name=n;teamsSave();}}
+const teamLabel=t=>t.name||(t.id==='main'?'My team':'Untitled team');
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=v=>{const n=parseInt(v,10);return isNaN(n)?0:n;};
@@ -1065,7 +1080,7 @@ const allPlayIds=pb=>pb.flatMap(s=>s.groups.flatMap(g=>g.plays.map(p=>p.id)));
 const DEMO_ROSTER=['Amari Williams','Caleb Grill','Chris Cenac Jr.','Dillon Mitchell','Hank Morgan','Hayden Gray','Milos Uzan','Tucker DeVries'];
 const freshSettings=()=>({team:{name:'',logo:'',accent:'#E85D2C',ink:'#ECECEC'},coaches:[],roster:[],taxonomy:[],drills:[],playbook:[],menu:[],templates:[],seasons:[],drillsBuilt:true,demoLoaded:true,cleanup1:true,demoCoaches:true,demoStaff:2,demoRoster:2,demoNames:2,pbStructured:true,demoPurged:true});
 const seedSettings=()=>{const pb=seedPlaybook();return {team:{name:'Maine Celtics',logo:'',accent:'#007A33',ink:'#ECECEC'},taxonomy:seedTax(),playbook:pb,menu:allPlayIds(pb),roster:DEMO_ROSTER.map(n=>({id:uid(),name:n}))};};
-const blankPractice=(n,date,title='')=>({id:uid(),meta:{label:'Practice',number:String(n),title,date:date||today(),time:'',focus:''},
+const blankPractice=(n,date,title='')=>({id:uid(),teamId:TEAM(),meta:{label:'Practice',number:String(n),title,date:date||today(),time:'',focus:''},
   blocks:[],menu:[],results:{},keyFocus:{text:'',bullets:[],clips:[]}});
 function today(){const d=new Date();return d.toISOString().slice(0,10);}
 
@@ -1157,10 +1172,10 @@ async function clearDemo(){const n=Object.values(LIB).length;
   if(!await ask(`Start fresh?\n\nThis removes everything the demo put here: ${n} practice${n===1?'':'s'}, the roster, the coaching staff, the drill taxonomy, the playbook, the team brand and the season. You will name your head coach next and build your own team from an empty library.\n\nThis cannot be undone. Back up first if you want to keep any of it.`,'Start fresh'))return;
   const ids=Object.keys(LIB);ids.forEach(id=>dbDelete(id));LIB={};
   ST=freshSettings();
-  ACTIVE=null;_tmpBucket=null;VIEW_SEASON=null;TG='';try{localStorage.removeItem(CKEY);}catch(e){}
+  ACTIVE=null;_tmpBucket=null;VIEW_SEASON=null;TG='';try{localStorage.removeItem(ckeyFor(TEAM()));}catch(e){}
   migrate();const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;S=b;
   if(DB&&CAN_WRITE){DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST))).catch(()=>{});DB.doc('practices/'+b.id).set(JSON.parse(JSON.stringify(b))).catch(()=>{});}
-  BK.dirtySince=null;BK.lastBackup=null;bkSaveMeta();saveLocal();applyRole();renderAll(true);bkRenderStatus();toast('Fresh start. Name your head coach to begin.');coachGate(true);}
+  BK.dirtySince=null;BK.lastBackup=null;bkSaveMeta();saveLocal();applyRole();renderAll(true);bkRenderStatus();toast('Fresh start. Add yourself under Team › Coaches to begin.');goTeamTab();}
 const hasDemo=()=>Object.values(LIB).some(p=>p.demo);
 
 /* ── Store: db when available, localStorage otherwise ──── */
@@ -1168,8 +1183,8 @@ let ST=null;          // settings
 let LIB={};           // id -> practice
 let S=null;           // current practice
 let DB=null,CAN_WRITE=true,pending={};
-function loadLocal(){try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.settings&&r.lib)return r;}catch(e){}return null;}
-function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify({settings:ST,lib:LIB,current:S&&S.id}));}catch(e){}}
+function loadLocal(id){try{const r=JSON.parse(localStorage.getItem(keyFor(id||TEAM()))||'null');if(r&&r.settings&&r.lib)return r;}catch(e){}return null;}
+function saveLocal(){try{localStorage.setItem(keyFor(TEAM()),JSON.stringify({settings:ST,lib:LIB,current:S&&S.id}));}catch(e){}}
 function migrate(){
   // old rail-shaped playbook -> structured
   if(!ST.playbook)ST.playbook=[];
@@ -1189,7 +1204,7 @@ function migrate(){
     Object.values(LIB).forEach(p=>{if(legacy(p))p.demo=true;});
     const all=Object.values(LIB).filter(p=>!isBlankPractice(p));const demo=all.filter(p=>p.demo);
     if(demo.length){demo.forEach(p=>{delete LIB[p.id];dbDelete(p.id);});
-      if(demo.length===all.length){const keep={seasons:ST.seasons};ST=Object.assign(freshSettings(),{seasons:keep.seasons||[]});ACTIVE=null;try{localStorage.removeItem(CKEY);}catch(e){}if(typeof BK!=='undefined'){BK.dirtySince=null;BK.lastBackup=null;bkSaveMeta();}}}
+      if(demo.length===all.length){const keep={seasons:ST.seasons};ST=Object.assign(freshSettings(),{seasons:keep.seasons||[]});ACTIVE=null;try{localStorage.removeItem(ckeyFor(TEAM()));}catch(e){}if(typeof BK!=='undefined'){BK.dirtySince=null;BK.lastBackup=null;bkSaveMeta();}}}
     ST.demoPurged=true;ST.demoLoaded=true;}
   else ST.demoPurged=true;
   if(!Array.isArray(ST.coaches))ST.coaches=[];
@@ -1225,7 +1240,24 @@ function migrate(){
   Object.values(LIB).forEach(p=>{if(!Array.isArray(p.menu))p.menu=(ST.menu||[]).slice();delete p.rails;if(!p.results)p.results={};delete p.results._;});
   if(ST.demoCoaches)demoAssistantResults();
 }
-function bootLocal(){const l=loadLocal();if(l){ST=l.settings;LIB=l.lib;S=LIB[l.current]||Object.values(LIB)[0]||null;}
+function dbFlush(){Object.keys(dbT).forEach(k=>{if(dbT[k]){clearTimeout(dbT[k]);dbT[k]=null;}});if(DB&&CAN_WRITE){try{DB.doc(sdoc(TEAM())).set(JSON.parse(JSON.stringify(ST))).catch(()=>{});if(S){S.teamId=TEAM();dbEcho[S.id]=JSON.stringify(S);DB.doc('practices/'+S.id).set(JSON.parse(dbEcho[S.id])).catch(()=>{});}}catch(e){}}}
+function loadTeamWorkspace(id){TEAMS.active=id;teamsSave();const l=loadLocal(id);ST=l?l.settings:null;LIB=l?l.lib:{};S=l?(LIB[l.current]||null):null;
+  if(DB){const mine=Object.values(DBALL).filter(p=>(p.teamId||'main')===id);if(mine.length){LIB={};mine.forEach(p=>{LIB[p.id]=JSON.parse(JSON.stringify(p));});S=LIB[S&&S.id]||null;}}
+  if(!ST)ST=freshSettings();migrate();if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;b.teamId=id;LIB[b.id]=b;}if(!S)S=sorted()[sorted().length-1]||Object.values(LIB)[0];
+  try{ACTIVE=localStorage.getItem(ckeyFor(id));}catch(e){ACTIVE=null;}if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;_tmpBucket=null;TG='';VIEW_SEASON=null;
+  teamNameSync();persist('settings');saveLocal();applyRole();ET='library';renderAll(true);bkRenderStatus();}
+async function switchTeam(id){if(id===TEAM()||!TEAMS.list.some(t=>t.id===id))return;dbFlush();saveLocal();if(DB&&CAN_WRITE){const st=await DB.doc(sdoc(id)).get().catch(()=>null);if(st&&st.exists){try{localStorage.setItem(keyFor(id),JSON.stringify({settings:st.data(),lib:(loadLocal(id)||{}).lib||{},current:null}));}catch(e){}}}
+  loadTeamWorkspace(id);toast('Switched to '+teamLabel(teamEntry()));}
+async function newTeam(){const name=await askText('New team',{placeholder:'Team or program name',okLabel:'Create team',hint:'A team has its own brand, staff, roster, drills, plays, templates, seasons and practices. Switch between teams in Team › Team brand.'});if(name===null||!name)return;
+  dbFlush();saveLocal();const id=uid();TEAMS.list.push({id,name});TEAMS.active=id;teamsSave();ST=freshSettings();ST.team.name=name;LIB={};S=null;ACTIVE=null;
+  try{localStorage.setItem(keyFor(id),JSON.stringify({settings:ST,lib:{},current:null}));}catch(e){}loadTeamWorkspace(id);toast('Team created: '+name+'. Add yourself under Coaches.');}
+async function deleteTeam(){const t=teamEntry();const n=Object.keys(LIB).length;if(!await ask(`Delete team "${teamLabel(t)}" and everything in it: ${n} practice${n===1?'':'s'}, staff, roster, drills, plays and templates? This cannot be undone. Back up or save a team file first if you want to keep any of it.`,'Delete team'))return;
+  const id=TEAM();Object.keys(LIB).forEach(pid=>dbDelete(pid));if(DB&&CAN_WRITE)DB.doc(sdoc(id)).delete().catch(()=>{});try{localStorage.removeItem(keyFor(id));localStorage.removeItem(ckeyFor(id));}catch(e){}
+  TEAMS.list=TEAMS.list.filter(x=>x.id!==id);if(!TEAMS.list.length)TEAMS.list.push({id:'main',name:''});const next=TEAMS.list[0].id;if(next==='main'&&id==='main'){try{localStorage.removeItem(KEY);}catch(e){}}
+  loadTeamWorkspace(next);toast('Team deleted');}
+function teamSelectorHtml(){return `<div class="team-sel"><label class="lbl">Team</label><div class="row" style="gap:6px;align-items:center"><span style="flex:1;font-family:var(--font-display);font-size:16px;letter-spacing:-.01em">${esc(teamLabel(teamEntry()))}</span><button class="btn btn-ghost btn-sm" onclick="renameTeam()">Rename</button><button class="btn btn-ghost btn-sm btn-danger" onclick="deleteTeam()" title="Delete this team">Delete</button></div><div class="hint">Switch or add teams from the dropdown in the header. Everything below, and every practice, belongs to this team.</div></div>`;}
+async function renameTeam(){const name=await askText('Team name',{value:ST.team.name||'',placeholder:'Team or program name',okLabel:'Save'});if(name===null)return;ST.team.name=name.trim();teamNameSync();up('settings',true);renderCtx();}
+function bootLocal(){teamsLoad();const l=loadLocal();if(l){ST=l.settings;LIB=l.lib;S=LIB[l.current]||Object.values(LIB)[0]||null;}
   if(!ST)ST=freshSettings();migrate();if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;}if(!S)S=sorted()[sorted().length-1]||Object.values(LIB)[0];}
 async function bootDb(){
   if(!window.claude||!window.claude.use)return;
@@ -1233,37 +1265,38 @@ async function bootDb(){
     const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
     if(!db)return;DB=db;
     if(user){const w=await user.can('data.write');if(w===false)CAN_WRITE=false;}
-    const st=await db.doc('settings/main').get();
+    const tdoc=await db.doc('settings/teams').get();if(tdoc.exists){const t=JSON.parse(JSON.stringify(tdoc.data()));if(t&&Array.isArray(t.list)&&t.list.length){TEAMS=t;try{localStorage.setItem(TKEY,JSON.stringify(TEAMS));}catch(e){}}}
+    const st=await db.doc(sdoc(TEAM())).get();
     if(st.exists){ST=JSON.parse(JSON.stringify(st.data()));}
-    else if(CAN_WRITE){await db.doc('settings/main').set(ST);}
-    const q=await db.collection('practices').get();
-    if(!q.empty){LIB={};q.docs.forEach(d=>{const p=JSON.parse(JSON.stringify(d.data()));p.id=d.id;LIB[p.id]=p;});
-      S=LIB[S&&S.id]||sorted()[0];}
-    else if(CAN_WRITE){migrate();for(const p of Object.values(LIB))await db.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p)));}
-    migrate();if(!st.exists||!st.data().playbook||!st.data().playbook[0]||!st.data().playbook[0].groups){if(CAN_WRITE)await db.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));}
+    else if(CAN_WRITE){await db.doc(sdoc(TEAM())).set(ST);}
+    const q=await db.collection('practices').get();DBALL={};q.docs.forEach(d=>{const p=JSON.parse(JSON.stringify(d.data()));p.id=d.id;DBALL[p.id]=p;});
+    const mine=Object.values(DBALL).filter(p=>(p.teamId||'main')===TEAM());
+    if(mine.length){LIB={};mine.forEach(p=>{LIB[p.id]=p;});S=LIB[S&&S.id]||sorted()[0];}
+    else if(CAN_WRITE){migrate();for(const p of Object.values(LIB)){p.teamId=TEAM();await db.doc('practices/'+p.id).set(JSON.parse(JSON.stringify(p)));DBALL[p.id]=p;}}
+    migrate();if(!st.exists||!st.data().playbook||!st.data().playbook[0]||!st.data().playbook[0].groups){if(CAN_WRITE)await db.doc(sdoc(TEAM())).set(JSON.parse(JSON.stringify(ST)));}
     db.collection('practices').onSnapshot(snap=>{let changed=false;snap.docChanges().forEach(ch=>{const id=ch.doc.id;
-      if(ch.type==='removed'){if(LIB[id]){delete LIB[id];changed=true;}}
-      else{if(!ch.doc.metadata.hasPendingWrites){const p=JSON.parse(JSON.stringify(ch.doc.data()));p.id=id;const inc=JSON.stringify(p);
+      if(ch.type==='removed'){delete DBALL[id];if(LIB[id]){delete LIB[id];changed=true;}}
+      else{if(!ch.doc.metadata.hasPendingWrites){const p=JSON.parse(JSON.stringify(ch.doc.data()));p.id=id;DBALL[id]=p;if((p.teamId||'main')!==TEAM())return;const inc=JSON.stringify(p);
         if(inc===dbEcho[id]||inc===JSON.stringify(LIB[id]||null))return; /* our own write coming back, or nothing new */
         if(S&&S.id===id&&(dbT.practice||dbDirty.has(id)))return; /* local copy is newer: a save is still in flight */
         LIB[id]=p;if(S&&S.id===id)S=p;changed=true;}}});
       if(changed){if(!LIB[S&&S.id])S=sorted()[0]||null;migrate();dbRenderRemote();}},()=>{});
-    setStatus(CAN_WRITE?'saved to artifact':'read only');if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;applyRole();if(!ACTIVE)coachGate(true);
+    setStatus(CAN_WRITE?'saved to artifact':'read only');if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;applyRole();
     if(!ST.cleanup1){ST.cleanup1=true;ST.demoLoaded=true;persist('settings');}
     if(!Object.keys(LIB).length){const b=blankPractice(1);b.seasonId=activeSeason().id;LIB[b.id]=b;S=b;persist('practice');}
     renderAll(true);
   }catch(e){setStatus('local only');}
 }
 function setStatus(t){const el=document.getElementById('status');if(el){el.textContent='Storage: '+t;el.classList.toggle('live',/artifact/.test(t));}}
-let dbT={};const dbEcho={};const dbDirty=new Set();let dbDeferred=false;
+let dbT={};let DBALL={};const dbEcho={};const dbDirty=new Set();let dbDeferred=false;
 /* Remote changes never rebuild the editor while a field has focus; they wait for blur. */
 function dbRenderRemote(){const a=document.activeElement;const typing=a&&a.closest&&a.closest('#editor, .dlg, #libpane')&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);if(typing){dbDeferred=true;renderSheet();return;}dbDeferred=false;renderAll(true);}
 document.addEventListener('focusout',()=>{if(dbDeferred)setTimeout(()=>{const a=document.activeElement;if(dbDeferred&&!(a&&a.closest&&a.closest('#editor, .dlg, #libpane')&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)))dbRenderRemote();},150);});
-function dbSavePractice(p){saveLocal();if(!DB||!CAN_WRITE||!p)return;const body=JSON.stringify(p);dbEcho[p.id]=body;DB.doc('practices/'+p.id).set(JSON.parse(body)).catch(()=>{});}
+function dbSavePractice(p){saveLocal();if(!DB||!CAN_WRITE||!p)return;p.teamId=TEAM();const body=JSON.stringify(p);dbEcho[p.id]=body;DB.doc('practices/'+p.id).set(JSON.parse(body)).catch(()=>{});}
 function persist(kind){saveLocal();bkTouch();if(!DB||!CAN_WRITE)return;if(kind!=='settings'&&S)dbDirty.add(S.id);
   clearTimeout(dbT[kind]);dbT[kind]=setTimeout(async()=>{dbT[kind]=null;try{
-    if(kind==='settings')await DB.doc('settings/main').set(JSON.parse(JSON.stringify(ST)));
-    else if(S){const body=JSON.stringify(S);dbEcho[S.id]=body;dbDirty.delete(S.id);await DB.doc('practices/'+S.id).set(JSON.parse(body));}
+    if(kind==='settings')await DB.doc(sdoc(TEAM())).set(JSON.parse(JSON.stringify(ST)));
+    else if(S){S.teamId=TEAM();const body=JSON.stringify(S);dbEcho[S.id]=body;dbDirty.delete(S.id);await DB.doc('practices/'+S.id).set(JSON.parse(body));}
     setStatus('saved to artifact');}catch(e){setStatus('save failed: '+(e.code||'error'));}},600);}
 async function dbDelete(id){if(!DB)return;if(!CAN_WRITE)return false;try{await DB.doc('practices/'+id).delete();return true;}catch(e){return false;}}
 /* ── Seasons ───────────────────────────────────────────── */
@@ -1369,28 +1402,15 @@ function initialsOf(name){const parts=(name||'').trim().split(/\s+/).filter(x=>x
 function groupHas(groupKey,playerId){const pl=ST.roster.find(x=>x.id===playerId);if(!pl)return false;const ini=initialsOf(pl.name);return groupKey.split(/[,\s]+/).map(x=>x.trim().toUpperCase()).filter(Boolean).includes(ini);}
 
 /* coach selection gate + switcher */
-function coachGate(force){const list=coaches();
-  if(!force&&ACTIVE&&coach(ACTIVE))return;document.querySelectorAll('.coach-gate').forEach(x=>x.remove());
-  const ov=document.createElement('div');ov.className='dlg-ov coach-gate';
-  const render=()=>{const first=!list.length;
-    ov.innerHTML=first?`<div class="dlg" style="max-width:400px"><div class="dlg-t">Who's the head coach?</div><div class="hint" style="margin-bottom:12px">The head coach writes the plan and owns the team setup. Next: team name and logo in Team › Team brand, then staff and roster. Drills and plays build themselves as you write practices.</div>
-      <div class="row" style="gap:6px"><input type="text" id="cgName" placeholder="Head coach name"><button class="btn btn-primary btn-sm" id="cgAdd">Start</button></div>
-      <div class="hint" style="margin-top:12px">Already set up on another device? <label class="lk-btn" style="cursor:pointer">Load your team file<input type="file" accept="application/json" style="display:none" onchange="importLibrary(this);this.closest('.coach-gate').remove()"></label>.</div></div>`
-    :`<div class="dlg" style="max-width:440px"><div class="dlg-t">Who's coaching on this device?</div><div class="hint" style="margin-bottom:12px">Everything you record is filed under this name.</div>
-      <div class="role-grid"><div class="role-col"><div class="rc-h head">Head coach</div><ul><li>Builds the practice plan</li><li>Owns the team setup: staff, roster, drills, playbook</li><li>Runs the clock and sets actual block times</li><li>Sees the staff comparison in Track</li><li>Hands off head coach to someone else in Team › Coaches</li></ul></div>
-      <div class="role-col"><div class="rc-h">Assistant</div><ul><li>Reads the plan and the team setup</li><li>Checks off the drills they ran at their station</li><li>Tallies reps and grades plays, by player group</li><li>Rates the session and their players</li><li>Writes their own reflection</li></ul></div></div>
-      <div class="coach-list">${list.map(c=>`<button class="coach-row ${c.id===ACTIVE?'sel':''}" data-c="${c.id}"><span>${esc(c.name)}</span><span class="role ${c.role}">${c.role==='head'?'Head coach':'Assistant'}</span></button>`).join('')}</div>
-      ${ACTIVE&&coach(ACTIVE)?`<div class="dlg-b" style="margin-top:12px"><button class="btn btn-ghost btn-sm" data-r="0">Cancel</button></div>`:''}</div>`;
-    const add=ov.querySelector('#cgAdd');if(add){const go=()=>{const n=ov.querySelector('#cgName').value.trim();if(!n)return;const c={id:uid(),name:n,role:'head'};list.push(c);persist('settings');setActiveCoach(c.id);ov.remove();};add.addEventListener('click',go);ov.querySelector('#cgName').addEventListener('keydown',e=>{if(e.key==='Enter')go();});ov.querySelector('#cgName').focus();}
-    ov.querySelectorAll('[data-c]').forEach(b=>b.addEventListener('click',()=>{setActiveCoach(b.dataset.c);ov.remove();}));
-    const cx=ov.querySelector('[data-r="0"]');if(cx)cx.addEventListener('click',()=>ov.remove());};
-  render();document.body.appendChild(ov);}
-function setActiveCoach(id){ACTIVE=id;_tmpBucket=null;let seen=false;try{seen=localStorage.getItem('luceo.tutorialSeen')==='1';}catch(e){}if(!seen){try{localStorage.setItem('luceo.tutorialSeen','1');}catch(e){}setTimeout(openTutorial,300);}try{localStorage.setItem(CKEY,id);}catch(e){}TG='';applyRole();renderAll(true);bkRenderStatus();toast('Coaching as '+coachName(id));}
-function applyRole(){const app=document.getElementById('app');app.dataset.role=isHead()?'head':'assistant';const el=document.getElementById('coachBtn');if(el)el.textContent=(coach(ACTIVE)?coachName(ACTIVE):'Select coach')+' ▾';}
-function coachesSectionHtml(){const list=coaches();return `<div class="hint" style="margin-bottom:10px">One head coach owns the plan and library. Everyone else records results from their station. Each coach picks themselves on their own device.</div>
-  <div class="pb-list">${list.map((c,i)=>`<div class="pb-play" style="grid-template-columns:1fr auto 24px;cursor:default"><input class="pn" type="text" value="${esc(c.name)}" oninput="ST.coaches[${i}].name=this.value;up('settings')"><button class="btn btn-ghost btn-sm" onclick="setHead('${c.id}')" ${c.role==='head'?'disabled':''}>${c.role==='head'?'Head coach':'Make head'}</button><button class="x" onclick="coachDel(${i})" title="Remove">✕</button></div>`).join('')}</div>
-  <div class="pb-add"><input type="text" placeholder="Coach name" onkeydown="if(event.key==='Enter'){coachAdd(this.value);}"><button class="btn btn-ghost btn-sm" onclick="coachAdd(this.previousElementSibling.value)">Add</button></div>`;}
-function coachAdd(name){if(!isHeadOrNone()){toast('Only the head coach manages staff.');return;}const n=(name||'').trim();if(!n)return;coaches().push({id:uid(),name:n,role:coaches().some(x=>x.role==='head')?'assistant':'head'});up('settings',true);}
+function coachGate(){goTeamTab();}
+function setActiveCoach(id){ACTIVE=id;_tmpBucket=null;let seen=false;try{seen=localStorage.getItem('luceo.tutorialSeen')==='1';}catch(e){}if(!seen){try{localStorage.setItem('luceo.tutorialSeen','1');}catch(e){}setTimeout(openTutorial,300);}try{localStorage.setItem(ckeyFor(TEAM()),id);}catch(e){}TG='';applyRole();renderAll(true);bkRenderStatus();toast('Coaching as '+coachName(id));}
+function applyRole(){const app=document.getElementById('app');app.dataset.role=isHeadOrNone()?'head':'assistant';renderCtx();}
+function renderCtx(){const el=document.getElementById('teamPick');if(!el)return;el.innerHTML=TEAMS.list.map(t=>`<option value="${t.id}" ${t.id===TEAM()?'selected':''}>${esc(teamLabel(t))}</option>`).join('')+'<option disabled>──────</option><option value="__new">+ New team…</option>';}
+function goTeamTab(){setMode('build');ET='library';renderEditor();}
+function coachesSectionHtml(){const list=coaches();return `<div class="hint" style="margin-bottom:10px">Add the staff, then press <b>This is me</b> on your own name on each device you use. Everything you record (drill checks, reps, grades, ratings, reflection) is filed under that name. The head coach writes the plan and owns the team setup; assistants record from their stations.</div>
+  <div class="pb-list">${list.map((c,i)=>`<div class="pb-play" style="grid-template-columns:1fr auto auto 24px;cursor:default"><input class="pn" type="text" value="${esc(c.name)}" oninput="ST.coaches[${i}].name=this.value;up('settings');renderCtx()"><button class="btn btn-ghost btn-sm me-btn ${c.id===ACTIVE?'on':''}" onclick="setActiveCoach('${c.id}')" ${c.id===ACTIVE?'disabled':''}>${c.id===ACTIVE?'✓ You':'This is me'}</button><button class="btn btn-ghost btn-sm" onclick="setHead('${c.id}')" ${c.role==='head'?'disabled':''}>${c.role==='head'?'Head coach':'Make head'}</button><button class="x" onclick="coachDel(${i})" title="Remove">✕</button></div>`).join('')||'<div class="hint" style="padding:6px 0">No coaches yet. Add the head coach first.</div>'}</div>
+  <div class="pb-add"><input type="text" placeholder="${list.length?'Coach name':'Head coach name'}" onkeydown="if(event.key==='Enter'){coachAdd(this.value);}"><button class="btn btn-ghost btn-sm" onclick="coachAdd(this.previousElementSibling.value)">Add</button></div>`;}
+function coachAdd(name){if(!isHeadOrNone()){toast('Only the head coach manages staff.');return;}const n=(name||'').trim();if(!n)return;const first=!coaches().length;const c={id:uid(),name:n,role:coaches().some(x=>x.role==='head')?'assistant':'head'};coaches().push(c);if(first){ACTIVE=c.id;try{localStorage.setItem(ckeyFor(TEAM()),c.id);}catch(e){}applyRole();}up('settings',true);}
 function setHead(id){if(!isHead()){toast('Only the head coach can hand off head coach.');return;}coaches().forEach(c=>c.role=c.id===id?'head':'assistant');up('settings',true);applyRole();}
 async function coachDel(i){if(!isHead()){toast('Only the head coach manages staff.');return;}const c=coaches()[i];const used=Object.values(LIB).filter(p=>p.results&&p.results[c.id]).length;if(used&&!await ask(`${c.name} has results in ${used} practice(s). Remove anyway? Their results stay on the practices.`,'Remove'))return;coaches().splice(i,1);if(ACTIVE===c.id){ACTIVE=null;try{localStorage.removeItem(CKEY);}catch(e){}}up('settings',true);applyRole();if(!ACTIVE)coachGate(true);}
 
@@ -1430,7 +1450,7 @@ function ratingsBodyHtml(){const R=my().ratings;const sp=ratingPct(R.session);co
   ${R.rated.map(id=>{const o=R.players[id]||{};const pp=ratingPct(o);return `<details class="rt-player" data-id="${id}"><summary><span class="rt-name">${headshotHtml(id)}${esc(playerName(id))}</span>${pp!==null?`<span class="rt-pct">${pp}%</span>`:'<span class="hint" style="margin:0">Not rated</span>'}</summary>${scaleHtml(id,o)}</details>`;}).join('')}`;}
 
 /* ── Library actions ───────────────────────────────────── */
-function renderLib(){document.getElementById('app').dataset.archived=seasonEditable()?'0':'1';const db=document.getElementById('demoBtn');if(db){db.textContent=hasDemo()?'Clear sample season · start fresh':'Load sample season';db.classList.toggle('danger',hasDemo());}const sel=document.getElementById('pracSel');const list=sorted();
+function renderLib(){document.getElementById('app').dataset.archived=seasonEditable()?'0':'1';const db=document.getElementById('demoBtn');if(db){db.textContent=hasDemo()?'Clear sample season · start fresh':'Load sample season';db.classList.toggle('danger',hasDemo());}const sel=document.getElementById('pracSel');const list=sorted();if(!sel)return;
   sel.innerHTML=list.map(p=>`<option value="${p.id}" ${S&&p.id===S.id?'selected':''}>${esc(p.meta.label)} #${esc(p.meta.number)} · ${esc(p.meta.date||'no date')}${p.meta.title?' · '+esc(p.meta.title):''}</option>`).join('')||'<option>No practices this season</option>';}
 function openPractice(id){if(!LIB[id])return;S=LIB[id];saveLocal();renderAll(true);}
 async function newPractice(givenTitle){if(!seasonEditable()){toast('This season is archived. Start a new season to add practices.');return;}const list=sorted();const n=list.length?Math.max(...list.map(p=>num(p.meta.number)))+1:1;
@@ -1569,7 +1589,7 @@ const subs=(c,f)=>{const k=ST.taxonomy.find(x=>x.name===c);const g=k&&k.focuses.
 const opt=(list,cur,ph)=>`<option value="">${ph}</option>`+list.map(v=>`<option ${v===cur?'selected':''}>${esc(v)}</option>`).join('')+(cur&&!list.includes(cur)?`<option value="${esc(cur)}" selected>${esc(cur)} · removed</option>`:'');
 
 /* ── Editor ────────────────────────────────────────────── */
-function renderEditor(){renderEditor0();cbInit(document.getElementById('editor'));renderLibPane();}
+function renderEditor(){renderEditor0();cbInit(document.getElementById('editor'));renderLibPane();renderLib();renderCtx();}
 function renderEditor0(){
   const E=document.getElementById('editor');if(!S){E.innerHTML='';return;}
   const t=ST.team,m=S.meta;
@@ -1577,13 +1597,14 @@ function renderEditor0(){
   <div class="etabs">${[['library','Team'],['plan','Plan'],['reflect','Results']].map(([k,l])=>`<button class="${ET===k?'on':''}" onclick="ET='${k}';renderEditor()">${l}</button>`).join('')}</div>
   <div class="etab-desc"><span>${ET==='library'?'Your team, saved once: season, brand, staff and roster. Drills and plays build themselves as you write plans.':ET==='plan'?'Write this practice. Type a drill or play name to search what you have used before, or create it on the spot; it is saved for every plan after this one.':'What happened, in your name: reps and grades by player group, session and player ratings, the diagrams drawn live, and your reflection.'}</span><button class="help-q" onclick="openTutorial(${ET==='library'?2:ET==='plan'?3:5})" title="How this tab works" aria-label="How this tab works">?</button></div>
   <div class="etab" data-tab="library" ${ET==='library'?'':'hidden'}>
+  ${!coach(ACTIVE)||!t.name?`<div class="start-here"><span class="micro">Start here</span>${!t.name?'1. Pick or create your team in the header dropdown (or load a team file below). ':'1. Team: '+esc(t.name)+'. '}${!coach(ACTIVE)?'2. Add the staff under Coaches and press <b>This is me</b> on your name. Everything you record is filed under it.':'2. You are '+esc(coachName(ACTIVE))+'.'}</div>`:''}
   ${(()=>{const v=viewSeason();const list=seasons().slice().sort((a,b)=>(b.start||'').localeCompare(a.start||''));return `<div class="season-row"><div class="sr-l"><span class="lbl" style="margin:0">Season</span><div class="sr-name">${esc(v?v.name:'')}${v&&v.status==='archived'?'<span class="sr-arch">archived</span>':''}</div><span class="hint" style="margin:0">${v?`${seasonPractices(v.id).length} practice${seasonPractices(v.id).length===1?'':'s'}${v.start?' · from '+esc(v.start):''}`:''}</span></div>
     <div class="sr-r">${list.length>1?`<select class="sr-sel" onchange="setViewSeason(this.value)" aria-label="View season">${list.map(x=>`<option value="${x.id}" ${v&&x.id===v.id?'selected':''}>${esc(x.name)}${x.status==='archived'?' · archived':''}</option>`).join('')}</select>`:''}${v?`<button class="btn btn-ghost btn-sm" onclick="exportSeason('${v.id}')">Export</button>`:''}${isHead()?`<button class="btn btn-secondary btn-sm" onclick="startSeason()">Start new season</button>`:''}</div></div>`;})()}
-  ${isHead()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} owns the team setup. <button class="lk-btn" onclick="coachGate(true)">Switch coach</button></div>`}
-  <details class="sec">
+  ${isHeadOrNone()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} owns the team setup. <button class="lk-btn" onclick="document.querySelectorAll('.sec').forEach(d=>d.open=d.querySelector('.name').textContent==='Coaches')">Pick yourself under Coaches</button></div>`}
+  <details class="sec" ${!t.name?'open':''}>
     <summary><span class="chev">›</span><span class="name">Team brand</span><span class="meta">${esc(t.name)||'no team'}</span></summary>
     <div class="body">
-      <div class="f"><label class="lbl">Team name</label><input type="text" value="${esc(t.name)}" oninput="ST.team.name=this.value;up('settings')" placeholder="Team or program"></div>
+      ${teamSelectorHtml()}
       <div class="f"><label class="lbl">Logo</label>
         <div class="logo-drop">
           <div class="thumb">${t.logo?`<img src="${t.logo}" alt="">`:'<span class="ph">LOGO</span>'}</div>
@@ -1625,8 +1646,15 @@ function renderEditor0(){
 
   </div>
   <div class="etab" data-tab="plan" ${ET==='plan'?'':'hidden'}>
+  <details class="sec" open>
+    <summary><span class="chev">›</span><span class="name">Practice</span><span class="meta">${S?esc(label(S)):''}</span></summary>
+    <div class="body">
+      <select id="pracSel" onchange="openPractice(this.value)" style="width:100%;margin-bottom:8px"></select>
+      <div class="tf-row"><button class="btn btn-secondary btn-sm only-build" onclick="newPractice()">+ New</button><button class="btn btn-ghost btn-sm only-build" onclick="dupPractice()">Duplicate</button><button class="btn btn-ghost btn-sm btn-danger only-build" onclick="delPractice()">Delete</button></div>
+    </div>
+  </details>
   ${seasonEditable()?'':`<div class="ro-note">${esc(viewSeason()?viewSeason().name:'')} is archived. Everything here is read only; switch to the active season from the season menu.</div>`}
-  ${isHead()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} builds the plan. Record your station's results in Results or Manage.</div>`}
+  ${isHeadOrNone()?'':`<div class="ro-note">Read only. ${esc(coachName((headCoach()||{}).id))} builds the plan. Record your station's results in Results or Manage.</div>`}
   <details class="sec">
     <summary><span class="chev">›</span><span class="name">Session</span><span class="meta">${esc(m.label)} #${esc(m.number)}</span></summary>
     <div class="body">
@@ -2191,7 +2219,7 @@ async function exportTeam(){await deliver(`luceo-team-${slug(ST.team.name)}-${to
 async function applyTeam(payload,sourceLabel){const n=(payload.roster||[]).length,c=(payload.coaches||[]).length,d=(payload.drills||[]).length;
   if(!await ask(`Load team "${payload.team&&payload.team.name||'untitled'}" from ${sourceLabel}?\n\n${c} coaches, ${n} players, ${d} drills, ${(payload.playbook||[]).flatMap(x=>x.groups||[]).flatMap(g=>g.plays||[]).length} plays. This replaces the team setup on this device. Practices and results are not touched.`,'Load team'))return;
   ST.team=payload.team||ST.team;ST.coaches=payload.coaches||[];ST.roster=payload.roster||[];ST.taxonomy=payload.taxonomy||[];ST.drills=payload.drills||[];ST.playbook=payload.playbook||[];ST.menu=payload.menu||allPlayIds(ST.playbook);ST.templates=payload.templates||[];ST.pbStructured=true;
-  if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;persist('settings');applyRole();renderAll(true);toast('Team loaded');if(!ACTIVE)coachGate(true);}
+  if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;persist('settings');applyRole();renderAll(true);toast('Team loaded');if(!ACTIVE)goTeamTab();}
 function importLibrary(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{try{await confirmImport(JSON.parse(e.target.result),f.name);}catch(err){toast('That is not a library backup file.');}};r.readAsText(f);inp.value='';}
 
 /* Chrome / Edge folder sync via File System Access */
@@ -2316,7 +2344,7 @@ function livePause(){const L=liveState();if(!L.startedAt)return;L.elapsed+=Date.
 async function liveReset(){if(!await ask('Reset the clock, block checks and actual times for this practice? Drill checks by each coach stay.','Reset'))return;S.live={done:{},startedAt:null,elapsed:0,actual:{},blockBase:0};BW.warned={};BW.over={};up('practice',true);renderLive();}
 const mmss=ms=>{const t=Math.max(0,Math.floor(ms/1000));const m=Math.floor(t/60),sec=t%60;return `${m}:${String(sec).padStart(2,'0')}`;};
 let liveTick=null;
-function renderLive(){const el=document.getElementById('live');if(!el)return;clearInterval(liveTick);fitSheet();
+function renderLive(){const el=document.getElementById('live');if(!el)return;clearInterval(liveTick);fitSheet();if(!coach(ACTIVE)&&document.getElementById('app').dataset.mode==='manage'){const b=document.getElementById('noCoach')||document.createElement('div');b.id='noCoach';b.className='start-here';b.innerHTML='<span class="micro">Who is recording?</span>Pick yourself in Build › Team › Coaches so results are filed under your name. <button class="lk-btn" onclick="goTeamTab()">Go to Team</button>';el.parentElement.insertBefore(b,el);}else{const b=document.getElementById('noCoach');if(b)b.remove();}
   if(document.getElementById('app').dataset.mode!=='manage'||!S){el.innerHTML='';return;}
   const L=liveState();const planned=total();const doneN=Object.keys(L.done).length;
   const paint=()=>{const e=liveElapsed();const over=e>planned*60000;const t=el.querySelector('.lv-clock');if(t){t.textContent=mmss(e);t.classList.toggle('over',over);}const b=el.querySelector('.lv-bar i');if(b)b.style.width=Math.min(100,planned?e/(planned*600):0)+'%';
@@ -2343,11 +2371,10 @@ const TUT=[
   <ul><li><b>Head coach</b> builds the plan, manages the library, runs the clock, sets actual block times, and sees the staff comparison. There is only one, and the head coach hands the role to someone else in Library › Coaches.</li>
   <li><b>Assistants</b> read the plan, check off the drills they ran, tally and grade plays for their player group, rate the session and their players, and write their own notes.</li></ul>
   <p>No two coaches can overwrite each other. Each coach's results sit in their own bucket on the practice and the reports combine them.</p>`},
- {t:'Team',k:'Set up once, carry forward',b:`<p>The Team tab in Build holds what carries across every practice.</p>
-  <ul><li><b>Team brand</b>: name, logo, colors.</li><li><b>Coaches</b>: the staff list and who is head coach.</li><li><b>Roster</b>: players with headshots. Player groups on drills and pucks on the court come from here.</li>
-  <li><b>Team file</b>: one small file with all of the above plus your drills and plays. Save it once the team is set up; load it on a new device and you are back in one step.</li></ul>
-  <p>Drills and plays are not set up here. They build themselves as you write plans (see Build). To fix a typo or merge duplicates later, open the menu (⋯) › <b>Manage drills &amp; plays</b>.</p>`},
- {t:'Build',k:'Writing the plan',b:`<p>The Plan tab is the practice itself. The sheet on the right updates as you type.</p>
+ {t:'Team',k:'Start here',b:`<p>The Team tab in Build is where every session starts: pick your team, then pick yourself.</p>
+  <ul><li><b>Team brand</b>: the team selector sits at the top. One device can hold several teams; each has its own brand, staff, roster, drills, plays, templates, seasons and practices. Switch teams here, or create a new one.</li><li><b>Coaches</b>: add the staff, then press <b>This is me</b> on your name. Everything you record (drill checks, reps, grades, ratings, reflection) is filed under it on this device. The head coach writes the plan and owns the team setup; assistants record from their stations.</li><li><b>Roster</b>: players with headshots, used for player groups and ratings.</li><li><b>Season</b>: start a new season to archive the current one; archived seasons stay readable.</li><li><b>Team file</b>: one small file with all of the above plus your drills and plays. Save it once the team is set up; load it on a new device and you are back in one step.</li></ul>
+  <p>Drills and plays are not set up here. They build themselves as you write plans. To fix a typo or merge duplicates later, open the menu (⋯) › <b>Manage drills &amp; plays</b>.</p>`},
+ {t:'Build',k:'Writing the plan',b:`<p>The Plan tab is the practice itself. The sheet on the right updates as you type. The <b>Practice</b> container at the top picks which practice you are writing, with New, Duplicate and Delete.</p>
   <ul><li><b>Session</b>: number, date, and the banner line (theme, question, quote, pillars).</li><li><b>Key focus</b>: the one thing the practice is about, with points and video clips.</li>
   <li><b>Blocks</b>: timed sections, each tagged with a Category and Focus. Each block holds drills; a drill gets a Sub-focus, an objective, and a player group picked from the roster.</li><li><b>Play menu</b>: which plays appear on the rail for this practice.</li></ul>
   <p>Running totals, the planned time, and the rail are all generated. New asks for a title, then starts an empty plan with the next number and today's date. Duplicate copies the selected practice (blocks, drills, groups, key focus, play menu) under a new title; results, clock and diagrams start empty. Titles show in the practice list, on the sheet and in Track, so you can pick what to duplicate without opening each plan.</p><p><b>Templates.</b> Session › Templates lists Luceo starter plans and your own saved ones. Use one and its blocks, drills, key focus and theme are copied into today's practice; results stay empty. Save any practice as a template once it is a shape you will reuse (tryouts, game day minus one, shootaround).</p><p><b>Drills and plays build themselves.</b> In a block, type a category or focus: matches appear as you type and anything new is created on the spot. Under Drills, search your library to add one, or press New drill to create one in the drill editor (name, diagram or video, category › focus › sub-focus); it is saved for every plan after this one. Each drill row shows its objective and player group; click the name to open the drill. The Play menu is this practice's rail and starts empty. Under each section, add the calls you will run today one row at a time: pick from your playbook, or press New play to open the play editor (name, section, a diagram or video, a description). Click any play on the rail to open it. New sections are added at the bottom (Jungle, Turbo, SOB, BOB, ATO). Sub-focus on drills is optional.</p>`},
@@ -2547,7 +2574,7 @@ function ask(msg,okLabel='Delete'){return new Promise(res=>{const ov=document.cr
 let tt;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),2200);}
 window.addEventListener('resize',fitSheet);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&BK.dir&&BK.perm==='granted'&&Date.now()-(BK.lastSync||0)>60000)bkSync();});window.addEventListener('focus',()=>{if(BK.dir&&BK.perm==='granted'&&Date.now()-(BK.lastSync||0)>60000)bkSync();});window.addEventListener('orientationchange',()=>setTimeout(fitSheet,150));document.addEventListener('click',e=>{document.querySelectorAll('details.exp[open]').forEach(d=>{if(!d.contains(e.target))d.open=false;});});
 if(location.protocol.startsWith('http')&&'serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
-bootLocal();bkLoadMeta();try{ACTIVE=localStorage.getItem(CKEY);}catch(e){}if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;applyRole();renderAll(true);bkRenderStatus();bkInitFolder();bootDb();if(!ACTIVE)coachGate(true);
+bootLocal();bkLoadMeta();try{ACTIVE=localStorage.getItem(ckeyFor(TEAM()));}catch(e){}if(ACTIVE&&!coach(ACTIVE))ACTIVE=null;if(!ACTIVE&&coaches().length===1)ACTIVE=coaches()[0].id;teamNameSync();applyRole();ET='library';renderAll(true);bkRenderStatus();bkInitFolder();bootDb();
 </script>
 </body>
 </html>
